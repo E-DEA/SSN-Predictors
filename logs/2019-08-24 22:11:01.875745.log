@@ -1,0 +1,70 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+Dataset source : NOAA, ISGI
+File location :
+    SSN - /home/extern/Documents/Research/data/NOAA/table_international-sunspot-numbers_monthly.txt
+    AA - /home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+No pre-trained models available, initializing model weights
+--------------------------------------------------
+Training model with: num_epochs=150, start_lr=0.0005
+Epoch [   1/150] -> Loss: 1852.7333
+Epoch [   2/150] -> Loss: 1523.4498
+Epoch [   3/150] -> Loss: 1434.4368
+Epoch [   4/150] -> Loss: 1394.2004
+Epoch [   5/150] -> Loss: 1379.6821
+Epoch [   6/150] -> Loss: 1364.7919
+Epoch [   7/150] -> Loss: 1356.2532
+Epoch [   8/150] -> Loss: 1345.1872
+Epoch [   9/150] -> Loss: 1335.5670
+Epoch [  10/150] -> Loss: 1324.1070
+Epoch [  11/150] -> Loss: 1312.9569
+Epoch [  12/150] -> Loss: 1303.8050
+Epoch [  13/150] -> Loss: 1291.1832
+Epoch [  14/150] -> Loss: 1281.7095
+Epoch [  15/150] -> Loss: 1271.6361
+Epoch [  16/150] -> Loss: 1260.7017
+Epoch [  17/150] -> Loss: 1246.8051
+Epoch [  18/150] -> Loss: 1236.9713
+Epoch [  19/150] -> Loss: 1226.8175
+Epoch [  20/150] -> Loss: 1216.0404
+Epoch [  21/150] -> Loss: 1202.9685
+Epoch [  22/150] -> Loss: 1195.0882
+Epoch [  23/150] -> Loss: 1182.3994
+Epoch [  24/150] -> Loss: 1179.0122
+Epoch [  25/150] -> Loss: 1170.5125
+Epoch [  26/150] -> Loss: 1162.7923
+Epoch [  27/150] -> Loss: 1153.2068
+Epoch [  28/150] -> Loss: 1151.0858
+Epoch [  29/150] -> Loss: 1145.6635
+Epoch [  30/150] -> Loss: 1141.9045
+Epoch [  31/150] -> Loss: 1134.8318
+Epoch [  32/150] -> Loss: 1136.1177
+Epoch [  33/150] -> Loss: 1132.0495
+Epoch [  34/150] -> Loss: 1125.4235
+Epoch [  35/150] -> Loss: 1126.4057
+Epoch [  36/150] -> Loss: 1128.2624
+Epoch [  37/150] -> Loss: 1125.8744
+Epoch [  38/150] -> Loss: 1124.7301
+Epoch [  39/150] -> Loss: 1123.2568
+Epoch [  40/150] -> Loss: 1123.3378
+Epoch [  41/150] -> Loss: 1119.7276
+Epoch [  42/150] -> Loss: 1121.5834
+Epoch [  43/150] -> Loss: 1116.4779
+Epoch [  44/150] -> Loss: 1115.5517
+Epoch [  45/150] -> Loss: 1117.7240
+Epoch [  46/150] -> Loss: 1111.6424
+Epoch [  47/150] -> Loss: 1115.4003
+Epoch [  48/150] -> Loss: 1115.7129
+Epoch [  49/150] -> Loss: 1115.6302

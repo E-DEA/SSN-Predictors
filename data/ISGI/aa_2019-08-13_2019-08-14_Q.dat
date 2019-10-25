@@ -1,0 +1,43 @@
+ Format                 IAGA-2002                                    |
+ Source of Data         EOST, Strasbourg, France                     |
+ Station Name           aa                                           |
+ IAGA CODE              aa                                           |
+ Geodetic Latitude                                                   |
+ Geodetic Longitude                                                  |
+ Elevation                                                           |
+ Reported               aa, Kpa, Aa                                  |
+ Sensor Orientation                                                  |
+ Digital Sampling                                                    |
+ Data Interval Type     3-hour                                       |
+ Data Type              Quicklook                                    |
+ # Converted to IAGA2002 format by the International Service of      |
+ #  Geomagnetic indices (ISGI, http://isgi.unistra.fr).              |
+ # The values in the raw of 00:00:00.000 are the values              |
+ #  between 00:00UT and 03:00UT, etc.                                |
+ # Missing values of aa are indicated by value 999                   |
+ # aa: unit 1 nT                                                     |
+ # Kpa: Expressed in a quasi-logarithmic scale of thirds,            |
+ #      it ranges from Oo to 9                                       | 
+ #                                                                   |
+ # License: CC BY-NC                                                 |
+ #          https://creativecommons.org/licenses/by-nc/4.0/          |
+ #                                                                   |
+ # For more information on aa index, please visit                    |
+ #  ISGI website at EOST/UDS: http://isgi.unistra.fr                 |
+DATE       TIME         DOY   aa  Kpa                                |
+2019-08-13 00:00:00.000 225   16   2o
+2019-08-13 03:00:00.000 225   12   1+
+2019-08-13 06:00:00.000 225    8   1-
+2019-08-13 09:00:00.000 225   16   2o
+2019-08-13 12:00:00.000 225   16   2o
+2019-08-13 15:00:00.000 225   24   3-
+2019-08-13 18:00:00.000 225    8   1-
+2019-08-13 21:00:00.000 225   12   1+
+2019-08-14 00:00:00.000 226   16   2o
+2019-08-14 03:00:00.000 226    8   1-
+2019-08-14 06:00:00.000 226    8   1-
+2019-08-14 09:00:00.000 226   24   3-
+2019-08-14 12:00:00.000 226
+2019-08-14 15:00:00.000 226
+2019-08-14 18:00:00.000 226
+2019-08-14 21:00:00.000 226

@@ -1,0 +1,185 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+Dataset source : SILSO, ISGI
+File location :
+    SSN - /home/extern/Documents/Research/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+Pre-trained model available, loading model weights
+--------------------------------------------------
+Training model with: num_epochs=450, start_lr=0.0005
+Epoch [   1/450] -> Loss: 4104.2136
+Epoch [   2/450] -> Loss: 3928.6869
+Epoch [   3/450] -> Loss: 3823.1737
+Epoch [   4/450] -> Loss: 3743.9708
+Epoch [   5/450] -> Loss: 3661.6031
+Epoch [   6/450] -> Loss: 3623.7530
+Epoch [   7/450] -> Loss: 3589.5925
+Epoch [   8/450] -> Loss: 3567.4677
+Epoch [   9/450] -> Loss: 3548.8705
+Epoch [  10/450] -> Loss: 3533.1845
+Epoch [  11/450] -> Loss: 3529.5327
+Epoch [  12/450] -> Loss: 3519.2166
+Epoch [  13/450] -> Loss: 3514.0733
+Epoch [  14/450] -> Loss: 3501.7347
+Epoch [  15/450] -> Loss: 3495.9163
+Epoch [  16/450] -> Loss: 3488.4292
+Epoch [  17/450] -> Loss: 3483.7719
+Epoch [  18/450] -> Loss: 3471.1072
+Epoch [  19/450] -> Loss: 3467.2109
+Epoch [  20/450] -> Loss: 3461.2396
+Epoch [  21/450] -> Loss: 3455.2303
+Epoch [  22/450] -> Loss: 3441.7757
+Epoch [  23/450] -> Loss: 3437.0660
+Epoch [  24/450] -> Loss: 3431.6928
+Epoch [  25/450] -> Loss: 3415.5326
+Epoch [  26/450] -> Loss: 3420.2214
+Epoch [  27/450] -> Loss: 3413.8630
+Epoch [  28/450] -> Loss: 3392.4476
+Epoch [  29/450] -> Loss: 3402.7706
+Epoch [  30/450] -> Loss: 3390.5324
+Epoch [  31/450] -> Loss: 3390.2406
+Epoch [  32/450] -> Loss: 3383.1383
+Epoch [  33/450] -> Loss: 3372.5926
+Epoch [  34/450] -> Loss: 3369.7976
+Epoch [  35/450] -> Loss: 3355.2177
+Epoch [  36/450] -> Loss: 3356.0070
+Epoch [  37/450] -> Loss: 3346.5905
+Epoch [  38/450] -> Loss: 3338.1324
+Epoch [  39/450] -> Loss: 3336.1162
+Epoch [  40/450] -> Loss: 3334.4552
+Epoch [  41/450] -> Loss: 3338.3771
+Epoch [  42/450] -> Loss: 3320.5314
+Epoch [  43/450] -> Loss: 3327.3616
+Epoch [  44/450] -> Loss: 3320.7666
+Epoch [  45/450] -> Loss: 3320.2166
+Epoch [  46/450] -> Loss: 3312.3591
+Epoch [  47/450] -> Loss: 3315.2418
+Epoch [  48/450] -> Loss: 3302.9392
+Epoch [  49/450] -> Loss: 3299.9299
+--------------------------------------------------
+Model checkpoint saved as FFNN_50.pth
+--------------------------------------------------
+Epoch [  50/450] -> Loss: 3303.9207
+Epoch [  51/450] -> Loss: 3303.9994
+Epoch [  52/450] -> Loss: 3287.3770
+Epoch [  53/450] -> Loss: 3296.6780
+Epoch [  54/450] -> Loss: 3312.1878
+Epoch [  55/450] -> Loss: 3291.5973
+Epoch [  56/450] -> Loss: 3295.1146
+Epoch [  57/450] -> Loss: 3287.2444
+Epoch [  58/450] -> Loss: 3285.9040
+Epoch [  59/450] -> Loss: 3283.4316
+Epoch [  60/450] -> Loss: 3289.5028
+Epoch [  61/450] -> Loss: 3271.3675
+Epoch [  62/450] -> Loss: 3273.2788
+Epoch [  63/450] -> Loss: 3272.5903
+Epoch [  64/450] -> Loss: 3274.5274
+Epoch [  65/450] -> Loss: 3275.1303
+Epoch [  66/450] -> Loss: 3272.1915
+Epoch [  67/450] -> Loss: 3265.5782
+Epoch [  68/450] -> Loss: 3269.5892
+Epoch [  69/450] -> Loss: 3264.3411
+Epoch [  70/450] -> Loss: 3260.8289
+Epoch [  71/450] -> Loss: 3268.9995
+Epoch [  72/450] -> Loss: 3249.0625
+Epoch [  73/450] -> Loss: 3262.0310
+Epoch [  74/450] -> Loss: 3261.3882
+Epoch [  75/450] -> Loss: 3252.2497
+Epoch [  76/450] -> Loss: 3257.3653
+Epoch [  77/450] -> Loss: 3248.1048
+Epoch [  78/450] -> Loss: 3267.3485
+Epoch [  79/450] -> Loss: 3247.8019
+Epoch [  80/450] -> Loss: 3251.2311
+Epoch [  81/450] -> Loss: 3244.2007
+Epoch [  82/450] -> Loss: 3250.7029
+Epoch [  83/450] -> Loss: 3250.7125
+Epoch [  84/450] -> Loss: 3250.1872
+Epoch [  85/450] -> Loss: 3249.3479
+Epoch [  86/450] -> Loss: 3237.8538
+Epoch [  87/450] -> Loss: 3245.2056
+Epoch [  88/450] -> Loss: 3240.5611
+Epoch [  89/450] -> Loss: 3246.2363
+Epoch [  90/450] -> Loss: 3237.5779
+Epoch [  91/450] -> Loss: 3250.8375
+Epoch [  92/450] -> Loss: 3239.4533
+Epoch [  93/450] -> Loss: 3243.1885
+Epoch [  94/450] -> Loss: 3241.4049
+Epoch [  95/450] -> Loss: 3237.0672
+Epoch [  96/450] -> Loss: 3234.5929
+Epoch [  97/450] -> Loss: 3250.1306
+Epoch [  98/450] -> Loss: 3239.1223
+Epoch [  99/450] -> Loss: 3236.8467
+--------------------------------------------------
+Model checkpoint saved as FFNN_100.pth
+--------------------------------------------------
+Epoch [ 100/450] -> Loss: 3247.7197
+Epoch [ 101/450] -> Loss: 3229.1314
+Epoch [ 102/450] -> Loss: 3232.4127
+Epoch [ 103/450] -> Loss: 3235.2328
+Epoch [ 104/450] -> Loss: 3236.3918
+Epoch [ 105/450] -> Loss: 3225.4443
+Epoch [ 106/450] -> Loss: 3243.0991
+Epoch [ 107/450] -> Loss: 3231.3509
+Epoch [ 108/450] -> Loss: 3232.8190
+Epoch [ 109/450] -> Loss: 3231.5935
+Epoch [ 110/450] -> Loss: 3236.5352
+Epoch [ 111/450] -> Loss: 3224.1909
+Epoch [ 112/450] -> Loss: 3226.8310
+Epoch [ 113/450] -> Loss: 3231.1583
+Epoch [ 114/450] -> Loss: 3236.6049
+Epoch [ 115/450] -> Loss: 3219.4144
+Epoch [ 116/450] -> Loss: 3231.3656
+Epoch [ 117/450] -> Loss: 3223.5676
+Epoch [ 118/450] -> Loss: 3224.5454
+Epoch [ 119/450] -> Loss: 3229.0823
+Epoch [ 120/450] -> Loss: 3234.2356
+Epoch [ 121/450] -> Loss: 3213.4463
+Epoch [ 122/450] -> Loss: 3218.4545
+Epoch [ 123/450] -> Loss: 3229.6571
+Epoch [ 124/450] -> Loss: 3209.5116
+Epoch [ 125/450] -> Loss: 3214.4219
+Epoch [ 126/450] -> Loss: 3229.1621
+Epoch [ 127/450] -> Loss: 3224.0950
+Epoch [ 128/450] -> Loss: 3222.8162
+Epoch [ 129/450] -> Loss: 3222.8020
+Epoch [ 130/450] -> Loss: 3221.6223
+Epoch [ 131/450] -> Loss: 3225.2673
+Epoch [ 132/450] -> Loss: 3224.1130
+Epoch [ 133/450] -> Loss: 3226.1011
+Epoch [ 134/450] -> Loss: 3221.1987
+Epoch   134: reducing learning rate of group 0 to 2.5000e-04.
+Epoch [ 135/450] -> Loss: 3222.9580
+Epoch [ 136/450] -> Loss: 3216.6591
+Epoch [ 137/450] -> Loss: 3212.2917
+Epoch [ 138/450] -> Loss: 3212.3159
+Epoch [ 139/450] -> Loss: 3208.6442
+Epoch [ 140/450] -> Loss: 3217.3401
+Epoch [ 141/450] -> Loss: 3211.3109
+Epoch [ 142/450] -> Loss: 3212.0862
+Epoch [ 143/450] -> Loss: 3214.2124
+Epoch [ 144/450] -> Loss: 3207.9571
+Epoch [ 145/450] -> Loss: 3212.0791
+Epoch [ 146/450] -> Loss: 3205.8467
+Epoch [ 147/450] -> Loss: 3207.7175
+Epoch [ 148/450] -> Loss: 3208.5302
+Epoch [ 149/450] -> Loss: 3204.5516
+--------------------------------------------------
+Model checkpoint saved as FFNN_150.pth
+--------------------------------------------------
+Epoch [ 150/450] -> Loss: 3212.4208
+Epoch [ 151/450] -> Loss: 3203.6744
+Epoch [ 152/450] -> Loss: 3209.8768
+Epoch [ 153/450] -> Loss: 3210.2179
+Epoch [ 154/450] -> Loss: 3211.3641

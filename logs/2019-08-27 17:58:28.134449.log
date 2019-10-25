@@ -1,0 +1,310 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+Dataset source : SILSO, ISGI
+File location :
+    SSN - /home/extern/Documents/Research/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+Pre-trained model available, loading model weights
+--------------------------------------------------
+Training model with: num_epochs=450, start_lr=0.0005
+Epoch [   1/450] -> Loss: 873.2491
+Epoch [   2/450] -> Loss: 872.4976
+Epoch [   3/450] -> Loss: 864.3227
+Epoch [   4/450] -> Loss: 865.8913
+Epoch [   5/450] -> Loss: 869.5920
+Epoch [   6/450] -> Loss: 867.5394
+Epoch [   7/450] -> Loss: 865.2397
+Epoch [   8/450] -> Loss: 869.6469
+Epoch [   9/450] -> Loss: 867.4267
+Epoch [  10/450] -> Loss: 866.8766
+Epoch [  11/450] -> Loss: 866.3539
+Epoch [  12/450] -> Loss: 868.5794
+Epoch [  13/450] -> Loss: 866.7877
+Epoch    13: reducing learning rate of group 0 to 2.5000e-04.
+Epoch [  14/450] -> Loss: 870.0241
+Epoch [  15/450] -> Loss: 864.5358
+Epoch [  16/450] -> Loss: 864.8858
+Epoch [  17/450] -> Loss: 863.7225
+Epoch [  18/450] -> Loss: 862.8056
+Epoch [  19/450] -> Loss: 864.0185
+Epoch [  20/450] -> Loss: 864.1578
+Epoch [  21/450] -> Loss: 862.3255
+Epoch [  22/450] -> Loss: 863.1852
+Epoch [  23/450] -> Loss: 861.2596
+Epoch [  24/450] -> Loss: 861.3969
+Epoch [  25/450] -> Loss: 863.0781
+Epoch [  26/450] -> Loss: 862.4971
+Epoch [  27/450] -> Loss: 861.9100
+Epoch [  28/450] -> Loss: 862.7182
+Epoch [  29/450] -> Loss: 861.6372
+Epoch [  30/450] -> Loss: 864.1628
+Epoch [  31/450] -> Loss: 860.6747
+Epoch [  32/450] -> Loss: 863.1310
+Epoch [  33/450] -> Loss: 862.3507
+Epoch [  34/450] -> Loss: 861.6689
+Epoch [  35/450] -> Loss: 861.9189
+Epoch [  36/450] -> Loss: 861.4998
+Epoch [  37/450] -> Loss: 862.7809
+Epoch [  38/450] -> Loss: 860.8161
+Epoch [  39/450] -> Loss: 861.2763
+Epoch [  40/450] -> Loss: 860.1331
+Epoch [  41/450] -> Loss: 862.5924
+Epoch [  42/450] -> Loss: 858.9172
+Epoch [  43/450] -> Loss: 861.5909
+Epoch [  44/450] -> Loss: 861.8264
+Epoch [  45/450] -> Loss: 862.9688
+Epoch [  46/450] -> Loss: 861.3221
+Epoch [  47/450] -> Loss: 862.3564
+Epoch [  48/450] -> Loss: 860.8229
+Epoch [  49/450] -> Loss: 860.8175
+--------------------------------------------------
+Model checkpoint saved as FFNN_50.pth
+--------------------------------------------------
+Epoch [  50/450] -> Loss: 862.2555
+Epoch [  51/450] -> Loss: 862.5958
+Epoch [  52/450] -> Loss: 859.1727
+Epoch    52: reducing learning rate of group 0 to 1.2500e-04.
+Epoch [  53/450] -> Loss: 860.4013
+Epoch [  54/450] -> Loss: 859.0143
+Epoch [  55/450] -> Loss: 859.6252
+Epoch [  56/450] -> Loss: 859.7506
+Epoch [  57/450] -> Loss: 858.8001
+Epoch [  58/450] -> Loss: 859.0105
+Epoch [  59/450] -> Loss: 859.3543
+Epoch [  60/450] -> Loss: 858.7298
+Epoch [  61/450] -> Loss: 858.6958
+Epoch [  62/450] -> Loss: 858.8090
+Epoch [  63/450] -> Loss: 858.8730
+Epoch [  64/450] -> Loss: 859.0724
+Epoch [  65/450] -> Loss: 859.1615
+Epoch [  66/450] -> Loss: 858.8945
+Epoch [  67/450] -> Loss: 858.5149
+Epoch [  68/450] -> Loss: 858.8717
+Epoch [  69/450] -> Loss: 858.6374
+Epoch [  70/450] -> Loss: 859.0997
+Epoch [  71/450] -> Loss: 858.8667
+Epoch [  72/450] -> Loss: 858.3734
+Epoch [  73/450] -> Loss: 858.8148
+Epoch [  74/450] -> Loss: 858.6205
+Epoch [  75/450] -> Loss: 859.6335
+Epoch [  76/450] -> Loss: 858.1104
+Epoch [  77/450] -> Loss: 858.1715
+Epoch [  78/450] -> Loss: 858.3873
+Epoch [  79/450] -> Loss: 857.6587
+Epoch [  80/450] -> Loss: 859.4912
+Epoch [  81/450] -> Loss: 858.1675
+Epoch [  82/450] -> Loss: 858.4858
+Epoch [  83/450] -> Loss: 857.9072
+Epoch [  84/450] -> Loss: 857.6319
+Epoch [  85/450] -> Loss: 858.4478
+Epoch [  86/450] -> Loss: 858.4082
+Epoch [  87/450] -> Loss: 858.3385
+Epoch [  88/450] -> Loss: 858.1097
+Epoch [  89/450] -> Loss: 857.8921
+Epoch    89: reducing learning rate of group 0 to 6.2500e-05.
+Epoch [  90/450] -> Loss: 857.7205
+Epoch [  91/450] -> Loss: 857.4044
+Epoch [  92/450] -> Loss: 857.2232
+Epoch [  93/450] -> Loss: 857.2819
+Epoch [  94/450] -> Loss: 857.3273
+Epoch [  95/450] -> Loss: 857.1469
+Epoch [  96/450] -> Loss: 856.9905
+Epoch [  97/450] -> Loss: 857.3613
+Epoch [  98/450] -> Loss: 856.9408
+Epoch [  99/450] -> Loss: 857.0235
+--------------------------------------------------
+Model checkpoint saved as FFNN_100.pth
+--------------------------------------------------
+Epoch [ 100/450] -> Loss: 856.9846
+Epoch [ 101/450] -> Loss: 856.9764
+Epoch [ 102/450] -> Loss: 856.5018
+Epoch [ 103/450] -> Loss: 856.9439
+Epoch [ 104/450] -> Loss: 856.6551
+Epoch [ 105/450] -> Loss: 856.9224
+Epoch [ 106/450] -> Loss: 857.0032
+Epoch [ 107/450] -> Loss: 856.9264
+Epoch [ 108/450] -> Loss: 856.8673
+Epoch [ 109/450] -> Loss: 856.7746
+Epoch [ 110/450] -> Loss: 857.0628
+Epoch [ 111/450] -> Loss: 856.6112
+Epoch [ 112/450] -> Loss: 856.8777
+Epoch   112: reducing learning rate of group 0 to 3.1250e-05.
+Epoch [ 113/450] -> Loss: 857.2753
+Epoch [ 114/450] -> Loss: 856.2013
+Epoch [ 115/450] -> Loss: 856.1040
+Epoch [ 116/450] -> Loss: 856.3331
+Epoch [ 117/450] -> Loss: 856.1315
+Epoch [ 118/450] -> Loss: 856.2139
+Epoch [ 119/450] -> Loss: 856.3504
+Epoch [ 120/450] -> Loss: 856.0641
+Epoch [ 121/450] -> Loss: 856.2578
+Epoch [ 122/450] -> Loss: 856.1792
+Epoch [ 123/450] -> Loss: 856.2430
+Epoch [ 124/450] -> Loss: 856.0592
+Epoch [ 125/450] -> Loss: 856.1256
+Epoch   125: reducing learning rate of group 0 to 1.5625e-05.
+Epoch [ 126/450] -> Loss: 856.0792
+Epoch [ 127/450] -> Loss: 855.8233
+Epoch [ 128/450] -> Loss: 855.7409
+Epoch [ 129/450] -> Loss: 855.8304
+Epoch [ 130/450] -> Loss: 855.7148
+Epoch [ 131/450] -> Loss: 855.7633
+Epoch [ 132/450] -> Loss: 855.8757
+Epoch [ 133/450] -> Loss: 855.7236
+Epoch [ 134/450] -> Loss: 855.7040
+Epoch [ 135/450] -> Loss: 855.9213
+Epoch [ 136/450] -> Loss: 855.8392
+Epoch [ 137/450] -> Loss: 855.7792
+Epoch [ 138/450] -> Loss: 855.8797
+Epoch [ 139/450] -> Loss: 855.7301
+Epoch [ 140/450] -> Loss: 855.7187
+Epoch   140: reducing learning rate of group 0 to 7.8125e-06.
+Epoch [ 141/450] -> Loss: 855.7238
+Epoch [ 142/450] -> Loss: 855.6590
+Epoch [ 143/450] -> Loss: 855.5863
+Epoch [ 144/450] -> Loss: 855.6269
+Epoch [ 145/450] -> Loss: 855.5707
+Epoch [ 146/450] -> Loss: 855.5484
+Epoch [ 147/450] -> Loss: 855.5755
+Epoch [ 148/450] -> Loss: 855.5620
+Epoch [ 149/450] -> Loss: 855.5429
+--------------------------------------------------
+Model checkpoint saved as FFNN_150.pth
+--------------------------------------------------
+Epoch [ 150/450] -> Loss: 855.5650
+Epoch [ 151/450] -> Loss: 855.5615
+Epoch [ 152/450] -> Loss: 855.5333
+Epoch [ 153/450] -> Loss: 855.5805
+Epoch   153: reducing learning rate of group 0 to 3.9063e-06.
+Epoch [ 154/450] -> Loss: 855.5767
+Epoch [ 155/450] -> Loss: 855.4873
+Epoch [ 156/450] -> Loss: 855.4872
+Epoch [ 157/450] -> Loss: 855.4825
+Epoch [ 158/450] -> Loss: 855.4677
+Epoch [ 159/450] -> Loss: 855.4576
+Epoch [ 160/450] -> Loss: 855.4967
+Epoch [ 161/450] -> Loss: 855.5013
+Epoch [ 162/450] -> Loss: 855.4820
+Epoch [ 163/450] -> Loss: 855.4658
+Epoch [ 164/450] -> Loss: 855.4843
+Epoch [ 165/450] -> Loss: 855.4852
+Epoch   165: reducing learning rate of group 0 to 1.9531e-06.
+Epoch [ 166/450] -> Loss: 855.4629
+Epoch [ 167/450] -> Loss: 855.4337
+Epoch [ 168/450] -> Loss: 855.4311
+Epoch [ 169/450] -> Loss: 855.4308
+Epoch [ 170/450] -> Loss: 855.4167
+Epoch [ 171/450] -> Loss: 855.4195
+Epoch [ 172/450] -> Loss: 855.4122
+Epoch [ 173/450] -> Loss: 855.4035
+Epoch [ 174/450] -> Loss: 855.4256
+Epoch [ 175/450] -> Loss: 855.4195
+Epoch [ 176/450] -> Loss: 855.4205
+Epoch   176: reducing learning rate of group 0 to 9.7656e-07.
+Epoch [ 177/450] -> Loss: 855.4258
+Epoch [ 178/450] -> Loss: 855.3981
+Epoch [ 179/450] -> Loss: 855.3977
+Epoch [ 180/450] -> Loss: 855.3992
+Epoch [ 181/450] -> Loss: 855.4055
+Epoch [ 182/450] -> Loss: 855.3960
+Epoch [ 183/450] -> Loss: 855.3973
+Epoch [ 184/450] -> Loss: 855.3985
+Epoch [ 185/450] -> Loss: 855.3966
+Epoch [ 186/450] -> Loss: 855.3952
+Epoch [ 187/450] -> Loss: 855.3976
+Epoch [ 188/450] -> Loss: 855.3990
+Epoch   188: reducing learning rate of group 0 to 4.8828e-07.
+Epoch [ 189/450] -> Loss: 855.3979
+Epoch [ 190/450] -> Loss: 855.3825
+Epoch [ 191/450] -> Loss: 855.3879
+Epoch [ 192/450] -> Loss: 855.3834
+Epoch [ 193/450] -> Loss: 855.3840
+Epoch [ 194/450] -> Loss: 855.3835
+Epoch [ 195/450] -> Loss: 855.3841
+Epoch [ 196/450] -> Loss: 855.3859
+Epoch [ 197/450] -> Loss: 855.3832
+Epoch [ 198/450] -> Loss: 855.3856
+Epoch [ 199/450] -> Loss: 855.3828
+Epoch   199: reducing learning rate of group 0 to 2.4414e-07.
+--------------------------------------------------
+Model checkpoint saved as FFNN_200.pth
+--------------------------------------------------
+Epoch [ 200/450] -> Loss: 855.3823
+Epoch [ 201/450] -> Loss: 855.3783
+Epoch [ 202/450] -> Loss: 855.3787
+Epoch [ 203/450] -> Loss: 855.3793
+Epoch [ 204/450] -> Loss: 855.3782
+Epoch [ 205/450] -> Loss: 855.3790
+Epoch [ 206/450] -> Loss: 855.3781
+Epoch [ 207/450] -> Loss: 855.3783
+Epoch [ 208/450] -> Loss: 855.3791
+Epoch [ 209/450] -> Loss: 855.3783
+Epoch [ 210/450] -> Loss: 855.3781
+Epoch   210: reducing learning rate of group 0 to 1.2207e-07.
+Epoch [ 211/450] -> Loss: 855.3788
+Epoch [ 212/450] -> Loss: 855.3749
+Epoch [ 213/450] -> Loss: 855.3751
+Epoch [ 214/450] -> Loss: 855.3745
+Epoch [ 215/450] -> Loss: 855.3752
+Epoch [ 216/450] -> Loss: 855.3760
+Epoch [ 217/450] -> Loss: 855.3747
+Epoch [ 218/450] -> Loss: 855.3748
+Epoch [ 219/450] -> Loss: 855.3755
+Epoch [ 220/450] -> Loss: 855.3757
+Epoch [ 221/450] -> Loss: 855.3764
+Epoch   221: reducing learning rate of group 0 to 6.1035e-08.
+Epoch [ 222/450] -> Loss: 855.3749
+Epoch [ 223/450] -> Loss: 855.3740
+Epoch [ 224/450] -> Loss: 855.3742
+Epoch [ 225/450] -> Loss: 855.3733
+Epoch [ 226/450] -> Loss: 855.3736
+Epoch [ 227/450] -> Loss: 855.3730
+Epoch [ 228/450] -> Loss: 855.3734
+Epoch [ 229/450] -> Loss: 855.3735
+Epoch [ 230/450] -> Loss: 855.3732
+Epoch [ 231/450] -> Loss: 855.3734
+Epoch [ 232/450] -> Loss: 855.3733
+Epoch   232: reducing learning rate of group 0 to 3.0518e-08.
+Epoch [ 233/450] -> Loss: 855.3733
+Epoch [ 234/450] -> Loss: 855.3725
+Epoch [ 235/450] -> Loss: 855.3726
+Epoch [ 236/450] -> Loss: 855.3727
+Epoch [ 237/450] -> Loss: 855.3726
+Epoch [ 238/450] -> Loss: 855.3725
+Epoch [ 239/450] -> Loss: 855.3725
+Epoch [ 240/450] -> Loss: 855.3724
+Epoch [ 241/450] -> Loss: 855.3726
+Epoch [ 242/450] -> Loss: 855.3725
+Epoch [ 243/450] -> Loss: 855.3725
+Epoch   243: reducing learning rate of group 0 to 1.5259e-08.
+Epoch [ 244/450] -> Loss: 855.3725
+Epoch [ 245/450] -> Loss: 855.3723
+Epoch [ 246/450] -> Loss: 855.3724
+Epoch [ 247/450] -> Loss: 855.3723
+Epoch [ 248/450] -> Loss: 855.3723
+Epoch [ 249/450] -> Loss: 855.3723
+--------------------------------------------------
+Model checkpoint saved as FFNN_250.pth
+--------------------------------------------------
+Epoch [ 250/450] -> Loss: 855.3723
+Epoch [ 251/450] -> Loss: 855.3723
+Epoch [ 252/450] -> Loss: 855.3723
+Epoch [ 253/450] -> Loss: 855.3723
+Epoch [ 254/450] -> Loss: 855.3723
+Epoch [ 255/450] -> Loss: 855.3723
+Epoch [ 256/450] -> Loss: 855.3723
+Epoch [ 257/450] -> Loss: 855.3723
+Epoch [ 258/450] -> Loss: 855.3723
+Epoch [ 259/450] -> Loss: 855.3723

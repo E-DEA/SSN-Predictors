@@ -1,0 +1,133 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+Dataset source : NOAA, ISGI
+File location :
+    SSN - /home/extern/Documents/Research/data/NOAA/table_international-sunspot-numbers_monthly.txt
+    AA - /home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+No pre-trained models available, initializing model weights
+--------------------------------------------------
+Training model with: num_epochs=100, start_lr=0.0005
+Epoch [   1/100] -> Loss: 710.6502
+Epoch [   2/100] -> Loss: 362.5225
+Epoch [   3/100] -> Loss: 357.0039
+Epoch [   4/100] -> Loss: 355.2890
+Epoch [   5/100] -> Loss: 354.2660
+Epoch [   6/100] -> Loss: 355.9360
+Epoch [   7/100] -> Loss: 352.4030
+Epoch [   8/100] -> Loss: 350.4296
+Epoch [   9/100] -> Loss: 352.8450
+Epoch [  10/100] -> Loss: 350.6168
+Epoch [  11/100] -> Loss: 350.6852
+Epoch [  12/100] -> Loss: 350.3280
+Epoch [  13/100] -> Loss: 350.5076
+Epoch [  14/100] -> Loss: 347.4675
+Epoch [  15/100] -> Loss: 347.2570
+Epoch [  16/100] -> Loss: 347.3905
+Epoch [  17/100] -> Loss: 344.3413
+Epoch [  18/100] -> Loss: 344.4759
+Epoch [  19/100] -> Loss: 342.7315
+Epoch [  20/100] -> Loss: 343.3674
+Epoch [  21/100] -> Loss: 342.5112
+Epoch [  22/100] -> Loss: 342.1068
+Epoch [  23/100] -> Loss: 341.2451
+Epoch [  24/100] -> Loss: 340.0236
+Epoch [  25/100] -> Loss: 339.9880
+Epoch [  26/100] -> Loss: 339.1624
+Epoch [  27/100] -> Loss: 338.0853
+Epoch [  28/100] -> Loss: 337.4169
+Epoch [  29/100] -> Loss: 335.3535
+Epoch [  30/100] -> Loss: 337.0026
+Epoch [  31/100] -> Loss: 334.9207
+Epoch [  32/100] -> Loss: 334.0497
+Epoch [  33/100] -> Loss: 332.3983
+Epoch [  34/100] -> Loss: 332.1338
+Epoch [  35/100] -> Loss: 331.1393
+Epoch [  36/100] -> Loss: 330.4397
+Epoch [  37/100] -> Loss: 329.6138
+Epoch [  38/100] -> Loss: 328.8553
+Epoch [  39/100] -> Loss: 328.1078
+Epoch [  40/100] -> Loss: 327.2852
+Epoch [  41/100] -> Loss: 328.2338
+Epoch [  42/100] -> Loss: 325.7982
+Epoch [  43/100] -> Loss: 325.8416
+Epoch [  44/100] -> Loss: 323.7522
+Epoch [  45/100] -> Loss: 324.8666
+Epoch [  46/100] -> Loss: 322.4329
+Epoch [  47/100] -> Loss: 323.2820
+Epoch [  48/100] -> Loss: 318.8703
+Epoch [  49/100] -> Loss: 323.1145
+--------------------------------------------------
+Model checkpoint saved as FFNN_50.pth
+--------------------------------------------------
+Epoch [  50/100] -> Loss: 318.6715
+Epoch [  51/100] -> Loss: 319.5210
+Epoch [  52/100] -> Loss: 320.1108
+Epoch [  53/100] -> Loss: 317.6062
+Epoch [  54/100] -> Loss: 317.0207
+Epoch [  55/100] -> Loss: 317.2569
+Epoch [  56/100] -> Loss: 314.9802
+Epoch [  57/100] -> Loss: 315.5015
+Epoch [  58/100] -> Loss: 314.8370
+Epoch [  59/100] -> Loss: 313.6442
+Epoch [  60/100] -> Loss: 311.5731
+Epoch [  61/100] -> Loss: 314.0949
+Epoch [  62/100] -> Loss: 312.1110
+Epoch [  63/100] -> Loss: 309.4366
+Epoch [  64/100] -> Loss: 311.2774
+Epoch [  65/100] -> Loss: 311.5431
+Epoch [  66/100] -> Loss: 309.6915
+Epoch [  67/100] -> Loss: 309.2162
+Epoch [  68/100] -> Loss: 310.2171
+Epoch [  69/100] -> Loss: 304.9437
+Epoch [  70/100] -> Loss: 309.2442
+Epoch [  71/100] -> Loss: 307.8593
+Epoch [  72/100] -> Loss: 308.8538
+Epoch [  73/100] -> Loss: 308.5979
+Epoch [  74/100] -> Loss: 308.6032
+Epoch [  75/100] -> Loss: 307.5679
+Epoch [  76/100] -> Loss: 308.8350
+Epoch [  77/100] -> Loss: 307.0780
+Epoch [  78/100] -> Loss: 308.1897
+Epoch [  79/100] -> Loss: 306.8000
+Epoch    79: reducing learning rate of group 0 to 2.5000e-04.
+Epoch [  80/100] -> Loss: 307.3783
+Epoch [  81/100] -> Loss: 303.6846
+Epoch [  82/100] -> Loss: 304.9551
+Epoch [  83/100] -> Loss: 305.7751
+Epoch [  84/100] -> Loss: 305.3862
+Epoch [  85/100] -> Loss: 305.8856
+Epoch [  86/100] -> Loss: 304.7230
+Epoch [  87/100] -> Loss: 305.1810
+Epoch [  88/100] -> Loss: 305.0839
+Epoch [  89/100] -> Loss: 305.1360
+Epoch [  90/100] -> Loss: 304.8289
+Epoch [  91/100] -> Loss: 304.7553
+Epoch    91: reducing learning rate of group 0 to 1.2500e-04.
+Epoch [  92/100] -> Loss: 304.9279
+Epoch [  93/100] -> Loss: 304.0171
+Epoch [  94/100] -> Loss: 303.4580
+Epoch [  95/100] -> Loss: 303.5022
+Epoch [  96/100] -> Loss: 302.9939
+Epoch [  97/100] -> Loss: 304.4822
+Epoch [  98/100] -> Loss: 303.9733
+Epoch [  99/100] -> Loss: 303.5720
+--------------------------------------------------
+Model checkpoint saved as FFNN_100.pth
+--------------------------------------------------
+Epoch [ 100/100] -> Loss: 303.7673
+--------------------------------------------------
+Training finished successfully.
+        Saved model checkpoints can be found in: /home/extern/Documents/Research/scripts/models/
+        Saved data/loss graphs can be found in: /home/extern/Documents/Research/scripts/graphs/
