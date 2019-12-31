@@ -165,6 +165,7 @@ def main(is_train, is_test, predict):
 
     data_source = sys.argv[1]
     aa_source = "ISGI"
+
     data_file = sys.argv[2]
     aa_file = sys.argv[3]
 
@@ -172,10 +173,6 @@ def main(is_train, is_test, predict):
     aa_data = datasets.AA(aa_file)
 
     train_samples = datasets.Features(ssn_data, aa_data)
-
-    print(train_samples.samples[:50])
-
-    return
 
     print(LINESPLIT)
     print("Dataset source : {}, {}".format(data_source, aa_source))
@@ -306,7 +303,7 @@ def plot_data():
     print("Data plots saved in {} as '{}'".format(graphfolder, "combined_data.png"))
 
 if __name__=="__main__":
-    is_train = True
+    is_train = False
     is_test = False
     predict = False
     #plot_data()

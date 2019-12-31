@@ -161,10 +161,11 @@ class SSN(Dataset):
         self.file = file
 
         self.data = {"years":[], "vals":[]}
-        self.cycle_data = []
 
         self._get_data()
         self._get_cycles()
+
+        print(CYCLE_DATA)
 
     def __len__(self):
         return len(self.data["years"])
@@ -218,10 +219,6 @@ class SSN(Dataset):
 
                 self.data["vals"].append(curr_MSN)
 
-    def __gen_cycle_data(self):
-        pass
-
-
     def _get_data(self):
         if self.source not in VALID_SOURCES:
             print("Given source: {} is not a valid source".format(self.source))
@@ -232,7 +229,6 @@ class SSN(Dataset):
             return -1
 
         self.__extract_data()
-        self.__gen_cycle_data()
 
     def _get_cycles(self):
         data = []
