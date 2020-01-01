@@ -19,8 +19,8 @@ CYCLE_DATA = {"start_date":[], "end_date":[], "max_date":[], "solar_max":[], "le
 
 seed = 1
 
-start_cycle = 13
-end_cycle = 23
+start_cycle = 12
+end_cycle = 24
 
 np.random.seed(seed)
 
