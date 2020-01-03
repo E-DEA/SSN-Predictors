@@ -156,26 +156,22 @@ def predict(model, obs_data, pred_window):
 Driver code to run the predictor.
 """
 def main(is_train, is_test, predict):
-    if len(sys.argv) < 4:
-        print("Usage: python3 {} <source_name> <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
+    if len(sys.argv) < 3:
+        print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
         return
 
     print(LINESPLIT)
     print("Code running on device: {}".format(device))
 
-    data_source = sys.argv[1]
-    aa_source = "ISGI"
-
     data_file = sys.argv[2]
     aa_file = sys.argv[3]
 
-    ssn_data = datasets.SSN(data_source, data_file)
+    ssn_data = datasets.SSN(data_file)
     aa_data = datasets.AA(aa_file)
 
     train_samples = datasets.Features(ssn_data, aa_data)
 
     print(LINESPLIT)
-    print("Dataset source : {}, {}".format(data_source, aa_source))
     print('''File location :
     SSN - {}
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
@@ -215,7 +211,7 @@ def main(is_train, is_test, predict):
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
 
-        print_loss(range(len(loss)),loss, "Epochs", "avg. loss", "loss/tr_{}_{}.png".format(model.__class__.__name__, data_source))
+        print_loss(range(len(loss)),loss, "Epochs", "avg. loss", "loss/tr_{}.png".format(model.__class__.__name__))
 
     if is_test:
         model.eval()
@@ -223,10 +219,13 @@ def main(is_train, is_test, predict):
         print("Testing model")
         predictions = test(model, test_loader)
 
-        print_data(predictions, train_samples.targets, "ssn/{}_{}.png".format(model.__class__.__name__, data_source))
+        print_data(predictions, train_samples.targets, "ssn/{}.png".format(model.__class__.__name__))
 
     ######## RNN ########
 
+
+# Uncomment the part below to plot data from all sources onto a single plot #
+"""
 def plot_data():
 
     print(LINESPLIT)
@@ -239,8 +238,8 @@ def plot_data():
     data_file2 = "/home/extern/Documents/Research/data/SILSO/TSN/SN_m_tot_V2.0.txt"
     aa_file = "/home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat"
 
-    data1 = datasets.SSN(data_source1, data_file1)
-    data2 = datasets.SSN(data_source2, data_file2)
+    data1 = datasets.SSN(data_file1)
+    data2 = datasets.SSN(data_file2)
     data3 = datasets.AA(aa_file)
 
     xdata1 = []
@@ -250,18 +249,18 @@ def plot_data():
     xdata3 = []
     ydata3 = []
 
-    for idx, year in enumerate(data1.data["years"]):
-        for month, ssn in enumerate(data1.data["vals"][idx]):
+    for idx, year in enumerate(data1.__yeardata):
+        for month, ssn in enumerate(data1.__valdata[idx]):
             xdata1.append(dt.datetime(year=year, month=month+1, day=1))
             ydata1.append(float(ssn))
 
-    for idx, year in enumerate(data2.data["years"]):
-        for month, ssn in enumerate(data2.data["vals"][idx]):
+    for idx, year in enumerate(data2.__yeardata):
+        for month, ssn in enumerate(data2.__valdata[idx]):
             xdata2.append(dt.datetime(year=year, month=month+1, day=1))
             ydata2.append(float(ssn))
 
-    for idx, year in enumerate(data3.data["years"]):
-        for month, aa in enumerate(data3.data["vals"][idx]):
+    for idx, year in enumerate(data3.__yeardata):
+        for month, aa in enumerate(data3.__valdata[idx]):
             xdata3.append(dt.datetime(year=year, month=month+1, day=1))
             ydata3.append(float(aa))
 
@@ -301,6 +300,8 @@ def plot_data():
 
     print(LINESPLIT)
     print("Data plots saved in {} as '{}'".format(graphfolder, "combined_data.png"))
+
+"""
 
 if __name__=="__main__":
     is_train = False
