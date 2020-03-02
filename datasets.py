@@ -23,60 +23,58 @@ end_cycle = 23
 np.random.seed(seed)
 
 class Features(Dataset):
-    def __init__(self, *datasets):
+    def __init__(self, SSN_data, AA_data):
         super(Features, self).__init__()
 
-        self.samples = []
-        self.datasets = datasets
+        self.features = []
+        self.targets = []
+        self.ssn = SSN_data
+        self.aa = AA_data
 
         self.__gen_samples()
 
     def __len__(self):
-        return len(self.samples)
+        return len(self.targets)
 
     def __getitem__(self, index):
-        return (self.samples[index])
+        return (self.features[index], self.targets[index])
 
     def __gen_samples(self):
-        for curr_cycle in range(start_cycle, end_cycle + 1):
-            start_date = CYCLE_DATA["start_date"][curr_cycle]
-            end_date = CYCLE_DATA["end_date"][curr_cycle]
+        start_date = CYCLE_DATA[start_cycle + 1]["start_date"]
+        end_date = CYCLE_DATA[end_cycle]["end_date"]
 
-            year_index = []
-            for dataset in self.datasets:
-                idx = dataset.data["years"].index(CYCLE_DATA["start_date"][curr_cycle-1][0])
-                year_index.append(idx)
+        self.targets.append(self.ssn.data[start_date[0]][start_date[1]-1:])
 
-            for curr_year in range(start_date[0], end_date[0] + 1):
-                yi = curr_year - start_date[0]
+        for year in range(start_date[0] + 1, end_date[0]):
+            self.targets.append(self.ssn.data[year])
 
-                ys = math.sin((2*PI*yi)/11)
-                yc = math.cos((2*PI*yi)/11)
+        self.targets.append(self.ssn.data[end_date[0]][:end_date[1]])
 
-                curr_idx = dataset.data["years"].index(curr_year)
+        temp_feats = []
 
-                for curr_month in range(len(MONTHS)):
-                    if (curr_month + 1 < start_date[1] and curr_year == start_date[0])\
-                    or (curr_month + 1 > end_date[1] and curr_year == end_date[0]):
-                        continue
+        for cycle in range(start_cycle + 1, end_cycle + 1):
+            start_date = CYCLE_DATA[cycle]["start_date"]
+            end_date = CYCLE_DATA[cycle]["end_date"]
 
-                    ms = math.sin((2*PI*curr_month)/12)
-                    mc = math.cos((2*PI*curr_month)/12)
+            for month in range(start_date[1], 13):
+                ms = math.sin((2*PI*month)/12)
+                mc = math.cos((2*PI*month)/12)
 
-                    feat = [ys, yc, ms, mc]
+                temp_feats.append([0.0, 1.0, ms, mc])
 
-                    for dnum, dataset in enumerate(self.datasets):
-                        idx = year_index[dnum]
-                        val = dataset.data["vals"][idx][curr_month]
-                        feat.append(val)
+            for year in range(start_date[0] + 1, end_date[0]):
+                for month in range(1, 13):
+                    year_index = ((month - start_date[1]) + (year - start_date[0])*12)//12
 
-                        if dataset.__class__.__name__ == "SSN":
-                            target = dataset.data["vals"][curr_idx][curr_month]
+                    ms = math.sin((2*PI*month)/12)
+                    mc = math.cos((2*PI*month)/12)
+                    ys = math.sin((2*PI*year_index)/11)
+                    yc = math.cos((2*PI*year_index)/11)
 
-                    self.samples.append((np.array(feat), target))
+                    temp_feats.append([ys, yc, ms, mc])
 
-                for idx in year_index:
-                    idx += 1
+            for month in range(1, end_date[1] + 1):
+                year_index = ((month - end_date[1]) + (end_date[0] - start_date[0])*12)//12
 
 
 class AA(Dataset):
@@ -118,20 +116,23 @@ class AA(Dataset):
 
                 if read:
                     datetuple = date.split("-")
+                    year = int(datetuple[0])
+                    month = int(datetuple[1])
+
+                    if year not in self.data.keys():
+                        self.data[year] = []
 
                     if datetuple in dates:
                         continue
                     else:
-                        if dates and dates[-1][1] != datetuple[1]:
+                        if dates and int(dates[-1][1]) != month:
                             aa_val /= num_days
                             curr_aa.append(aa_val)
                             aa_val = 0.0
                             num_days = 0
 
-                            if dates[-1][0] != datetuple[0]:
-                                if len(curr_aa)==12:
-                                    self.data[int(dates[-1][0])].append(curr_aa)
-                                    self.data["years"].append(int(dates[-1][0]))
+                            if int(dates[-1][0]) != year:
+                                self.data[int(dates[-1][0])].append(curr_aa)
                                 curr_aa = []
                                 dates = []
 
@@ -141,9 +142,7 @@ class AA(Dataset):
 
             aa_val /= num_days
             curr_aa.append(aa_val)
-            if len(curr_aa)==12:
-                self.data["vals"].append(curr_aa)
-                self.data["years"].append(int(dates[-1][0]))
+            self.data[year].append(curr_aa)
 
     def _get_data(self):
         if not os.path.isfile(self.file):
@@ -168,7 +167,7 @@ class SSN(Dataset):
 
         self._get_cycles()
 
-        print(self.__yeardata, self.__valdata)
+        #print(CYCLE_DATA)
 
     def __len__(self):
         return len(self.data)
@@ -199,7 +198,7 @@ class SSN(Dataset):
     def _get_cycles(self):
         data = []
         for idx, year in enumerate(self.__yeardata):
-            for month, ssn in enumerate(self.__valdata):
+            for month, ssn in enumerate(self.__valdata[idx]):
                 data.append(float(ssn))
 
         data = ut.sidc_filter(data)

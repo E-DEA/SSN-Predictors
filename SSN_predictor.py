@@ -163,13 +163,13 @@ def main(is_train, is_test, predict):
     print(LINESPLIT)
     print("Code running on device: {}".format(device))
 
-    data_file = sys.argv[2]
-    aa_file = sys.argv[3]
+    data_file = sys.argv[1]
+    aa_file = sys.argv[2]
 
     ssn_data = datasets.SSN(data_file)
     aa_data = datasets.AA(aa_file)
 
-    train_samples = datasets.Features(ssn_data, aa_data)
+    #train_samples = datasets.Features(ssn_data, aa_data)
 
     print(LINESPLIT)
     print('''File location :
@@ -195,8 +195,8 @@ def main(is_train, is_test, predict):
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.5, verbose=True)
 
-    train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
-    test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
+    #train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
+    #test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
 
     if is_train:
         model.train()

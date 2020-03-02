@@ -1,0 +1,19 @@
+--------------------------------------------------
+Code running on device: cpu
+365
+--------------------------------------------------
+File location :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: False    Testing mode: False
+--------------------------------------------------
+No pre-trained models available, initializing model weights
