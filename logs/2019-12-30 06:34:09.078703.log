@@ -1,1 +1,0 @@
-Usage: python3 SSN_predictor.py <source_name> <path_to_ssn_datafile> <path_to_aa_datafile>

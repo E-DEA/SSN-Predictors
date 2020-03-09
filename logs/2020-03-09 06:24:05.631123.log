@@ -1,0 +1,391 @@
+--------------------------------------------------
+Code running on device: cuda
+{'start_date': [[1749, 1], [1754, 12], [1765, 12], [1774, 12], [1784, 1], [1797, 10], [1810, 1], [1822, 8], [1833, 5], [1843, 4], [1855, 8], [1866, 9], [1878, 4], [1889, 5], [1901, 4], [1912, 11], [1922, 11], [1933, 5], [1943, 9], [1953, 11], [1964, 4], [1975, 12], [1985, 12], [1996, 1], [2008, 6]], 'end_date': [[1754, 11], [1765, 11], [1774, 11], [1784, 0], [1797, 9], [1810, 0], [1822, 7], [1833, 4], [1843, 3], [1855, 7], [1866, 8], [1878, 3], [1889, 4], [1901, 3], [1912, 10], [1922, 10], [1933, 4], [1943, 8], [1953, 10], [1964, 3], [1975, 11], [1985, 11], [1996, 0], [2008, 5], [2018, 11]], 'max_date': [[1749, 8], [1760, 12], [1769, 5], [1777, 12], [1787, 7], [1793, 1], [1804, 5], [1815, 10], [1829, 8], [1836, 8], [1848, 1], [1859, 8], [1870, 3], [1883, 6], [1893, 4], [1905, 5], [1917, 3], [1927, 12], [1937, 1], [1947, 2], [1957, 6], [1968, 4], [1979, 6], [1989, 3], [2001, 6]], 'solar_max': [145.65, 133.7625, 183.25833333333333, 251.97083333333333, 228.33333333333334, 77.82083333333333, 80.0125, 78.07083333333333, 114.98750000000001, 234.6583333333334, 212.1625, 181.1291666666667, 224.8125, 117.43750000000001, 142.17083333333335, 102.50416666666666, 164.82499999999996, 124.27083333333333, 188.7083333333333, 210.125, 278.51666666666665, 152.92916666666665, 225.00000000000003, 207.76250000000002, 175.82916666666665], 'length': [70, 131, 107, 108, 164, 146, 150, 128, 118, 147, 132, 138, 132, 142, 138, 119, 125, 123, 121, 124, 139, 119, 120, 148, 125]}
+--------------------------------------------------
+File location :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_ms_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+Pre-trained model available, loading model weights
+--------------------------------------------------
+Training model with: num_epochs=1800, start_lr=0.0005
+Epoch [   1/1800] -> Loss: 24.4128
+Epoch [   2/1800] -> Loss: 23.8643
+Epoch [   3/1800] -> Loss: 23.3687
+Epoch [   4/1800] -> Loss: 23.1466
+Epoch [   5/1800] -> Loss: 22.9376
+Epoch [   6/1800] -> Loss: 22.8026
+Epoch [   7/1800] -> Loss: 22.7759
+Epoch [   8/1800] -> Loss: 22.5140
+Epoch [   9/1800] -> Loss: 22.4615
+Epoch [  10/1800] -> Loss: 22.4389
+Epoch [  11/1800] -> Loss: 22.4837
+Epoch [  12/1800] -> Loss: 22.1775
+Epoch [  13/1800] -> Loss: 22.3991
+Epoch [  14/1800] -> Loss: 22.1549
+Epoch [  15/1800] -> Loss: 22.0072
+Epoch [  16/1800] -> Loss: 21.9845
+Epoch [  17/1800] -> Loss: 21.9693
+Epoch [  18/1800] -> Loss: 21.8872
+Epoch [  19/1800] -> Loss: 21.9314
+Epoch [  20/1800] -> Loss: 21.8825
+Epoch [  21/1800] -> Loss: 21.8982
+Epoch [  22/1800] -> Loss: 21.9713
+Epoch [  23/1800] -> Loss: 21.9379
+Epoch [  24/1800] -> Loss: 21.9815
+Epoch [  25/1800] -> Loss: 21.7818
+Epoch [  26/1800] -> Loss: 21.8060
+Epoch [  27/1800] -> Loss: 21.7435
+Epoch [  28/1800] -> Loss: 21.6830
+Epoch [  29/1800] -> Loss: 21.6788
+Epoch [  30/1800] -> Loss: 21.7148
+Epoch [  31/1800] -> Loss: 21.5656
+Epoch [  32/1800] -> Loss: 21.6553
+Epoch [  33/1800] -> Loss: 21.5663
+Epoch [  34/1800] -> Loss: 21.6100
+Epoch [  35/1800] -> Loss: 21.5287
+Epoch [  36/1800] -> Loss: 21.7382
+Epoch [  37/1800] -> Loss: 21.7146
+Epoch [  38/1800] -> Loss: 21.5697
+Epoch [  39/1800] -> Loss: 21.5135
+Epoch [  40/1800] -> Loss: 21.4757
+Epoch [  41/1800] -> Loss: 21.4556
+Epoch [  42/1800] -> Loss: 21.5097
+Epoch [  43/1800] -> Loss: 21.4994
+Epoch [  44/1800] -> Loss: 21.3974
+Epoch [  45/1800] -> Loss: 21.4980
+Epoch [  46/1800] -> Loss: 21.3506
+Epoch [  47/1800] -> Loss: 21.7296
+Epoch [  48/1800] -> Loss: 21.3757
+Epoch [  49/1800] -> Loss: 21.3745
+Epoch [  50/1800] -> Loss: 21.3117
+Epoch [  51/1800] -> Loss: 21.3148
+Epoch [  52/1800] -> Loss: 21.3535
+Epoch [  53/1800] -> Loss: 21.2823
+Epoch [  54/1800] -> Loss: 21.1822
+Epoch [  55/1800] -> Loss: 21.4704
+Epoch [  56/1800] -> Loss: 21.2393
+Epoch [  57/1800] -> Loss: 21.2942
+Epoch [  58/1800] -> Loss: 21.4679
+Epoch [  59/1800] -> Loss: 21.3340
+Epoch [  60/1800] -> Loss: 21.2677
+Epoch [  61/1800] -> Loss: 21.2755
+Epoch [  62/1800] -> Loss: 21.3452
+Epoch [  63/1800] -> Loss: 21.2462
+Epoch [  64/1800] -> Loss: 21.1408
+Epoch [  65/1800] -> Loss: 21.2117
+Epoch [  66/1800] -> Loss: 21.1109
+Epoch [  67/1800] -> Loss: 21.0798
+Epoch [  68/1800] -> Loss: 21.4318
+Epoch [  69/1800] -> Loss: 21.0814
+Epoch [  70/1800] -> Loss: 21.1419
+Epoch [  71/1800] -> Loss: 21.0523
+Epoch [  72/1800] -> Loss: 21.0815
+Epoch [  73/1800] -> Loss: 21.1042
+Epoch [  74/1800] -> Loss: 21.2005
+Epoch [  75/1800] -> Loss: 21.0307
+Epoch [  76/1800] -> Loss: 21.0758
+Epoch [  77/1800] -> Loss: 21.0573
+Epoch [  78/1800] -> Loss: 21.0354
+Epoch [  79/1800] -> Loss: 21.0723
+Epoch [  80/1800] -> Loss: 21.0534
+Epoch [  81/1800] -> Loss: 21.0076
+Epoch [  82/1800] -> Loss: 20.9618
+Epoch [  83/1800] -> Loss: 20.9065
+Epoch [  84/1800] -> Loss: 21.1439
+Epoch [  85/1800] -> Loss: 20.8989
+Epoch [  86/1800] -> Loss: 20.9860
+Epoch [  87/1800] -> Loss: 20.9228
+Epoch [  88/1800] -> Loss: 20.8765
+Epoch [  89/1800] -> Loss: 21.0077
+Epoch [  90/1800] -> Loss: 21.0079
+Epoch [  91/1800] -> Loss: 20.9804
+Epoch [  92/1800] -> Loss: 20.9985
+Epoch [  93/1800] -> Loss: 20.9125
+Epoch [  94/1800] -> Loss: 20.9655
+Epoch [  95/1800] -> Loss: 20.8853
+Epoch [  96/1800] -> Loss: 20.8976
+Epoch [  97/1800] -> Loss: 21.1169
+Epoch [  98/1800] -> Loss: 20.8495
+Epoch [  99/1800] -> Loss: 20.8350
+--------------------------------------------------
+Model checkpoint saved as FFNN_100.pth
+--------------------------------------------------
+Epoch [ 100/1800] -> Loss: 20.8381
+Epoch [ 101/1800] -> Loss: 20.9158
+Epoch [ 102/1800] -> Loss: 20.8493
+Epoch [ 103/1800] -> Loss: 20.9177
+Epoch [ 104/1800] -> Loss: 20.9408
+Epoch [ 105/1800] -> Loss: 20.8317
+Epoch [ 106/1800] -> Loss: 20.8536
+Epoch [ 107/1800] -> Loss: 20.8643
+Epoch [ 108/1800] -> Loss: 20.9491
+Epoch [ 109/1800] -> Loss: 20.7497
+Epoch [ 110/1800] -> Loss: 20.7430
+Epoch [ 111/1800] -> Loss: 20.7719
+Epoch [ 112/1800] -> Loss: 20.7616
+Epoch [ 113/1800] -> Loss: 20.9638
+Epoch [ 114/1800] -> Loss: 20.7107
+Epoch [ 115/1800] -> Loss: 20.8282
+Epoch [ 116/1800] -> Loss: 20.7568
+Epoch [ 117/1800] -> Loss: 20.8267
+Epoch [ 118/1800] -> Loss: 20.6070
+Epoch [ 119/1800] -> Loss: 20.7768
+Epoch [ 120/1800] -> Loss: 20.7546
+Epoch [ 121/1800] -> Loss: 20.6800
+Epoch [ 122/1800] -> Loss: 20.7095
+Epoch [ 123/1800] -> Loss: 20.8628
+Epoch [ 124/1800] -> Loss: 20.6484
+Epoch [ 125/1800] -> Loss: 20.8954
+Epoch [ 126/1800] -> Loss: 20.6321
+Epoch [ 127/1800] -> Loss: 20.5924
+Epoch [ 128/1800] -> Loss: 20.6904
+Epoch [ 129/1800] -> Loss: 20.6616
+Epoch [ 130/1800] -> Loss: 20.9086
+Epoch [ 131/1800] -> Loss: 20.6712
+Epoch [ 132/1800] -> Loss: 20.7866
+Epoch [ 133/1800] -> Loss: 20.6878
+Epoch [ 134/1800] -> Loss: 20.6204
+Epoch [ 135/1800] -> Loss: 20.5589
+Epoch [ 136/1800] -> Loss: 20.7436
+Epoch [ 137/1800] -> Loss: 20.5760
+Epoch [ 138/1800] -> Loss: 20.5782
+Epoch [ 139/1800] -> Loss: 20.7720
+Epoch [ 140/1800] -> Loss: 20.6831
+Epoch [ 141/1800] -> Loss: 20.5713
+Epoch [ 142/1800] -> Loss: 20.6487
+Epoch [ 143/1800] -> Loss: 20.5797
+Epoch [ 144/1800] -> Loss: 20.6086
+Epoch [ 145/1800] -> Loss: 20.4242
+Epoch [ 146/1800] -> Loss: 20.6682
+Epoch [ 147/1800] -> Loss: 20.5296
+Epoch [ 148/1800] -> Loss: 20.6248
+Epoch [ 149/1800] -> Loss: 20.5929
+Epoch [ 150/1800] -> Loss: 20.4724
+Epoch [ 151/1800] -> Loss: 20.6075
+Epoch [ 152/1800] -> Loss: 20.6166
+Epoch [ 153/1800] -> Loss: 20.4737
+Epoch [ 154/1800] -> Loss: 20.5641
+Epoch [ 155/1800] -> Loss: 20.5634
+Epoch   156: reducing learning rate of group 0 to 2.5000e-04.
+Epoch [ 156/1800] -> Loss: 20.4696
+Epoch [ 157/1800] -> Loss: 20.4927
+Epoch [ 158/1800] -> Loss: 20.3778
+Epoch [ 159/1800] -> Loss: 20.4108
+Epoch [ 160/1800] -> Loss: 20.3972
+Epoch [ 161/1800] -> Loss: 20.3481
+Epoch [ 162/1800] -> Loss: 20.6100
+Epoch [ 163/1800] -> Loss: 20.4423
+Epoch [ 164/1800] -> Loss: 20.4850
+Epoch [ 165/1800] -> Loss: 20.4531
+Epoch [ 166/1800] -> Loss: 20.3313
+Epoch [ 167/1800] -> Loss: 20.4913
+Epoch [ 168/1800] -> Loss: 20.3822
+Epoch [ 169/1800] -> Loss: 20.4203
+Epoch [ 170/1800] -> Loss: 20.3555
+Epoch [ 171/1800] -> Loss: 20.3520
+Epoch [ 172/1800] -> Loss: 20.3799
+Epoch [ 173/1800] -> Loss: 20.3822
+Epoch [ 174/1800] -> Loss: 20.4391
+Epoch [ 175/1800] -> Loss: 20.3292
+Epoch [ 176/1800] -> Loss: 20.4077
+Epoch [ 177/1800] -> Loss: 20.5115
+Epoch [ 178/1800] -> Loss: 20.3334
+Epoch [ 179/1800] -> Loss: 20.3524
+Epoch [ 180/1800] -> Loss: 20.4226
+Epoch [ 181/1800] -> Loss: 20.3718
+Epoch [ 182/1800] -> Loss: 20.4021
+Epoch [ 183/1800] -> Loss: 20.3667
+Epoch [ 184/1800] -> Loss: 20.2730
+Epoch [ 185/1800] -> Loss: 20.3225
+Epoch [ 186/1800] -> Loss: 20.3576
+Epoch [ 187/1800] -> Loss: 20.3033
+Epoch [ 188/1800] -> Loss: 20.3844
+Epoch [ 189/1800] -> Loss: 20.3002
+Epoch [ 190/1800] -> Loss: 20.3953
+Epoch [ 191/1800] -> Loss: 20.3922
+Epoch [ 192/1800] -> Loss: 20.4274
+Epoch [ 193/1800] -> Loss: 20.3583
+Epoch [ 194/1800] -> Loss: 20.3510
+Epoch   195: reducing learning rate of group 0 to 1.2500e-04.
+Epoch [ 195/1800] -> Loss: 20.2966
+Epoch [ 196/1800] -> Loss: 20.2447
+Epoch [ 197/1800] -> Loss: 20.2645
+Epoch [ 198/1800] -> Loss: 20.2717
+Epoch [ 199/1800] -> Loss: 20.2747
+--------------------------------------------------
+Model checkpoint saved as FFNN_200.pth
+--------------------------------------------------
+Epoch [ 200/1800] -> Loss: 20.2620
+Epoch [ 201/1800] -> Loss: 20.3777
+Epoch [ 202/1800] -> Loss: 20.4148
+Epoch [ 203/1800] -> Loss: 20.2493
+Epoch [ 204/1800] -> Loss: 20.2953
+Epoch [ 205/1800] -> Loss: 20.2498
+Epoch [ 206/1800] -> Loss: 20.2137
+Epoch [ 207/1800] -> Loss: 20.3056
+Epoch [ 208/1800] -> Loss: 20.2189
+Epoch [ 209/1800] -> Loss: 20.2582
+Epoch [ 210/1800] -> Loss: 20.1842
+Epoch [ 211/1800] -> Loss: 20.2143
+Epoch [ 212/1800] -> Loss: 20.2017
+Epoch [ 213/1800] -> Loss: 20.3741
+Epoch [ 214/1800] -> Loss: 20.5683
+Epoch [ 215/1800] -> Loss: 20.3053
+Epoch [ 216/1800] -> Loss: 20.1969
+Epoch [ 217/1800] -> Loss: 20.2505
+Epoch [ 218/1800] -> Loss: 20.2516
+Epoch [ 219/1800] -> Loss: 20.1803
+Epoch [ 220/1800] -> Loss: 20.1309
+Epoch [ 221/1800] -> Loss: 20.2329
+Epoch [ 222/1800] -> Loss: 20.3293
+Epoch [ 223/1800] -> Loss: 20.1522
+Epoch [ 224/1800] -> Loss: 20.1383
+Epoch [ 225/1800] -> Loss: 20.0677
+Epoch [ 226/1800] -> Loss: 20.1676
+Epoch [ 227/1800] -> Loss: 20.2149
+Epoch [ 228/1800] -> Loss: 20.1589
+Epoch [ 229/1800] -> Loss: 20.0989
+Epoch [ 230/1800] -> Loss: 20.1903
+Epoch [ 231/1800] -> Loss: 20.2678
+Epoch [ 232/1800] -> Loss: 20.1077
+Epoch [ 233/1800] -> Loss: 20.0769
+Epoch [ 234/1800] -> Loss: 20.0853
+Epoch [ 235/1800] -> Loss: 20.1362
+Epoch   236: reducing learning rate of group 0 to 6.2500e-05.
+Epoch [ 236/1800] -> Loss: 20.0834
+Epoch [ 237/1800] -> Loss: 20.0436
+Epoch [ 238/1800] -> Loss: 20.0639
+Epoch [ 239/1800] -> Loss: 20.0503
+Epoch [ 240/1800] -> Loss: 20.0831
+Epoch [ 241/1800] -> Loss: 20.0797
+Epoch [ 242/1800] -> Loss: 20.0535
+Epoch [ 243/1800] -> Loss: 20.0387
+Epoch [ 244/1800] -> Loss: 20.0549
+Epoch [ 245/1800] -> Loss: 20.2123
+Epoch [ 246/1800] -> Loss: 20.0837
+Epoch [ 247/1800] -> Loss: 20.0813
+Epoch [ 248/1800] -> Loss: 20.0970
+Epoch [ 249/1800] -> Loss: 20.1234
+Epoch [ 250/1800] -> Loss: 20.2958
+Epoch [ 251/1800] -> Loss: 20.0651
+Epoch [ 252/1800] -> Loss: 20.0380
+Epoch [ 253/1800] -> Loss: 20.0814
+Epoch [ 254/1800] -> Loss: 20.0345
+Epoch [ 255/1800] -> Loss: 20.0481
+Epoch [ 256/1800] -> Loss: 20.0287
+Epoch [ 257/1800] -> Loss: 20.0521
+Epoch [ 258/1800] -> Loss: 20.0706
+Epoch [ 259/1800] -> Loss: 20.1704
+Epoch [ 260/1800] -> Loss: 20.0843
+Epoch [ 261/1800] -> Loss: 20.2365
+Epoch [ 262/1800] -> Loss: 20.0454
+Epoch [ 263/1800] -> Loss: 20.1509
+Epoch [ 264/1800] -> Loss: 20.2337
+Epoch [ 265/1800] -> Loss: 20.0418
+Epoch [ 266/1800] -> Loss: 20.0773
+Epoch   267: reducing learning rate of group 0 to 3.1250e-05.
+Epoch [ 267/1800] -> Loss: 20.0618
+Epoch [ 268/1800] -> Loss: 20.0193
+Epoch [ 269/1800] -> Loss: 20.0092
+Epoch [ 270/1800] -> Loss: 20.0732
+Epoch [ 271/1800] -> Loss: 20.0067
+Epoch [ 272/1800] -> Loss: 20.0530
+Epoch [ 273/1800] -> Loss: 20.0496
+Epoch [ 274/1800] -> Loss: 20.0391
+Epoch [ 275/1800] -> Loss: 20.2243
+Epoch [ 276/1800] -> Loss: 20.1495
+Epoch [ 277/1800] -> Loss: 20.0453
+Epoch [ 278/1800] -> Loss: 20.0885
+Epoch [ 279/1800] -> Loss: 20.1587
+Epoch [ 280/1800] -> Loss: 20.0109
+Epoch [ 281/1800] -> Loss: 20.0265
+Epoch   282: reducing learning rate of group 0 to 1.5625e-05.
+Epoch [ 282/1800] -> Loss: 20.0129
+Epoch [ 283/1800] -> Loss: 20.0097
+Epoch [ 284/1800] -> Loss: 19.9897
+Epoch [ 285/1800] -> Loss: 20.0176
+Epoch [ 286/1800] -> Loss: 20.0415
+Epoch [ 287/1800] -> Loss: 19.9932
+Epoch [ 288/1800] -> Loss: 19.9864
+Epoch [ 289/1800] -> Loss: 20.0483
+Epoch [ 290/1800] -> Loss: 20.0194
+Epoch [ 291/1800] -> Loss: 20.2801
+Epoch [ 292/1800] -> Loss: 20.0423
+Epoch [ 293/1800] -> Loss: 20.0549
+Epoch [ 294/1800] -> Loss: 19.9898
+Epoch [ 295/1800] -> Loss: 20.0284
+Epoch [ 296/1800] -> Loss: 20.0572
+Epoch [ 297/1800] -> Loss: 20.0333
+Epoch [ 298/1800] -> Loss: 19.9864
+Epoch   299: reducing learning rate of group 0 to 7.8125e-06.
+Epoch [ 299/1800] -> Loss: 20.2582
+--------------------------------------------------
+Model checkpoint saved as FFNN_300.pth
+--------------------------------------------------
+Epoch [ 300/1800] -> Loss: 20.0313
+Epoch [ 301/1800] -> Loss: 20.0094
+Epoch [ 302/1800] -> Loss: 19.9801
+Epoch [ 303/1800] -> Loss: 20.0419
+Epoch [ 304/1800] -> Loss: 19.9978
+Epoch [ 305/1800] -> Loss: 19.9904
+Epoch [ 306/1800] -> Loss: 19.9795
+Epoch [ 307/1800] -> Loss: 19.9917
+Epoch [ 308/1800] -> Loss: 19.9766
+Epoch [ 309/1800] -> Loss: 19.9808
+Epoch [ 310/1800] -> Loss: 20.0579
+Epoch [ 311/1800] -> Loss: 19.9903
+Epoch [ 312/1800] -> Loss: 19.9809
+Epoch [ 313/1800] -> Loss: 20.0285
+Epoch [ 314/1800] -> Loss: 20.2159
+Epoch [ 315/1800] -> Loss: 20.0448
+Epoch [ 316/1800] -> Loss: 20.1890
+Epoch [ 317/1800] -> Loss: 19.9944
+Epoch [ 318/1800] -> Loss: 19.9779
+Epoch   319: reducing learning rate of group 0 to 3.9063e-06.
+Epoch [ 319/1800] -> Loss: 20.1654
+Epoch [ 320/1800] -> Loss: 19.9911
+Epoch [ 321/1800] -> Loss: 20.2302
+Epoch [ 322/1800] -> Loss: 20.0169
+Epoch [ 323/1800] -> Loss: 19.9867
+Epoch [ 324/1800] -> Loss: 20.0337
+Epoch [ 325/1800] -> Loss: 20.1648
+Epoch [ 326/1800] -> Loss: 20.2954
+Epoch [ 327/1800] -> Loss: 19.9875
+Epoch [ 328/1800] -> Loss: 19.9904
+Epoch [ 329/1800] -> Loss: 20.0198
+Epoch   330: reducing learning rate of group 0 to 1.9531e-06.
+Epoch [ 330/1800] -> Loss: 20.0417
+Epoch [ 331/1800] -> Loss: 20.0998
+Epoch [ 332/1800] -> Loss: 20.0682
+Epoch [ 333/1800] -> Loss: 20.0535
+Epoch [ 334/1800] -> Loss: 20.0655
+Epoch [ 335/1800] -> Loss: 19.9727
+Epoch [ 336/1800] -> Loss: 20.1016
+Epoch [ 337/1800] -> Loss: 20.0274
+Epoch [ 338/1800] -> Loss: 20.0101
+Epoch [ 339/1800] -> Loss: 20.1108
+Epoch [ 340/1800] -> Loss: 19.9862
+Epoch [ 341/1800] -> Loss: 20.0044
+Epoch [ 342/1800] -> Loss: 20.0458
+Epoch [ 343/1800] -> Loss: 19.9813
+Epoch [ 344/1800] -> Loss: 20.0222
+Epoch [ 345/1800] -> Loss: 20.0249
+Epoch   346: reducing learning rate of group 0 to 9.7656e-07.
+Epoch [ 346/1800] -> Loss: 20.0271
+Epoch [ 347/1800] -> Loss: 20.0063
+Epoch [ 348/1800] -> Loss: 20.1557
+Epoch [ 349/1800] -> Loss: 19.9859
+Epoch [ 350/1800] -> Loss: 19.9787
+Epoch [ 351/1800] -> Loss: 20.0886
+Epoch [ 352/1800] -> Loss: 20.0331

@@ -1,0 +1,280 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+File location :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=3, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=3, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+No pre-trained models available, initializing model weights
+--------------------------------------------------
+Training model with: num_epochs=2600, start_lr=0.005
+Epoch [   1/2600] -> Loss: 9106.7873
+Epoch [   2/2600] -> Loss: 3069.5101
+Epoch [   3/2600] -> Loss: 2995.3245
+Epoch [   4/2600] -> Loss: 2914.6020
+Epoch [   5/2600] -> Loss: 2875.4871
+Epoch [   6/2600] -> Loss: 2823.6797
+Epoch [   7/2600] -> Loss: 2744.0102
+Epoch [   8/2600] -> Loss: 2642.7177
+Epoch [   9/2600] -> Loss: 2561.3490
+Epoch [  10/2600] -> Loss: 2483.6812
+Epoch [  11/2600] -> Loss: 2327.0752
+Epoch [  12/2600] -> Loss: 2243.3415
+Epoch [  13/2600] -> Loss: 2104.8634
+Epoch [  14/2600] -> Loss: 2025.6939
+Epoch [  15/2600] -> Loss: 1942.2250
+Epoch [  16/2600] -> Loss: 1888.6497
+Epoch [  17/2600] -> Loss: 1817.2250
+Epoch [  18/2600] -> Loss: 1890.3064
+Epoch [  19/2600] -> Loss: 1772.1758
+Epoch [  20/2600] -> Loss: 1819.1281
+Epoch [  21/2600] -> Loss: 1702.3316
+Epoch [  22/2600] -> Loss: 1702.2406
+Epoch [  23/2600] -> Loss: 1660.3742
+Epoch [  24/2600] -> Loss: 1665.3935
+Epoch [  25/2600] -> Loss: 1666.7956
+Epoch [  26/2600] -> Loss: 1653.7441
+Epoch [  27/2600] -> Loss: 1648.7630
+Epoch [  28/2600] -> Loss: 1630.9438
+Epoch [  29/2600] -> Loss: 1648.6909
+Epoch [  30/2600] -> Loss: 1639.4438
+Epoch [  31/2600] -> Loss: 1605.2529
+Epoch [  32/2600] -> Loss: 1596.8678
+Epoch [  33/2600] -> Loss: 1609.6017
+Epoch [  34/2600] -> Loss: 1601.0113
+Epoch [  35/2600] -> Loss: 1621.4551
+Epoch [  36/2600] -> Loss: 1610.4022
+Epoch [  37/2600] -> Loss: 1601.8910
+Epoch [  38/2600] -> Loss: 1581.7795
+Epoch [  39/2600] -> Loss: 1605.0783
+Epoch [  40/2600] -> Loss: 1569.2873
+Epoch [  41/2600] -> Loss: 1610.3103
+Epoch [  42/2600] -> Loss: 1569.2039
+Epoch [  43/2600] -> Loss: 1589.8384
+Epoch [  44/2600] -> Loss: 1585.3846
+Epoch [  45/2600] -> Loss: 1574.8491
+Epoch [  46/2600] -> Loss: 1603.8154
+Epoch [  47/2600] -> Loss: 1555.3487
+Epoch [  48/2600] -> Loss: 1556.6523
+Epoch [  49/2600] -> Loss: 1583.9828
+Epoch [  50/2600] -> Loss: 1570.9271
+Epoch [  51/2600] -> Loss: 1542.9455
+Epoch [  52/2600] -> Loss: 1517.4369
+Epoch [  53/2600] -> Loss: 1539.2908
+Epoch [  54/2600] -> Loss: 1523.9893
+Epoch [  55/2600] -> Loss: 1534.2926
+Epoch [  56/2600] -> Loss: 1528.7609
+Epoch [  57/2600] -> Loss: 1506.2035
+Epoch [  58/2600] -> Loss: 1520.9046
+Epoch [  59/2600] -> Loss: 1520.0204
+Epoch [  60/2600] -> Loss: 1482.2873
+Epoch [  61/2600] -> Loss: 1517.3971
+Epoch [  62/2600] -> Loss: 1483.9692
+Epoch [  63/2600] -> Loss: 1500.4296
+Epoch [  64/2600] -> Loss: 1485.4844
+Epoch [  65/2600] -> Loss: 1488.4879
+Epoch [  66/2600] -> Loss: 1520.0484
+Epoch [  67/2600] -> Loss: 1484.4118
+Epoch [  68/2600] -> Loss: 1519.7288
+Epoch [  69/2600] -> Loss: 1502.0811
+Epoch [  70/2600] -> Loss: 1485.7087
+Epoch    71: reducing learning rate of group 0 to 2.5000e-03.
+Epoch [  71/2600] -> Loss: 1486.5806
+Epoch [  72/2600] -> Loss: 1444.3050
+Epoch [  73/2600] -> Loss: 1443.3385
+Epoch [  74/2600] -> Loss: 1462.9432
+Epoch [  75/2600] -> Loss: 1434.8349
+Epoch [  76/2600] -> Loss: 1428.5679
+Epoch [  77/2600] -> Loss: 1455.9725
+Epoch [  78/2600] -> Loss: 1434.8275
+Epoch [  79/2600] -> Loss: 1448.3297
+Epoch [  80/2600] -> Loss: 1447.4673
+Epoch [  81/2600] -> Loss: 1435.0296
+Epoch [  82/2600] -> Loss: 1433.1313
+Epoch [  83/2600] -> Loss: 1436.1113
+Epoch [  84/2600] -> Loss: 1443.2177
+Epoch [  85/2600] -> Loss: 1444.8516
+Epoch [  86/2600] -> Loss: 1452.3122
+Epoch    87: reducing learning rate of group 0 to 1.2500e-03.
+Epoch [  87/2600] -> Loss: 1455.0048
+Epoch [  88/2600] -> Loss: 1440.0266
+Epoch [  89/2600] -> Loss: 1419.0421
+Epoch [  90/2600] -> Loss: 1428.1757
+Epoch [  91/2600] -> Loss: 1424.5528
+Epoch [  92/2600] -> Loss: 1422.9190
+Epoch [  93/2600] -> Loss: 1417.2269
+Epoch [  94/2600] -> Loss: 1425.8315
+Epoch [  95/2600] -> Loss: 1417.3990
+Epoch [  96/2600] -> Loss: 1421.1468
+Epoch [  97/2600] -> Loss: 1427.2218
+Epoch [  98/2600] -> Loss: 1417.5322
+Epoch [  99/2600] -> Loss: 1421.1125
+Epoch [ 100/2600] -> Loss: 1422.0385
+Epoch [ 101/2600] -> Loss: 1428.3421
+Epoch [ 102/2600] -> Loss: 1416.4568
+Epoch [ 103/2600] -> Loss: 1421.7027
+Epoch [ 104/2600] -> Loss: 1416.4340
+Epoch [ 105/2600] -> Loss: 1414.4654
+Epoch [ 106/2600] -> Loss: 1421.4067
+Epoch [ 107/2600] -> Loss: 1422.7941
+Epoch [ 108/2600] -> Loss: 1412.5380
+Epoch [ 109/2600] -> Loss: 1429.4306
+Epoch [ 110/2600] -> Loss: 1419.3326
+Epoch [ 111/2600] -> Loss: 1426.7514
+Epoch [ 112/2600] -> Loss: 1414.5996
+Epoch [ 113/2600] -> Loss: 1424.7777
+Epoch [ 114/2600] -> Loss: 1417.0028
+Epoch [ 115/2600] -> Loss: 1425.0703
+Epoch [ 116/2600] -> Loss: 1411.0311
+Epoch [ 117/2600] -> Loss: 1424.3825
+Epoch [ 118/2600] -> Loss: 1417.5055
+Epoch [ 119/2600] -> Loss: 1416.7245
+Epoch [ 120/2600] -> Loss: 1416.0613
+Epoch [ 121/2600] -> Loss: 1421.0031
+Epoch [ 122/2600] -> Loss: 1401.1386
+Epoch [ 123/2600] -> Loss: 1409.6848
+Epoch [ 124/2600] -> Loss: 1413.6381
+Epoch [ 125/2600] -> Loss: 1412.2714
+Epoch [ 126/2600] -> Loss: 1422.5282
+Epoch [ 127/2600] -> Loss: 1413.4385
+Epoch [ 128/2600] -> Loss: 1413.8898
+Epoch [ 129/2600] -> Loss: 1414.1748
+Epoch [ 130/2600] -> Loss: 1419.4305
+Epoch [ 131/2600] -> Loss: 1421.7151
+Epoch [ 132/2600] -> Loss: 1408.5770
+Epoch   133: reducing learning rate of group 0 to 6.2500e-04.
+Epoch [ 133/2600] -> Loss: 1415.6811
+Epoch [ 134/2600] -> Loss: 1408.8796
+Epoch [ 135/2600] -> Loss: 1405.9920
+Epoch [ 136/2600] -> Loss: 1419.5998
+Epoch [ 137/2600] -> Loss: 1389.1828
+Epoch [ 138/2600] -> Loss: 1408.3009
+Epoch [ 139/2600] -> Loss: 1403.3492
+Epoch [ 140/2600] -> Loss: 1411.4114
+Epoch [ 141/2600] -> Loss: 1405.6360
+Epoch [ 142/2600] -> Loss: 1404.4494
+Epoch [ 143/2600] -> Loss: 1408.7356
+Epoch [ 144/2600] -> Loss: 1406.2481
+Epoch [ 145/2600] -> Loss: 1399.6926
+Epoch [ 146/2600] -> Loss: 1398.9784
+Epoch [ 147/2600] -> Loss: 1414.4891
+Epoch   148: reducing learning rate of group 0 to 3.1250e-04.
+Epoch [ 148/2600] -> Loss: 1409.1012
+Epoch [ 149/2600] -> Loss: 1399.3866
+Epoch [ 150/2600] -> Loss: 1403.7305
+Epoch [ 151/2600] -> Loss: 1402.5807
+Epoch [ 152/2600] -> Loss: 1401.6725
+Epoch [ 153/2600] -> Loss: 1401.2135
+Epoch [ 154/2600] -> Loss: 1399.8358
+Epoch [ 155/2600] -> Loss: 1402.9257
+Epoch [ 156/2600] -> Loss: 1400.3023
+Epoch [ 157/2600] -> Loss: 1400.8525
+Epoch [ 158/2600] -> Loss: 1399.3007
+Epoch   159: reducing learning rate of group 0 to 1.5625e-04.
+Epoch [ 159/2600] -> Loss: 1401.8491
+Epoch [ 160/2600] -> Loss: 1397.9321
+Epoch [ 161/2600] -> Loss: 1397.5357
+Epoch [ 162/2600] -> Loss: 1399.2498
+Epoch [ 163/2600] -> Loss: 1397.5395
+Epoch [ 164/2600] -> Loss: 1396.4803
+Epoch [ 165/2600] -> Loss: 1398.5439
+Epoch [ 166/2600] -> Loss: 1402.4087
+Epoch [ 167/2600] -> Loss: 1396.5555
+Epoch [ 168/2600] -> Loss: 1402.6534
+Epoch [ 169/2600] -> Loss: 1397.5043
+Epoch   170: reducing learning rate of group 0 to 7.8125e-05.
+Epoch [ 170/2600] -> Loss: 1398.7118
+Epoch [ 171/2600] -> Loss: 1401.5982
+Epoch [ 172/2600] -> Loss: 1396.1835
+Epoch [ 173/2600] -> Loss: 1397.0897
+Epoch [ 174/2600] -> Loss: 1397.4771
+Epoch [ 175/2600] -> Loss: 1396.0187
+Epoch [ 176/2600] -> Loss: 1396.7142
+Epoch [ 177/2600] -> Loss: 1396.5567
+Epoch [ 178/2600] -> Loss: 1398.8143
+Epoch [ 179/2600] -> Loss: 1396.3371
+Epoch [ 180/2600] -> Loss: 1399.5593
+Epoch   181: reducing learning rate of group 0 to 3.9063e-05.
+Epoch [ 181/2600] -> Loss: 1396.5425
+Epoch [ 182/2600] -> Loss: 1396.3936
+Epoch [ 183/2600] -> Loss: 1395.5371
+Epoch [ 184/2600] -> Loss: 1395.9200
+Epoch [ 185/2600] -> Loss: 1395.4978
+Epoch [ 186/2600] -> Loss: 1395.3081
+Epoch [ 187/2600] -> Loss: 1398.0955
+Epoch [ 188/2600] -> Loss: 1399.3257
+Epoch [ 189/2600] -> Loss: 1399.8602
+Epoch [ 190/2600] -> Loss: 1400.6099
+Epoch [ 191/2600] -> Loss: 1397.8592
+Epoch   192: reducing learning rate of group 0 to 1.9531e-05.
+Epoch [ 192/2600] -> Loss: 1397.1449
+Epoch [ 193/2600] -> Loss: 1395.9013
+Epoch [ 194/2600] -> Loss: 1394.7264
+Epoch [ 195/2600] -> Loss: 1400.5858
+Epoch [ 196/2600] -> Loss: 1396.0856
+Epoch [ 197/2600] -> Loss: 1396.2723
+Epoch [ 198/2600] -> Loss: 1399.9426
+Epoch [ 199/2600] -> Loss: 1394.0176
+--------------------------------------------------
+Model checkpoint saved as FFNN_200.pth
+--------------------------------------------------
+Epoch [ 200/2600] -> Loss: 1400.0850
+Epoch [ 201/2600] -> Loss: 1397.6893
+Epoch [ 202/2600] -> Loss: 1402.0816
+Epoch   203: reducing learning rate of group 0 to 9.7656e-06.
+Epoch [ 203/2600] -> Loss: 1394.7876
+Epoch [ 204/2600] -> Loss: 1398.9172
+Epoch [ 205/2600] -> Loss: 1393.4233
+Epoch [ 206/2600] -> Loss: 1395.6818
+Epoch [ 207/2600] -> Loss: 1399.3702
+Epoch [ 208/2600] -> Loss: 1395.8631
+Epoch [ 209/2600] -> Loss: 1394.5195
+Epoch [ 210/2600] -> Loss: 1395.9376
+Epoch [ 211/2600] -> Loss: 1397.0378
+Epoch [ 212/2600] -> Loss: 1396.4895
+Epoch [ 213/2600] -> Loss: 1395.1189
+Epoch   214: reducing learning rate of group 0 to 4.8828e-06.
+Epoch [ 214/2600] -> Loss: 1395.0670
+Epoch [ 215/2600] -> Loss: 1395.6387
+Epoch [ 216/2600] -> Loss: 1395.5841
+Epoch [ 217/2600] -> Loss: 1396.8788
+Epoch [ 218/2600] -> Loss: 1394.9550
+Epoch [ 219/2600] -> Loss: 1395.5881
+Epoch [ 220/2600] -> Loss: 1397.5454
+Epoch [ 221/2600] -> Loss: 1399.0150
+Epoch [ 222/2600] -> Loss: 1393.9367
+Epoch [ 223/2600] -> Loss: 1394.5120
+Epoch [ 224/2600] -> Loss: 1399.9756
+Epoch   225: reducing learning rate of group 0 to 2.4414e-06.
+Epoch [ 225/2600] -> Loss: 1394.2495
+Epoch [ 226/2600] -> Loss: 1394.8349
+Epoch [ 227/2600] -> Loss: 1394.4208
+Epoch [ 228/2600] -> Loss: 1395.1740
+Epoch [ 229/2600] -> Loss: 1397.4545
+Epoch [ 230/2600] -> Loss: 1394.2936
+Epoch [ 231/2600] -> Loss: 1394.0536
+Epoch [ 232/2600] -> Loss: 1393.7180
+Epoch [ 233/2600] -> Loss: 1398.8097
+Epoch [ 234/2600] -> Loss: 1396.6489
+Epoch [ 235/2600] -> Loss: 1394.6745
+Epoch   236: reducing learning rate of group 0 to 1.2207e-06.
+Epoch [ 236/2600] -> Loss: 1393.9841
+Epoch [ 237/2600] -> Loss: 1394.2701
+Epoch [ 238/2600] -> Loss: 1393.5840
+Epoch [ 239/2600] -> Loss: 1393.9813
+Epoch [ 240/2600] -> Loss: 1394.0007
+Epoch [ 241/2600] -> Loss: 1393.3938
+Epoch [ 242/2600] -> Loss: 1397.4666
+Epoch [ 243/2600] -> Loss: 1394.6159
+Epoch [ 244/2600] -> Loss: 1394.5532
+Epoch [ 245/2600] -> Loss: 1393.6607

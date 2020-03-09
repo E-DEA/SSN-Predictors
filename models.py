@@ -2,15 +2,15 @@
 
 import torch.nn as nn
 
-criterion = nn.MSELoss()
+criterion = nn.L1Loss(reduction="mean")
 
 class FFNN(nn.Module):
-    def __init__(self, inp_dim=5):
+    def __init__(self, inp_dim=6):
         super(FFNN, self).__init__()
 
         layers = []
         layers += [ nn.Linear(inp_dim, 6),
-                    nn.LeakyReLU(inplace=True) ]
+                    nn.LeakyReLU(inplace=True)]
         layers += [ nn.Linear(6, 6),
                     nn.LeakyReLU(inplace=True) ]
         layers += [ nn.Linear(6, 1) ]
@@ -23,7 +23,7 @@ class FFNN(nn.Module):
         return x
 
 class RNN(nn.Module):
-    def __init__(self, inp_dim=5):
+    def __init__(self, inp_dim=6):
         super(RNN, self).__init__()
 
         self.rnn = nn.RNN(inp_dim, 8, 2, batch_first=True)

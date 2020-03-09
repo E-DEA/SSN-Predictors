@@ -1,0 +1,206 @@
+--------------------------------------------------
+Code running on device: cuda
+--------------------------------------------------
+File location :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+--------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=6, bias=True)
+    (3): ReLU(inplace=True)
+    (4): Linear(in_features=6, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+--------------------------------------------------
+No pre-trained models available, initializing model weights
+--------------------------------------------------
+Training model with: num_epochs=2600, start_lr=0.005
+Epoch [   1/2600] -> Loss: nan
+Epoch [   2/2600] -> Loss: nan
+Epoch [   3/2600] -> Loss: nan
+Epoch [   4/2600] -> Loss: nan
+Epoch [   5/2600] -> Loss: nan
+Epoch [   6/2600] -> Loss: nan
+Epoch [   7/2600] -> Loss: nan
+Epoch [   8/2600] -> Loss: nan
+Epoch [   9/2600] -> Loss: nan
+Epoch [  10/2600] -> Loss: nan
+Epoch    11: reducing learning rate of group 0 to 2.5000e-03.
+Epoch [  11/2600] -> Loss: nan
+Epoch [  12/2600] -> Loss: nan
+Epoch [  13/2600] -> Loss: nan
+Epoch [  14/2600] -> Loss: nan
+Epoch [  15/2600] -> Loss: nan
+Epoch [  16/2600] -> Loss: nan
+Epoch [  17/2600] -> Loss: nan
+Epoch [  18/2600] -> Loss: nan
+Epoch [  19/2600] -> Loss: nan
+Epoch [  20/2600] -> Loss: nan
+Epoch [  21/2600] -> Loss: nan
+Epoch    22: reducing learning rate of group 0 to 1.2500e-03.
+Epoch [  22/2600] -> Loss: nan
+Epoch [  23/2600] -> Loss: nan
+Epoch [  24/2600] -> Loss: nan
+Epoch [  25/2600] -> Loss: nan
+Epoch [  26/2600] -> Loss: nan
+Epoch [  27/2600] -> Loss: nan
+Epoch [  28/2600] -> Loss: nan
+Epoch [  29/2600] -> Loss: nan
+Epoch [  30/2600] -> Loss: nan
+Epoch [  31/2600] -> Loss: nan
+Epoch [  32/2600] -> Loss: nan
+Epoch    33: reducing learning rate of group 0 to 6.2500e-04.
+Epoch [  33/2600] -> Loss: nan
+Epoch [  34/2600] -> Loss: nan
+Epoch [  35/2600] -> Loss: nan
+Epoch [  36/2600] -> Loss: nan
+Epoch [  37/2600] -> Loss: nan
+Epoch [  38/2600] -> Loss: nan
+Epoch [  39/2600] -> Loss: nan
+Epoch [  40/2600] -> Loss: nan
+Epoch [  41/2600] -> Loss: nan
+Epoch [  42/2600] -> Loss: nan
+Epoch [  43/2600] -> Loss: nan
+Epoch    44: reducing learning rate of group 0 to 3.1250e-04.
+Epoch [  44/2600] -> Loss: nan
+Epoch [  45/2600] -> Loss: nan
+Epoch [  46/2600] -> Loss: nan
+Epoch [  47/2600] -> Loss: nan
+Epoch [  48/2600] -> Loss: nan
+Epoch [  49/2600] -> Loss: nan
+Epoch [  50/2600] -> Loss: nan
+Epoch [  51/2600] -> Loss: nan
+Epoch [  52/2600] -> Loss: nan
+Epoch [  53/2600] -> Loss: nan
+Epoch [  54/2600] -> Loss: nan
+Epoch    55: reducing learning rate of group 0 to 1.5625e-04.
+Epoch [  55/2600] -> Loss: nan
+Epoch [  56/2600] -> Loss: nan
+Epoch [  57/2600] -> Loss: nan
+Epoch [  58/2600] -> Loss: nan
+Epoch [  59/2600] -> Loss: nan
+Epoch [  60/2600] -> Loss: nan
+Epoch [  61/2600] -> Loss: nan
+Epoch [  62/2600] -> Loss: nan
+Epoch [  63/2600] -> Loss: nan
+Epoch [  64/2600] -> Loss: nan
+Epoch [  65/2600] -> Loss: nan
+Epoch    66: reducing learning rate of group 0 to 7.8125e-05.
+Epoch [  66/2600] -> Loss: nan
+Epoch [  67/2600] -> Loss: nan
+Epoch [  68/2600] -> Loss: nan
+Epoch [  69/2600] -> Loss: nan
+Epoch [  70/2600] -> Loss: nan
+Epoch [  71/2600] -> Loss: nan
+Epoch [  72/2600] -> Loss: nan
+Epoch [  73/2600] -> Loss: nan
+Epoch [  74/2600] -> Loss: nan
+Epoch [  75/2600] -> Loss: nan
+Epoch [  76/2600] -> Loss: nan
+Epoch    77: reducing learning rate of group 0 to 3.9063e-05.
+Epoch [  77/2600] -> Loss: nan
+Epoch [  78/2600] -> Loss: nan
+Epoch [  79/2600] -> Loss: nan
+Epoch [  80/2600] -> Loss: nan
+Epoch [  81/2600] -> Loss: nan
+Epoch [  82/2600] -> Loss: nan
+Epoch [  83/2600] -> Loss: nan
+Epoch [  84/2600] -> Loss: nan
+Epoch [  85/2600] -> Loss: nan
+Epoch [  86/2600] -> Loss: nan
+Epoch [  87/2600] -> Loss: nan
+Epoch    88: reducing learning rate of group 0 to 1.9531e-05.
+Epoch [  88/2600] -> Loss: nan
+Epoch [  89/2600] -> Loss: nan
+Epoch [  90/2600] -> Loss: nan
+Epoch [  91/2600] -> Loss: nan
+Epoch [  92/2600] -> Loss: nan
+Epoch [  93/2600] -> Loss: nan
+Epoch [  94/2600] -> Loss: nan
+Epoch [  95/2600] -> Loss: nan
+Epoch [  96/2600] -> Loss: nan
+Epoch [  97/2600] -> Loss: nan
+Epoch [  98/2600] -> Loss: nan
+Epoch    99: reducing learning rate of group 0 to 9.7656e-06.
+Epoch [  99/2600] -> Loss: nan
+Epoch [ 100/2600] -> Loss: nan
+Epoch [ 101/2600] -> Loss: nan
+Epoch [ 102/2600] -> Loss: nan
+Epoch [ 103/2600] -> Loss: nan
+Epoch [ 104/2600] -> Loss: nan
+Epoch [ 105/2600] -> Loss: nan
+Epoch [ 106/2600] -> Loss: nan
+Epoch [ 107/2600] -> Loss: nan
+Epoch [ 108/2600] -> Loss: nan
+Epoch [ 109/2600] -> Loss: nan
+Epoch   110: reducing learning rate of group 0 to 4.8828e-06.
+Epoch [ 110/2600] -> Loss: nan
+Epoch [ 111/2600] -> Loss: nan
+Epoch [ 112/2600] -> Loss: nan
+Epoch [ 113/2600] -> Loss: nan
+Epoch [ 114/2600] -> Loss: nan
+Epoch [ 115/2600] -> Loss: nan
+Epoch [ 116/2600] -> Loss: nan
+Epoch [ 117/2600] -> Loss: nan
+Epoch [ 118/2600] -> Loss: nan
+Epoch [ 119/2600] -> Loss: nan
+Epoch [ 120/2600] -> Loss: nan
+Epoch   121: reducing learning rate of group 0 to 2.4414e-06.
+Epoch [ 121/2600] -> Loss: nan
+Epoch [ 122/2600] -> Loss: nan
+Epoch [ 123/2600] -> Loss: nan
+Epoch [ 124/2600] -> Loss: nan
+Epoch [ 125/2600] -> Loss: nan
+Epoch [ 126/2600] -> Loss: nan
+Epoch [ 127/2600] -> Loss: nan
+Epoch [ 128/2600] -> Loss: nan
+Epoch [ 129/2600] -> Loss: nan
+Epoch [ 130/2600] -> Loss: nan
+Epoch [ 131/2600] -> Loss: nan
+Epoch   132: reducing learning rate of group 0 to 1.2207e-06.
+Epoch [ 132/2600] -> Loss: nan
+Epoch [ 133/2600] -> Loss: nan
+Epoch [ 134/2600] -> Loss: nan
+Epoch [ 135/2600] -> Loss: nan
+Epoch [ 136/2600] -> Loss: nan
+Epoch [ 137/2600] -> Loss: nan
+Epoch [ 138/2600] -> Loss: nan
+Epoch [ 139/2600] -> Loss: nan
+Epoch [ 140/2600] -> Loss: nan
+Epoch [ 141/2600] -> Loss: nan
+Epoch [ 142/2600] -> Loss: nan
+Epoch   143: reducing learning rate of group 0 to 6.1035e-07.
+Epoch [ 143/2600] -> Loss: nan
+Epoch [ 144/2600] -> Loss: nan
+Epoch [ 145/2600] -> Loss: nan
+Epoch [ 146/2600] -> Loss: nan
+Epoch [ 147/2600] -> Loss: nan
+Epoch [ 148/2600] -> Loss: nan
+Epoch [ 149/2600] -> Loss: nan
+Epoch [ 150/2600] -> Loss: nan
+Epoch [ 151/2600] -> Loss: nan
+Epoch [ 152/2600] -> Loss: nan
+Epoch [ 153/2600] -> Loss: nan
+Epoch   154: reducing learning rate of group 0 to 3.0518e-07.
+Epoch [ 154/2600] -> Loss: nan
+Epoch [ 155/2600] -> Loss: nan
+Epoch [ 156/2600] -> Loss: nan
+Epoch [ 157/2600] -> Loss: nan
+Epoch [ 158/2600] -> Loss: nan
+Epoch [ 159/2600] -> Loss: nan
+Epoch [ 160/2600] -> Loss: nan
+Epoch [ 161/2600] -> Loss: nan
+Epoch [ 162/2600] -> Loss: nan
+Epoch [ 163/2600] -> Loss: nan
+Epoch [ 164/2600] -> Loss: nan
+Epoch   165: reducing learning rate of group 0 to 1.5259e-07.
+Epoch [ 165/2600] -> Loss: nan
+Epoch [ 166/2600] -> Loss: nan
+Epoch [ 167/2600] -> Loss: nan
+Epoch [ 168/2600] -> Loss: nan
+Epoch [ 169/2600] -> Loss: nan
+Epoch [ 170/2600] -> Loss: nan
+Epoch [ 171/2600] -> Loss: nan

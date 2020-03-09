@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import pickle
 
 import torch.nn as nn
 import torch.nn.init as init
@@ -28,22 +29,57 @@ def sidc_filter(data):
 
     return newdata
 
-def find_cycle(year, cycle_data):
-    high = len(cycle_data["start_date"]) - 1
-    low = 0
+def get_cycles(ssn_dataset):
+    try:
+        cycle_file = open("cycle_data.pickle", "rb")
+        CYCLE_DATA = pickle.load(cycle_file)
+        return CYCLE_DATA
+    except:
+        CYCLE_DATA = {"start_date":[], "end_date":[], "max_date":[], "solar_max":[], "length":[]}
+    data = []
+    for idx, year in enumerate(ssn_dataset.yeardata):
+        for month, ssn in enumerate(ssn_dataset.valdata[idx]):
+            data.append(float(ssn))
 
-    while low <= high:
-        curr = low + (high - low)/2
+    data = sidc_filter(data)
 
-        if cycle_data["start_date"][curr][0] <= year and year <= cycle_data["end_date"][curr][0]:
-            return curr
+    curr_min = [ssn_dataset.yeardata[0], 1, 500]
+    curr_max = [ssn_dataset.yeardata[0], 1, 0]
+    CYCLE_DATA["start_date"].append([ssn_dataset.yeardata[0], 1])
 
-        if cycle_data["start_date"][curr][0] > year:
-            high = curr - 1
-        elif cycle_data["end_date"][curr][0] < year:
-            low = curr + 1
+    for idx, ssn in enumerate(data):
+        year = ssn_dataset.yeardata[0] + idx//12
+        month = idx%12 + 1
+        if year > curr_min[0] + 5:
+            CYCLE_DATA["end_date"].append([curr_min[0], curr_min[1] - 1])
+            CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
+            CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
+            CYCLE_DATA["start_date"][-1][1]))
 
-    return -1
+            CYCLE_DATA["start_date"].append([curr_min[0], curr_min[1]])
+            curr_min[2] = 500
+        if year > curr_max[0] + 5:
+            CYCLE_DATA["max_date"].append([curr_max[0], curr_max[1]])
+            CYCLE_DATA["solar_max"].append(curr_max[2])
+            curr_max[2] = 0
+
+        if ssn <= curr_min[2]:
+            curr_min = [year, month, ssn]
+
+        if ssn >= curr_max[2]:
+            curr_max = [year, month, ssn]
+
+    CYCLE_DATA["end_date"].append([year + (month-1)//12, (month-1)%12])
+    CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
+    CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
+    CYCLE_DATA["start_date"][-1][1]))
+
+    cycle_file = open("cycle_data.pickle", "wb")
+    pickle.dump(CYCLE_DATA, cycle_file)
+    cycle_file.close()
+
+    return CYCLE_DATA
+
 
 def weight_init(m):
     '''

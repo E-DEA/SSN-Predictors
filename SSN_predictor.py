@@ -25,7 +25,7 @@ graphfolder = pwd + "/graphs/"
 modelfolder = pwd + "/models/"
 logfolder = pwd + "/logs/"
 
-LINESPLIT = "-" * 50
+LINESPLIT = "-" * 64
 
 sys.stdout = ut.Logger("{}{}.log".format(logfolder, dt.datetime.now()))
 
@@ -35,13 +35,13 @@ random.seed(seed)
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 3
+BATCH_SIZE = 6
 
-epochs = 150 * BATCH_SIZE
+epochs = 1800
 learning_rate = 0.0005
 
 PRINT_FREQ = 1
-SAVE_FREQ = 50
+SAVE_FREQ = 100
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -169,12 +169,18 @@ def main(is_train, is_test, predict):
     ssn_data = datasets.SSN(data_file)
     aa_data = datasets.AA(aa_file)
 
-    #train_samples = datasets.Features(ssn_data, aa_data)
-
     print(LINESPLIT)
-    print('''File location :
+    print('''Data loaded from file locations :
     SSN - {}
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
+
+    cycle_data = ut.get_cycles(ssn_data)
+
+    print(LINESPLIT)
+    print("Solar cycle data loaded/saved in: cycle_data.pickle")
+
+    train_samples = datasets.Features(ssn_data, aa_data, cycle_data)
+
 
     ######## FFNN ########
 
@@ -195,8 +201,8 @@ def main(is_train, is_test, predict):
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.5, verbose=True)
 
-    #train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
-    #test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
+    train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
+    test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
 
     if is_train:
         model.train()
@@ -304,7 +310,7 @@ def plot_data():
 """
 
 if __name__=="__main__":
-    is_train = False
+    is_train = True
     is_test = False
     predict = False
     #plot_data()

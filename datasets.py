@@ -2,28 +2,22 @@
 
 import os
 import math
+import sympy
 
 import numpy as np
 import utility as ut
 
 from torch.utils.data import Dataset
 
-PI = math.pi
-
-MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct",\
-"Nov", "Dec"]
-
-CYCLE_DATA = {"start_date":[], "end_date":[], "max_date":[], "solar_max":[], "length":[]}
-
-seed = 1
+PI = sympy.pi
 
 start_cycle = 12
 end_cycle = 23
 
-np.random.seed(seed)
+#feat_file = open("feats.txt", "w")
 
 class Features(Dataset):
-    def __init__(self, SSN_data, AA_data):
+    def __init__(self, SSN_data, AA_data, cycle_data):
         super(Features, self).__init__()
 
         self.features = []
@@ -31,7 +25,9 @@ class Features(Dataset):
         self.ssn = SSN_data
         self.aa = AA_data
 
-        self.__gen_samples()
+        self.__gen_samples(cycle_data)
+
+        #print(*self.features, sep = "\n", file = feat_file)
 
     def __len__(self):
         return len(self.targets)
@@ -39,42 +35,91 @@ class Features(Dataset):
     def __getitem__(self, index):
         return (self.features[index], self.targets[index])
 
-    def __gen_samples(self):
-        start_date = CYCLE_DATA[start_cycle + 1]["start_date"]
-        end_date = CYCLE_DATA[end_cycle]["end_date"]
+    def __gen_samples(self, CYCLE_DATA):
+        start_date = CYCLE_DATA["start_date"][start_cycle + 1]
+        end_date = CYCLE_DATA["end_date"][end_cycle]
 
-        self.targets.append(self.ssn.data[start_date[0]][start_date[1]-1:])
+        self.targets += self.ssn.data[start_date[0]][start_date[1]-1:]
 
         for year in range(start_date[0] + 1, end_date[0]):
-            self.targets.append(self.ssn.data[year])
+            self.targets += self.ssn.data[year]
 
-        self.targets.append(self.ssn.data[end_date[0]][:end_date[1]])
+        self.targets += self.ssn.data[end_date[0]][:end_date[1]]
 
-        temp_feats = []
+        temp_feats1 = []
 
         for cycle in range(start_cycle + 1, end_cycle + 1):
-            start_date = CYCLE_DATA[cycle]["start_date"]
-            end_date = CYCLE_DATA[cycle]["end_date"]
+            start_date = CYCLE_DATA["start_date"][cycle]
+            end_date = CYCLE_DATA["end_date"][cycle]
 
             for month in range(start_date[1], 13):
-                ms = math.sin((2*PI*month)/12)
-                mc = math.cos((2*PI*month)/12)
+                month_num = (month - start_date[1] + 1)
 
-                temp_feats.append([0.0, 1.0, ms, mc])
+                ms = math.sin((2*PI*month_num)/12)
+                mc = math.cos((2*PI*month_num)/12)
+                ys = math.sin((2*PI*1)/11)
+                yc = math.cos((2*PI*1)/11)
+
+                temp_feats1.append([ys, yc, ms, mc])
 
             for year in range(start_date[0] + 1, end_date[0]):
                 for month in range(1, 13):
-                    year_index = ((month - start_date[1]) + (year - start_date[0])*12)//12
+                    if month < start_date[1]:
+                        month_num = (13 - start_date[1] + month)
+                    else:
+                        month_num = (month - start_date[1] + 1)
 
-                    ms = math.sin((2*PI*month)/12)
-                    mc = math.cos((2*PI*month)/12)
+                    year_index = ((month - start_date[1]) + (year - start_date[0])*12)//12 + 1
+
+                    ms = math.sin((2*PI*month_num)/12)
+                    mc = math.cos((2*PI*month_num)/12)
                     ys = math.sin((2*PI*year_index)/11)
                     yc = math.cos((2*PI*year_index)/11)
 
-                    temp_feats.append([ys, yc, ms, mc])
+                    temp_feats1.append([ys, yc, ms, mc])
 
             for month in range(1, end_date[1] + 1):
-                year_index = ((month - end_date[1]) + (end_date[0] - start_date[0])*12)//12
+                if month < start_date[1]:
+                    month_num = (13 - start_date[1] + month)
+                else:
+                    month_num = (month - start_date[1] + 1)
+
+                year_index = ((month - start_date[1]) + (end_date[0] - start_date[0])*12)//12 + 1
+
+                ms = math.sin((2*PI*month_num)/12)
+                mc = math.cos((2*PI*month_num)/12)
+                ys = math.sin((2*PI*year_index)/11)
+                yc = math.cos((2*PI*year_index)/11)
+
+                temp_feats1.append([ys, yc, ms, mc])
+
+        temp_feats2 = []
+
+        for cycle in range(start_cycle, end_cycle + 1):
+            start_date = CYCLE_DATA["start_date"][cycle]
+            end_date = CYCLE_DATA["end_date"][cycle]
+
+            for month in range(start_date[1] - 1, 12):
+                delayed_aa = self.aa.data[start_date[0]][month]
+                delayed_ssn = self.ssn.data[start_date[0]][month]
+                temp_feats2.append([delayed_aa, delayed_ssn])
+
+            for year in range(start_date[0] + 1, end_date[0]):
+                for month in range(0, 12):
+                    delayed_aa = self.aa.data[year][month]
+                    delayed_ssn = self.ssn.data[year][month]
+
+                    temp_feats2.append([delayed_aa, delayed_ssn])
+
+            for month in range(0, end_date[1]):
+                delayed_aa = self.aa.data[end_date[0]][month]
+                delayed_ssn = self.ssn.data[end_date[0]][month]
+
+                temp_feats2.append([delayed_aa, delayed_ssn])
+
+        for idx, feat in enumerate(temp_feats1):
+            temp_feat = feat + temp_feats2[idx]
+            self.features.append(np.array(temp_feat))
 
 
 class AA(Dataset):
@@ -132,7 +177,7 @@ class AA(Dataset):
                             num_days = 0
 
                             if int(dates[-1][0]) != year:
-                                self.data[int(dates[-1][0])].append(curr_aa)
+                                self.data[int(dates[-1][0])] = curr_aa
                                 curr_aa = []
                                 dates = []
 
@@ -142,7 +187,7 @@ class AA(Dataset):
 
             aa_val /= num_days
             curr_aa.append(aa_val)
-            self.data[year].append(curr_aa)
+            self.data[year] = curr_aa
 
     def _get_data(self):
         if not os.path.isfile(self.file):
@@ -152,7 +197,6 @@ class AA(Dataset):
         self.__extract_data()
 
 class SSN(Dataset):
-    global CYCLE_DATA
     def __init__(self, file):
         super(SSN, self).__init__()
 
@@ -162,18 +206,14 @@ class SSN(Dataset):
 
         self._get_data()
 
-        self.__yeardata = list(self.data.keys())
-        self.__valdata = list(self.data.values())
-
-        self._get_cycles()
-
-        #print(CYCLE_DATA)
+        self.yeardata = list(self.data.keys())
+        self.valdata = list(self.data.values())
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, index):
-        return (self.__yeardata[index], self.__valdata[index])
+        return (self.yeardata[index], self.valdata[index])
 
     def __extract_data(self):
         read = True
@@ -182,6 +222,9 @@ class SSN(Dataset):
             for line in fp:
                 terms = line.split()
                 year = int(terms[0])
+
+                if (float(terms[3]) < 0):
+                    continue
 
                 if year not in self.data.keys():
                     self.data[year] = []
@@ -194,42 +237,3 @@ class SSN(Dataset):
             return -1
 
         self.__extract_data()
-
-    def _get_cycles(self):
-        data = []
-        for idx, year in enumerate(self.__yeardata):
-            for month, ssn in enumerate(self.__valdata[idx]):
-                data.append(float(ssn))
-
-        data = ut.sidc_filter(data)
-
-        curr_min = [self.__yeardata[0], 1, 500]
-        curr_max = [self.__yeardata[0], 1, 0]
-        CYCLE_DATA["start_date"].append([self.__yeardata[0], 1])
-
-        for idx, ssn in enumerate(data):
-            year = self.__yeardata[0] + idx//12
-            month = idx%12 + 1
-            if year > curr_min[0] + 5:
-                CYCLE_DATA["end_date"].append([curr_min[0], curr_min[1] - 1])
-                CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
-                CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
-                CYCLE_DATA["start_date"][-1][1]))
-
-                CYCLE_DATA["start_date"].append([curr_min[0], curr_min[1]])
-                curr_min[2] = 500
-            if year > curr_max[0] + 5:
-                CYCLE_DATA["max_date"].append([curr_max[0], curr_max[1]])
-                CYCLE_DATA["solar_max"].append(curr_max[2])
-                curr_max[2] = 0
-
-            if ssn <= curr_min[2]:
-                curr_min = [year, month, ssn]
-
-            if ssn >= curr_max[2]:
-                curr_max = [year, month, ssn]
-
-        CYCLE_DATA["end_date"].append([year + (month-1)//12, (month-1)%12])
-        CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
-        CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
-        CYCLE_DATA["start_date"][-1][1]))
