@@ -131,8 +131,8 @@ class AA(Dataset):
 
         self._get_data()
 
-        self.__yeardata = list(self.data.keys())
-        self.__valdata = list(self.data.values())
+        self.yeardata = list(self.data.keys())
+        self.valdata = list(self.data.values())
 
     def __len__(self):
         return len(self.data)

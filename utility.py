@@ -80,6 +80,10 @@ def get_cycles(ssn_dataset):
 
     return CYCLE_DATA
 
+def gen_test(start_cycle, end_cycle):
+    dataset = "data/SILSO/TSN/SN_m_tot_v2.0.txt"
+    cycle_data = get_cycles(dataset)
+    pass
 
 def weight_init(m):
     '''

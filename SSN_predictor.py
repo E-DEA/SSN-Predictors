@@ -3,10 +3,10 @@
 import os
 import sys
 import math
-import random
 import torch
 import models
 import datasets
+import plotter
 
 import utility as ut
 import pandas as pd
@@ -27,17 +27,16 @@ logfolder = pwd + "/logs/"
 
 LINESPLIT = "-" * 64
 
-sys.stdout = ut.Logger("{}{}.log".format(logfolder, dt.datetime.now()))
+sys.stdout = ut.Logger("{}{}.log".format(logfolder, dt.datetime.ctime(dt.datetime.now())))
 
 seed = 1
 
-random.seed(seed)
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
 BATCH_SIZE = 6
 
-epochs = 1800
+epochs = 1200
 learning_rate = 0.0005
 
 PRINT_FREQ = 1
@@ -46,32 +45,6 @@ SAVE_FREQ = 100
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 pd.plotting.register_matplotlib_converters()
-
-def print_loss(xdata, ydata, xlabel, ylabel, filename):
-    plt.plot(xdata, ydata, lw=0.2, aa=True)
-    plt.xlabel(xlabel)
-    plt.ylabel(ylabel)
-    plt.savefig(graphfolder+filename, dpi=900)
-    plt.close("all")
-
-def print_data(pred_msn, msn, filename):
-    xdata = []
-    ydata1 = []
-    ydata2 = []
-    for sample_num, (pred_ssn, ssn) in enumerate(zip(pred_msn, msn)):
-        xdata.append(dt.datetime(year=datasets.start_year + sample_num//12, month=(sample_num % 12) + 1, day=1))
-        ydata1.append(float(ssn))
-        ydata2.append(float(pred_ssn))
-
-    plt.figure(figsize=(19.2, 4.8))
-    plt.plot(xdata, ydata1, "-",label="Observed", lw=0.2, aa=True)
-    plt.plot(xdata, ydata2, "--",label="Predicted", lw=0.4, aa=True)
-    plt.xlabel("Year")
-    plt.ylabel("Monthly Sunspot Number")
-    plt.legend()
-    plt.savefig(graphfolder+filename, dpi=900)
-    plt.close("all")
-
 
 def load_model(model, folder=modelfolder):
     for i in range(MAX_EPOCHS, SAVE_FREQ, -SAVE_FREQ):
@@ -106,7 +79,7 @@ def train(model, train_loader, optim, sch, num_epochs):
             optim.zero_grad()
 
             outputs = model(feats.float())
-            loss = models.criterion(outputs.squeeze(1), sns.float())
+            loss = torch.sqrt(models.criterion(outputs.squeeze(1), sns.float()))
 
             loss.backward()
             optim.step()
@@ -155,16 +128,17 @@ def predict(model, obs_data, pred_window):
 """
 Driver code to run the predictor.
 """
-def main(is_train, is_test, predict):
+def main(is_train, is_test, predict, plotting):
     if len(sys.argv) < 3:
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
-        return
+        data_file = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
+        aa_file = "data/ISGI/aa_1869-01-01_2018-12-31_D.dat"
+    else:
+        data_file = sys.argv[1]
+        aa_file = sys.argv[2]
 
     print(LINESPLIT)
     print("Code running on device: {}".format(device))
-
-    data_file = sys.argv[1]
-    aa_file = sys.argv[2]
 
     ssn_data = datasets.SSN(data_file)
     aa_data = datasets.AA(aa_file)
@@ -174,13 +148,16 @@ def main(is_train, is_test, predict):
     SSN - {}
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
 
+    if plotting == "all" or plotting == "both":
+        plotter.plot_all("combined_test.jpg")
+
     cycle_data = ut.get_cycles(ssn_data)
 
     print(LINESPLIT)
-    print("Solar cycle data loaded/saved in: cycle_data.pickle")
+    print("Solar cycle data loaded/saved as: cycle_data.pickle")
 
     train_samples = datasets.Features(ssn_data, aa_data, cycle_data)
-
+    test_samples = ut.gen_test(datasets.start_cycle, datasets.end_cycle)
 
     ######## FFNN ########
 
@@ -217,7 +194,7 @@ def main(is_train, is_test, predict):
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
 
-        print_loss(range(len(loss)),loss, "Epochs", "avg. loss", "loss/tr_{}.png".format(model.__class__.__name__))
+        plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".format(model.__class__.__name__), xlabel = "Epochs")
 
     if is_test:
         model.eval()
@@ -230,88 +207,8 @@ def main(is_train, is_test, predict):
     ######## RNN ########
 
 
-# Uncomment the part below to plot data from all sources onto a single plot #
-"""
-def plot_data():
-
-    print(LINESPLIT)
-    print("Plotting data...")
-
-    data_source1 = "NOAA"
-    data_source2 = "SILSO"
-
-    data_file1 = "/home/extern/Documents/Research/data/NOAA/table_international-sunspot-numbers_monthly.txt"
-    data_file2 = "/home/extern/Documents/Research/data/SILSO/TSN/SN_m_tot_V2.0.txt"
-    aa_file = "/home/extern/Documents/Research/data/ISGI/aa_1869-08-01_2017-12-31_D.dat"
-
-    data1 = datasets.SSN(data_file1)
-    data2 = datasets.SSN(data_file2)
-    data3 = datasets.AA(aa_file)
-
-    xdata1 = []
-    ydata1 = []
-    xdata2 = []
-    ydata2 = []
-    xdata3 = []
-    ydata3 = []
-
-    for idx, year in enumerate(data1.__yeardata):
-        for month, ssn in enumerate(data1.__valdata[idx]):
-            xdata1.append(dt.datetime(year=year, month=month+1, day=1))
-            ydata1.append(float(ssn))
-
-    for idx, year in enumerate(data2.__yeardata):
-        for month, ssn in enumerate(data2.__valdata[idx]):
-            xdata2.append(dt.datetime(year=year, month=month+1, day=1))
-            ydata2.append(float(ssn))
-
-    for idx, year in enumerate(data3.__yeardata):
-        for month, aa in enumerate(data3.__valdata[idx]):
-            xdata3.append(dt.datetime(year=year, month=month+1, day=1))
-            ydata3.append(float(aa))
-
-    ysmoothed1 = ut.sidc_filter(ydata1)
-    ysmoothed2 = ut.sidc_filter(ydata2)
-    ysmoothed3 = ut.sidc_filter(ydata3)
-
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(19.2, 9.6), sharex="col")
-
-    ax1.plot(xdata1, ydata1, "b", label=data_source1, lw=0.2, aa=True)
-    ax1.plot(xdata1, ysmoothed1, "--b", lw=1, aa=True)
-
-    ax1.plot(xdata2, ydata2, "c", label=data_source2, lw=0.2, aa=True)
-    ax1.plot(xdata2, ysmoothed2, "--c", lw=1, aa=True)
-
-    ax1.set_ylabel("Monthly Sunspot Number")
-
-    ax2.bar(xdata3, ydata3, color="m", width=4)
-    ax2.plot(xdata3, ysmoothed3, "--m", label="ISGI", lw=1, aa=True)
-
-    ax2.set_xlabel("Year")
-    ax2.set_ylabel("AA Index")
-
-    ax1.legend()
-    ax2.legend()
-
-    majortick = dts.YearLocator(10)
-    minortick = dts.YearLocator(2)
-    ticker_fmt = dts.DateFormatter("%Y")
-
-    ax2.xaxis.set_major_locator(majortick)
-    ax2.xaxis.set_major_formatter(ticker_fmt)
-    ax2.xaxis.set_minor_locator(minortick)
-
-    plt.savefig(graphfolder+"combined_data.png", dpi=900)
-    plt.close("all")
-
-    print(LINESPLIT)
-    print("Data plots saved in {} as '{}'".format(graphfolder, "combined_data.png"))
-
-"""
-
 if __name__=="__main__":
     is_train = True
     is_test = False
     predict = False
-    #plot_data()
-    main(is_train, is_test, predict)
+    main(is_train, is_test, predict, "custom")
