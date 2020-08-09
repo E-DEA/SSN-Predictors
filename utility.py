@@ -85,6 +85,15 @@ def gen_test(start_cycle, end_cycle):
     cycle_data = get_cycles(dataset)
     pass
 
+def print_cycles(cycle_data):
+    print("{}{: >15}{: >15}{: >15}{: >20}"\
+    .format("SC Number","Start Date","End Date","Solar Max","Length(in months)"))
+    for idx in range(len(cycle_data["start_date"])):
+        print("{: >10}{: >15}{: >15}{: >15}{: >20}"\
+        .format(idx, str(cycle_data["start_date"][idx]),\
+        str(cycle_data["end_date"][idx]), round(cycle_data["solar_max"][idx],2),\
+        cycle_data["length"][idx]))
+
 def weight_init(m):
     '''
     Usage:

@@ -34,10 +34,10 @@ seed = 1
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 6
+BATCH_SIZE = 1
 
 epochs = 1200
-learning_rate = 0.0005
+learning_rate = 0.0002
 
 PRINT_FREQ = 1
 SAVE_FREQ = 100
@@ -155,9 +155,11 @@ def main(is_train, is_test, predict, plotting):
 
     print(LINESPLIT)
     print("Solar cycle data loaded/saved as: cycle_data.pickle")
+    print(LINESPLIT)
+    ut.print_cycles(cycle_data)
 
-    train_samples = datasets.Features(ssn_data, aa_data, cycle_data)
-    test_samples = ut.gen_test(datasets.start_cycle, datasets.end_cycle)
+    train_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=13, end_cycle=22)
+    valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=23, end_cycle=23)
 
     ######## FFNN ########
 
@@ -193,6 +195,9 @@ def main(is_train, is_test, predict, plotting):
         print('''Training finished successfully.
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
+
+        print(LINESPLIT)
+        print('''Testing the model on last solar cycle''')
 
         plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".format(model.__class__.__name__), xlabel = "Epochs")
 

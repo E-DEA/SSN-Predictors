@@ -11,13 +11,14 @@ from torch.utils.data import Dataset
 
 PI = sympy.pi
 
-start_cycle = 12
-end_cycle = 23
+#Earliest cycle data that is used for prediction.
+START_CYCLE = 12
 
-#feat_file = open("feats.txt", "w")
+#Latest cycle data used for predictions.
+END_CYCLE = 24
 
 class Features(Dataset):
-    def __init__(self, SSN_data, AA_data, cycle_data):
+    def __init__(self, SSN_data, AA_data, cycle_data, start_cycle=START_CYCLE, end_cycle=END_CYCLE):
         super(Features, self).__init__()
 
         self.features = []
@@ -25,9 +26,7 @@ class Features(Dataset):
         self.ssn = SSN_data
         self.aa = AA_data
 
-        self.__gen_samples(cycle_data)
-
-        #print(*self.features, sep = "\n", file = feat_file)
+        self.__gen_samples(cycle_data, start_cycle, end_cycle)
 
     def __len__(self):
         return len(self.targets)
@@ -35,8 +34,8 @@ class Features(Dataset):
     def __getitem__(self, index):
         return (self.features[index], self.targets[index])
 
-    def __gen_samples(self, CYCLE_DATA):
-        start_date = CYCLE_DATA["start_date"][start_cycle + 1]
+    def __gen_samples(self, CYCLE_DATA, start_cycle, end_cycle):
+        start_date = CYCLE_DATA["start_date"][start_cycle]
         end_date = CYCLE_DATA["end_date"][end_cycle]
 
         self.targets += self.ssn.data[start_date[0]][start_date[1]-1:]
@@ -48,7 +47,7 @@ class Features(Dataset):
 
         temp_feats1 = []
 
-        for cycle in range(start_cycle + 1, end_cycle + 1):
+        for cycle in range(start_cycle, end_cycle + 1):
             start_date = CYCLE_DATA["start_date"][cycle]
             end_date = CYCLE_DATA["end_date"][cycle]
 
@@ -95,11 +94,11 @@ class Features(Dataset):
 
         temp_feats2 = []
 
-        for cycle in range(start_cycle, end_cycle + 1):
+        for cycle in range(start_cycle - 1, end_cycle + 1):
             start_date = CYCLE_DATA["start_date"][cycle]
             end_date = CYCLE_DATA["end_date"][cycle]
 
-            for month in range(start_date[1] - 1, 12):
+            for month in range(start_date[1], 12):
                 delayed_aa = self.aa.data[start_date[0]][month]
                 delayed_ssn = self.ssn.data[start_date[0]][month]
                 temp_feats2.append([delayed_aa, delayed_ssn])

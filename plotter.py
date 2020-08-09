@@ -32,24 +32,26 @@ def plot_custom(label, xdata, ydata, filename, xlabel = "Years", cmp_source=None
     source_xdata = []
     source_ydata = []
 
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(21, 9), sharex="col")
-
-    ax1.plot_date(xdata, ydata, xdata=True, label=label, aa=True)
-    ax1.set_xlabel(xlabel)
-    ax1.set_ylabel(label)
-    ax1.legend()
-
     if cmp_source:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(21, 9), sharex="col")
         for idx, year in enumerate(source_data.__yeardata):
             for month, val in enumerate(source_data.__valdata[idx]):
                 source_xdata.append(dt.datetime(year=year, month=month+1, day=15))
                 source_ydata.append(float(val))
 
-        ax2.plot(source_xdata, source_ydata, label=cmp_source, aa=True)
+
+        ax2.plot_date(source_xdata, source_ydata, xdate=True, label=cmp_source, aa=True)
         ax2.set_ylabel(cmp_source)
         ax2.legend()
+    else:
+        fig, ax1 = plt.subplots(1, 1, figsize=(21, 9))
 
-    plt.savefig(graphfolder+filename, dpi=450)
+    ax1.plot(xdata, ydata, label=label, aa=True)
+    ax1.set_xlabel(xlabel)
+    ax1.set_ylabel(label)
+    ax1.legend()
+
+    plt.savefig(graphfolder+filename, dpi=600)
 
 def plot_all(savefile):
 
