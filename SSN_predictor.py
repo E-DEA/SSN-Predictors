@@ -113,17 +113,20 @@ def test(model, test_loader):
 
     return predictions
 
-def predict(model, obs_data, pred_window):
+def predict(model, data_loader):
+    predictions = []
     with torch.no_grad():
-        for idx in range(pred_window):
-            yi = idx//12 + (datasets.end_year - datasets.start_year + 1)
-            ys = math.sin(((2*PI)*yi)/11)
-            yc = math.sin(((2*PI)*yi)/11)
+        for step, (data, target) in enumerate(data_loader):
+            data = data.to(device)
+            target = target.to(device)
 
-            month = (idx % 12) + 1
-            ms = math.sin(((2*PI)*month)/12)
-            mc = math.cos(((2*PI)*month)/12)
+            prediction = model(data.float())
 
+            print("Step [{:4d}/{}] -> Target: {}; Prediction: {}".format(step+1, len(data_loader), target, prediction))
+
+            predictions.append(prediction)
+
+    return predictions
 
 """
 Driver code to run the predictor.
@@ -181,6 +184,7 @@ def main(is_train, is_test, predict, plotting):
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.5, verbose=True)
 
     train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
+    valid_loader = DataLoader(dataset=valid_samples, batch_size=1, shuffle=True)
     test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
 
     if is_train:
@@ -200,6 +204,10 @@ def main(is_train, is_test, predict, plotting):
         print('''Testing the model on last solar cycle''')
 
         plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".format(model.__class__.__name__), xlabel = "Epochs")
+
+        model.eval()
+        print(LINESPLIT)
+        print("Validating model with solar cycle {} data")
 
     if is_test:
         model.eval()

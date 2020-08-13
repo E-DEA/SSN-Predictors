@@ -1,3 +1,0 @@
-Usage: python3 SSN_predictor.py <path_to_ssn_datafile> <path_to_aa_datafile>
-----------------------------------------------------------------
-Code running on device: cuda
