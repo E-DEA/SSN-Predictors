@@ -1,0 +1,49 @@
+Usage: python3 SSN_predictor.py <path_to_ssn_datafile> <path_to_aa_datafile>
+----------------------------------------------------------------
+Code running on device: cuda
+----------------------------------------------------------------
+Data loaded from file locations :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+----------------------------------------------------------------
+Solar cycle data loaded/saved as: cycle_data.pickle
+----------------------------------------------------------------
+SC Number     Start Date       End Date      Solar Max   Length(in months)
+         0      [1749, 1]      [1755, 1]         154.27                  72
+         1      [1755, 2]      [1766, 5]         144.12                 135
+         2      [1766, 6]      [1775, 5]         192.98                 107
+         3      [1775, 6]      [1784, 8]         264.25                 110
+         4      [1784, 9]      [1798, 3]         235.28                 162
+         5      [1798, 4]     [1810, 11]          67.93                 151
+         6     [1810, 12]      [1823, 4]          81.99                 148
+         7      [1823, 5]     [1833, 10]          81.16                 125
+         8     [1833, 11]      [1843, 6]         119.24                 115
+         9      [1843, 7]     [1855, 11]         244.87                 148
+        10     [1855, 12]      [1867, 2]         219.94                 134
+        11      [1867, 3]     [1878, 11]         186.15                 140
+        12     [1878, 12]      [1890, 2]         234.02                 134
+        13      [1890, 3]      [1902, 0]         124.41                 141
+        14      [1902, 1]      [1913, 6]         146.55                 137
+        15      [1913, 7]      [1923, 7]         107.08                 120
+        16      [1923, 8]      [1933, 8]         175.67                 120
+        17      [1933, 9]      [1944, 1]         130.23                 124
+        18      [1944, 2]      [1954, 3]         198.64                 121
+        19      [1954, 4]      [1964, 9]         218.73                 125
+        20     [1964, 10]      [1976, 2]          285.0                 136
+        21      [1976, 3]      [1986, 8]         156.63                 125
+        22      [1986, 9]      [1996, 4]         232.92                 115
+        23      [1996, 5]     [2008, 11]         212.48                 150
+        24     [2008, 12]     [2019, 11]         180.28                 131
+----------------------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=3, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=3, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+----------------------------------------------------------------
+Pre-trained model available, loading model weights
+----------------------------------------------------------------

@@ -102,19 +102,9 @@ def train(model, train_loader, optim, sch, num_epochs):
 
     return avg_loss
 
-def test(model, test_loader):
-    with torch.no_grad():
-        predictions = []
-        for (feats, sns) in test_loader:
-            feats = feats.to(device)
-            sns = sns.to(device)
-
-            predictions.append(model(feats.float()))
-
-    return predictions
-
 def predict(model, data_loader):
     predictions = []
+    total_loss = []
     with torch.no_grad():
         for step, (data, target) in enumerate(data_loader):
             data = data.to(device)
@@ -122,11 +112,13 @@ def predict(model, data_loader):
 
             prediction = model(data.float())
 
-            print("Step [{:4d}/{}] -> Target: {}; Prediction: {}".format(step+1, len(data_loader), target, prediction))
+            print("Step [{:4d}/{}] -> Target: {}; Prediction: {}".\
+            format(step+1, len(data_loader), target, prediction))
 
             predictions.append(prediction)
+            total_loss.append(loss.item())
 
-    return predictions
+    return (predictions, total_loss)
 
 """
 Driver code to run the predictor.
@@ -190,7 +182,8 @@ def main(is_train, is_test, predict, plotting):
     if is_train:
         model.train()
         print(LINESPLIT)
-        print("Training model with: num_epochs={}, start_lr={}".format(epochs, learning_rate))
+        print('''Training model with solar cycle {} to {} data: num_epochs={}, start_lr={}'''.\
+        format(datasets.START_CYCLE, datasets.END_CYCLE - 2, epochs, learning_rate))
 
         loss = train(model, train_loader, optimizer, scheduler, epochs)
         torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, MAX_EPOCHS))
@@ -200,14 +193,14 @@ def main(is_train, is_test, predict, plotting):
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
 
-        print(LINESPLIT)
-        print('''Testing the model on last solar cycle''')
-
-        plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".format(model.__class__.__name__), xlabel = "Epochs")
+        plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".\
+        format(model.__class__.__name__), xlabel = "Epochs")
 
         model.eval()
         print(LINESPLIT)
-        print("Validating model with solar cycle {} data")
+        print("Validating model with solar cycle {} data".format(datasets.END_CYCLE - 1))
+
+        loss = test()
 
     if is_test:
         model.eval()
