@@ -3,55 +3,58 @@
 import os
 import datasets
 
-import pandas as pd
 import datetime as dt
-import utility as ut
 
+from pandas import plotting as pltng
 from matplotlib import pyplot as plt
 from matplotlib import dates as dts
 
 pwd = os.getcwd()
 
-graphfolder = pwd + "/graphs/"
+lossfolder = pwd + "/graphs/loss/"
+predfolder = pwd + "/graphs/ssn/"
 
 LINESPLIT = "-" * 64
 
-pd.plotting.register_matplotlib_converters()
+pltng.register_matplotlib_converters()
 
-def plot_custom(label, xdata, ydata, filename, xlabel = "Years", cmp_source=None):
+def plot_loss(label, steps, loss, filename):
+    print(LINESPLIT)
+    print("Plotting loss data...")
+
+    plt.plot(steps, loss, label=label, aa=True)
+    plt.xlabel("Steps")
+    plt.ylabel("Loss")
+    plt.legend()
+
+    plt.savefig(lossfolder+filename, dpi=600)
+
+
+def plot_predictions(label, xdata, ydata, filename, compare=False):
     print(LINESPLIT)
     print("Plotting data...")
 
-    if cmp_source == "SSN":
+    if cmp_source:
         source = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
         source_data = datasets.SSN(source)
-    elif cmp_source == "AA":
-        source = "data/ISGI/aa_1869-01-01_2018-12-31_D.dat"
-        source_data = datasets.AA(source)
 
-    source_xdata = []
-    source_ydata = []
+        source_xdata = []
+        source_ydata = []
 
-    if cmp_source:
-        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(21, 9), sharex="col")
         for idx, year in enumerate(source_data.__yeardata):
             for month, val in enumerate(source_data.__valdata[idx]):
                 source_xdata.append(dt.datetime(year=year, month=month+1, day=15))
                 source_ydata.append(float(val))
 
+        plt.plot_date(source_xdata, source_ydata, xdate=True, label="SILSO", aa=True)
+        plt.set_ylabel("Monthly SSN")
 
-        ax2.plot_date(source_xdata, source_ydata, xdate=True, label=cmp_source, aa=True)
-        ax2.set_ylabel(cmp_source)
-        ax2.legend()
-    else:
-        fig, ax1 = plt.subplots(1, 1, figsize=(21, 9))
+    plt.plot(xdata, ydata, label=label, aa=True)
+    plt.set_xlabel(xlabel)
+    plt.set_ylabel(label)
+    plt.legend()
 
-    ax1.plot(xdata, ydata, label=label, aa=True)
-    ax1.set_xlabel(xlabel)
-    ax1.set_ylabel(label)
-    ax1.legend()
-
-    plt.savefig(graphfolder+filename, dpi=600)
+    plt.savefig(predfolder+filename, dpi=800)
 
 def plot_all(savefile):
 
@@ -74,7 +77,7 @@ def plot_all(savefile):
 
     for idx, year in enumerate(data1.yeardata):
         for month, ssn in enumerate(data1.valdata[idx]):
-            xdata1.append(dt.datetime(year=year, month=month+1, day=1))
+            xdata1.append(dt.datetime(year=year, month=month+1, day=15))
             ydata1.append(float(ssn))
 
     for idx, year in enumerate(data2.yeardata):
@@ -117,7 +120,7 @@ def plot_all(savefile):
 
 def main():
     savefile = input("Enter the savefile name for the plot: ")
-    plot_data()
+    plot_all(savefile)
 
 if __name__ == '__main__':
     main()

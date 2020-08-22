@@ -39,7 +39,7 @@ BATCH_SIZE = 1
 epochs = 1200
 learning_rate = 0.0002
 
-PRINT_FREQ = 1
+PRINT_FREQ = 5
 SAVE_FREQ = 100
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -102,21 +102,28 @@ def train(model, train_loader, optim, sch, num_epochs):
 
     return avg_loss
 
-def predict(model, data_loader):
+def validate(model, val_loader):
     predictions = []
     total_loss = []
+    running_loss = 0.0
+
     with torch.no_grad():
-        for step, (data, target) in enumerate(data_loader):
+        for step, (data, target) in enumerate(val_loader):
             data = data.to(device)
             target = target.to(device)
 
             prediction = model(data.float())
 
-            print("Step [{:4d}/{}] -> Target: {}; Prediction: {}".\
+            print("Step [{:4d}/{}] -> Target: {}, Prediction: {}".\
             format(step+1, len(data_loader), target, prediction))
 
             predictions.append(prediction)
             total_loss.append(loss.item())
+
+            running_loss += loss.item()
+
+    print(LINESPLIT)
+    print("Average Validation Loss: {}".format(running_loss/len(total_loss)))
 
     return (predictions, total_loss)
 
@@ -125,6 +132,7 @@ Driver code to run the predictor.
 """
 def main(is_train, is_test, predict, plotting):
     if len(sys.argv) < 3:
+        print(LINESPLIT)
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
         data_file = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
         aa_file = "data/ISGI/aa_1869-01-01_2018-12-31_D.dat"
@@ -155,6 +163,7 @@ def main(is_train, is_test, predict, plotting):
 
     train_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=13, end_cycle=22)
     valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=23, end_cycle=23)
+    predn_samples = ut.gen_pred(ssn_data, aa_data, cycle_data, cycle=24, tf=100)
 
     ######## FFNN ########
 
@@ -179,6 +188,8 @@ def main(is_train, is_test, predict, plotting):
     valid_loader = DataLoader(dataset=valid_samples, batch_size=1, shuffle=True)
     test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
 
+    ### Training ###
+
     if is_train:
         model.train()
         print(LINESPLIT)
@@ -188,19 +199,31 @@ def main(is_train, is_test, predict, plotting):
         loss = train(model, train_loader, optimizer, scheduler, epochs)
         torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, MAX_EPOCHS))
 
+        plotter.plot_loss("Average Training Loss", range(len(loss)), loss, "tr_{}.png".\
+        format(model.__class__.__name__))
+
         print(LINESPLIT)
         print('''Training finished successfully.
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
 
-        plotter.plot_custom("Average Training Loss", range(len(loss)), loss, "loss/tr_{}.png".\
-        format(model.__class__.__name__), xlabel = "Epochs")
+        ### Validating ###
 
         model.eval()
         print(LINESPLIT)
         print("Validating model with solar cycle {} data".format(datasets.END_CYCLE - 1))
 
-        loss = test()
+        predictions, loss = predict(model, valid_loader)
+
+        plotter.plot_predictions("SC 23 Prediction", "")
+        plotter.plot_loss("Validation Loss", range(len(loss)), loss, "val_{}.png".\
+        format(model.__class__.__name__))
+
+        print(LINESPLIT)
+        print('''Validation finished successfully.
+        Saved prediction/loss graphs can be found in: {}'''.format(graphfolder))
+
+    ### Predicting ###
 
     if is_test:
         model.eval()

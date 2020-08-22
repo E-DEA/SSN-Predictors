@@ -2,9 +2,12 @@
 
 import sys
 import pickle
+import math
 
 import torch.nn as nn
 import torch.nn.init as init
+
+from sympy import pi as PI
 
 class Logger(object):
     def __init__(self, filepath):
@@ -80,10 +83,39 @@ def get_cycles(ssn_dataset):
 
     return CYCLE_DATA
 
-def gen_test(start_cycle, end_cycle):
-    dataset = "data/SILSO/TSN/SN_m_tot_v2.0.txt"
-    cycle_data = get_cycles(dataset)
-    pass
+def gen_pred(ssn_data, aa_data, cycle_data, cycle, tf):
+    samples = []
+
+    start_date = cycle_data["start_date"][cycle - 1]
+    end_date = cycle_data["end_date"][cycle - 1]
+
+    max_tf = (end_date[0] - start_date[0])*12 + (end_date[1] - start_date[1] + 1)
+
+    if tf > max_tf:
+        print(LINESPLIT)
+        print("WARNING: Selected prediction window {} is GREATER THAN Maximum Prediction window {}\
+        Setting prediction window to the Maximum Predicion window(max_tf)".\
+        format(tf, max_tf))
+        tf = max_tf
+
+    for step in range(tf):
+        month_num = (step % 12) + 1
+        year_index  = (step // 12) + 1
+
+        month = (start_date[1] + month_num - 1) % 12
+        year = (start_date[0] + year_index - 1) + (start_date[1] + month_num - 1)//12
+
+        delayed_ssn = ssn_data.data[year][month]
+        delayed_aa = aa_data.data[year][month]
+
+        ms = math.sin((2*PI*month_num)/12)
+        mc = math.cos((2*PI*month_num)/12)
+        ys = math.sin((2*PI*year_index)/11)
+        yc = math.cos((2*PI*year_index)/11)
+
+        samples.append([ys, yc, ms, mc, delayed_aa, delayed_ssn])
+
+    return samples
 
 def print_cycles(cycle_data):
     print("{}{: >15}{: >15}{: >15}{: >20}"\

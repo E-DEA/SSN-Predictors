@@ -2,14 +2,12 @@
 
 import os
 import math
-import sympy
 
 import numpy as np
 import utility as ut
 
 from torch.utils.data import Dataset
-
-PI = sympy.pi
+from sympy import pi as PI
 
 #Earliest cycle data that is used for prediction.
 START_CYCLE = 12
@@ -45,81 +43,31 @@ class Features(Dataset):
 
         self.targets += self.ssn.data[end_date[0]][:end_date[1]]
 
-        temp_feats1 = []
-
         for cycle in range(start_cycle, end_cycle + 1):
             start_date = CYCLE_DATA["start_date"][cycle]
             end_date = CYCLE_DATA["end_date"][cycle]
 
-            for month in range(start_date[1], 13):
-                month_num = (month - start_date[1] + 1)
+            tf = (end_date[0] - start_date[0])*12 + (end_date[1] - start_date[1] + 1)
 
-                ms = math.sin((2*PI*month_num)/12)
-                mc = math.cos((2*PI*month_num)/12)
-                ys = math.sin((2*PI*1)/11)
-                yc = math.cos((2*PI*1)/11)
+            start_date = CYCLE_DATA["start_date"][cycle - 1]
+            end_date = CYCLE_DATA["end_date"][cycle - 1]
 
-                temp_feats1.append([ys, yc, ms, mc])
+            for step in range(tf):
+                month_num = (step % 12) + 1
+                year_index  = (step // 12) + 1
 
-            for year in range(start_date[0] + 1, end_date[0]):
-                for month in range(1, 13):
-                    if month < start_date[1]:
-                        month_num = (13 - start_date[1] + month)
-                    else:
-                        month_num = (month - start_date[1] + 1)
+                month = (start_date[1] + month_num - 1) % 12
+                year = (start_date[0] + year_index - 1) + (start_date[1] + month_num - 1)//12
 
-                    year_index = ((month - start_date[1]) + (year - start_date[0])*12)//12 + 1
-
-                    ms = math.sin((2*PI*month_num)/12)
-                    mc = math.cos((2*PI*month_num)/12)
-                    ys = math.sin((2*PI*year_index)/11)
-                    yc = math.cos((2*PI*year_index)/11)
-
-                    temp_feats1.append([ys, yc, ms, mc])
-
-            for month in range(1, end_date[1] + 1):
-                if month < start_date[1]:
-                    month_num = (13 - start_date[1] + month)
-                else:
-                    month_num = (month - start_date[1] + 1)
-
-                year_index = ((month - start_date[1]) + (end_date[0] - start_date[0])*12)//12 + 1
+                delayed_aa = self.aa.data[year][month]
+                delayed_ssn = self.ssn.data[year][month]
 
                 ms = math.sin((2*PI*month_num)/12)
                 mc = math.cos((2*PI*month_num)/12)
                 ys = math.sin((2*PI*year_index)/11)
                 yc = math.cos((2*PI*year_index)/11)
 
-                temp_feats1.append([ys, yc, ms, mc])
-
-        temp_feats2 = []
-
-        for cycle in range(start_cycle - 1, end_cycle + 1):
-            start_date = CYCLE_DATA["start_date"][cycle]
-            end_date = CYCLE_DATA["end_date"][cycle]
-
-            for month in range(start_date[1], 12):
-                delayed_aa = self.aa.data[start_date[0]][month]
-                delayed_ssn = self.ssn.data[start_date[0]][month]
-                temp_feats2.append([delayed_aa, delayed_ssn])
-
-            for year in range(start_date[0] + 1, end_date[0]):
-                for month in range(0, 12):
-                    delayed_aa = self.aa.data[year][month]
-                    delayed_ssn = self.ssn.data[year][month]
-
-                    temp_feats2.append([delayed_aa, delayed_ssn])
-
-            for month in range(0, end_date[1]):
-                delayed_aa = self.aa.data[end_date[0]][month]
-                delayed_ssn = self.ssn.data[end_date[0]][month]
-
-                temp_feats2.append([delayed_aa, delayed_ssn])
-
-        for idx, feat in enumerate(temp_feats1):
-            temp_feat = feat + temp_feats2[idx]
-            self.features.append(np.array(temp_feat))
-
+                self.features.append([ys, yc, ms, mc, delayed_aa, delayed_ssn])
 
 class AA(Dataset):
     def __init__(self, file):
@@ -137,7 +85,7 @@ class AA(Dataset):
         return len(self.data)
 
     def __getitem__(self, index):
-        return (self.__yeardata[index], self.__valdata[index])
+        return (self.yeardata[index], self.valdata[index])
 
     def __extract_data(self):
         read = False
