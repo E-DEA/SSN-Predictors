@@ -3,6 +3,8 @@
 import sys
 import pickle
 import math
+import datetime as dt
+import numpy as np
 
 import torch.nn as nn
 import torch.nn.init as init
@@ -85,6 +87,7 @@ def get_cycles(ssn_dataset):
 
 def gen_pred(ssn_data, aa_data, cycle_data, cycle, tf):
     samples = []
+    timestamps = []
 
     start_date = cycle_data["start_date"][cycle - 1]
     end_date = cycle_data["end_date"][cycle - 1]
@@ -113,9 +116,13 @@ def gen_pred(ssn_data, aa_data, cycle_data, cycle, tf):
         ys = math.sin((2*PI*year_index)/11)
         yc = math.cos((2*PI*year_index)/11)
 
-        samples.append([ys, yc, ms, mc, delayed_aa, delayed_ssn])
+        month = (end_date[1] + month_num) % 12
+        year = (end_date[0] + year_index) + (end_date[1] + month_num)//12
 
-    return samples
+        samples.append(np.array([ys, yc, ms, mc, delayed_aa, delayed_ssn]))
+        timestamps.append(dt.datetime(year=year, month=month+1, day=15))
+
+    return timestamps, samples
 
 def print_cycles(cycle_data):
     print("{}{: >15}{: >15}{: >15}{: >20}"\

@@ -2,22 +2,16 @@
 
 import os
 import sys
-import math
 import torch
 import models
 import datasets
 import plotter
 
 import utility as ut
-import pandas as pd
 import datetime as dt
 
-from sklearn.model_selection import train_test_split
-from torch.utils.data import DataLoader, random_split
-from scipy.ndimage.filters import gaussian_filter1d
-
-from matplotlib import pyplot as plt
-from matplotlib import dates as dts
+from pandas import plotting as pltng
+from torch.utils.data import DataLoader
 
 pwd = os.getcwd()
 
@@ -34,7 +28,7 @@ seed = 1
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 1
+BATCH_SIZE = 3
 
 epochs = 1200
 learning_rate = 0.0002
@@ -44,7 +38,7 @@ SAVE_FREQ = 100
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-pd.plotting.register_matplotlib_converters()
+pltng.register_matplotlib_converters()
 
 def load_model(model, folder=modelfolder):
     for i in range(MAX_EPOCHS, SAVE_FREQ, -SAVE_FREQ):
@@ -90,13 +84,13 @@ def train(model, train_loader, optim, sch, num_epochs):
 
         sch.step(running_loss/total_steps)
 
-        if (epoch+1) % SAVE_FREQ == 0:
+        if epoch % SAVE_FREQ == 0:
             torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, epoch+1))
             print(LINESPLIT)
             print("Model checkpoint saved as {}_{}.pth".format(model.__class__.__name__, epoch+1))
             print(LINESPLIT)
 
-        if (epoch+1) % PRINT_FREQ == 0:
+        if epoch % PRINT_FREQ == 0:
             print("Epoch [{:4d}/{}] -> Loss: {:.4f}".format(epoch+1, num_epochs, running_loss/total_steps))
             running_loss = 0.0
 
@@ -163,7 +157,7 @@ def main(is_train, is_test, predict, plotting):
 
     train_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=13, end_cycle=22)
     valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=23, end_cycle=23)
-    predn_samples = ut.gen_pred(ssn_data, aa_data, cycle_data, cycle=24, tf=100)
+    predn_timestamps, predn_samples = ut.gen_pred(ssn_data, aa_data, cycle_data, cycle=24, tf=100)
 
     ######## FFNN ########
 
@@ -213,9 +207,10 @@ def main(is_train, is_test, predict, plotting):
         print(LINESPLIT)
         print("Validating model with solar cycle {} data".format(datasets.END_CYCLE - 1))
 
-        predictions, loss = predict(model, valid_loader)
+        predictions, loss = validate(model, valid_loader)
 
-        plotter.plot_predictions("SC 23 Prediction", "")
+        plotter.plot_predictions("SC 23 Prediction", predn_timestamps, predictions,\
+        "SC 23 Validation.png", compare=False)
         plotter.plot_loss("Validation Loss", range(len(loss)), loss, "val_{}.png".\
         format(model.__class__.__name__))
 

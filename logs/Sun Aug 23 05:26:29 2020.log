@@ -1,0 +1,173 @@
+----------------------------------------------------------------
+Usage: python3 SSN_predictor.py <path_to_ssn_datafile> <path_to_aa_datafile>
+----------------------------------------------------------------
+Code running on device: cuda
+----------------------------------------------------------------
+Data loaded from file locations :
+    SSN - /home/extern/Documents/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Documents/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+----------------------------------------------------------------
+Solar cycle data loaded/saved as: cycle_data.pickle
+----------------------------------------------------------------
+SC Number     Start Date       End Date      Solar Max   Length(in months)
+         0      [1749, 1]      [1755, 1]         154.27                  72
+         1      [1755, 2]      [1766, 5]         144.12                 135
+         2      [1766, 6]      [1775, 5]         192.98                 107
+         3      [1775, 6]      [1784, 8]         264.25                 110
+         4      [1784, 9]      [1798, 3]         235.28                 162
+         5      [1798, 4]     [1810, 11]          67.93                 151
+         6     [1810, 12]      [1823, 4]          81.99                 148
+         7      [1823, 5]     [1833, 10]          81.16                 125
+         8     [1833, 11]      [1843, 6]         119.24                 115
+         9      [1843, 7]     [1855, 11]         244.87                 148
+        10     [1855, 12]      [1867, 2]         219.94                 134
+        11      [1867, 3]     [1878, 11]         186.15                 140
+        12     [1878, 12]      [1890, 2]         234.02                 134
+        13      [1890, 3]      [1902, 0]         124.41                 141
+        14      [1902, 1]      [1913, 6]         146.55                 137
+        15      [1913, 7]      [1923, 7]         107.08                 120
+        16      [1923, 8]      [1933, 8]         175.67                 120
+        17      [1933, 9]      [1944, 1]         130.23                 124
+        18      [1944, 2]      [1954, 3]         198.64                 121
+        19      [1954, 4]      [1964, 9]         218.73                 125
+        20     [1964, 10]      [1976, 2]          285.0                 136
+        21      [1976, 3]      [1986, 8]         156.63                 125
+        22      [1986, 9]      [1996, 4]         232.92                 115
+        23      [1996, 5]     [2008, 11]         212.48                 150
+        24     [2008, 12]     [2019, 11]         180.28                 131
+----------------------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=3, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=3, out_features=1, bias=True)
+  )
+)    Training mode: True    Testing mode: False
+----------------------------------------------------------------
+No pre-trained models available, initializing model weights
+----------------------------------------------------------------
+Training model with solar cycle 12 to 22 data: num_epochs=1200, start_lr=0.0002
+Epoch [   5/1200] -> Loss: 34.7293
+Epoch [  10/1200] -> Loss: 34.2223
+Epoch [  15/1200] -> Loss: 33.9547
+Epoch [  20/1200] -> Loss: 33.7547
+Epoch [  25/1200] -> Loss: 33.6153
+Epoch [  30/1200] -> Loss: 33.5253
+Epoch [  35/1200] -> Loss: 33.4428
+Epoch [  40/1200] -> Loss: 33.3495
+Epoch [  45/1200] -> Loss: 33.2970
+Epoch [  50/1200] -> Loss: 33.2214
+Epoch [  55/1200] -> Loss: 33.1694
+Epoch [  60/1200] -> Loss: 33.0787
+Epoch [  65/1200] -> Loss: 33.0006
+Epoch [  70/1200] -> Loss: 32.9558
+Epoch [  75/1200] -> Loss: 32.8768
+Epoch [  80/1200] -> Loss: 32.7835
+Epoch [  85/1200] -> Loss: 32.7251
+Epoch [  90/1200] -> Loss: 32.6595
+Epoch [  95/1200] -> Loss: 32.5678
+----------------------------------------------------------------
+Model checkpoint saved as FFNN_100.pth
+----------------------------------------------------------------
+Epoch [ 100/1200] -> Loss: 32.4919
+Epoch [ 105/1200] -> Loss: 32.4338
+Epoch [ 110/1200] -> Loss: 32.3530
+Epoch [ 115/1200] -> Loss: 32.2786
+Epoch [ 120/1200] -> Loss: 32.1914
+Epoch [ 125/1200] -> Loss: 32.0946
+Epoch [ 130/1200] -> Loss: 31.9753
+Epoch [ 135/1200] -> Loss: 31.9356
+Epoch [ 140/1200] -> Loss: 31.8422
+Epoch [ 145/1200] -> Loss: 31.7383
+Epoch [ 150/1200] -> Loss: 31.6567
+Epoch [ 155/1200] -> Loss: 31.5475
+Epoch [ 160/1200] -> Loss: 31.4328
+Epoch [ 165/1200] -> Loss: 31.3241
+Epoch [ 170/1200] -> Loss: 31.2138
+Epoch [ 175/1200] -> Loss: 31.0951
+Epoch [ 180/1200] -> Loss: 30.9629
+Epoch [ 185/1200] -> Loss: 30.8354
+Epoch [ 190/1200] -> Loss: 30.7042
+Epoch [ 195/1200] -> Loss: 30.5870
+----------------------------------------------------------------
+Model checkpoint saved as FFNN_200.pth
+----------------------------------------------------------------
+Epoch [ 200/1200] -> Loss: 30.4706
+Epoch [ 205/1200] -> Loss: 30.3378
+Epoch [ 210/1200] -> Loss: 30.2259
+Epoch [ 215/1200] -> Loss: 30.0922
+Epoch [ 220/1200] -> Loss: 29.9631
+Epoch [ 225/1200] -> Loss: 29.8327
+Epoch [ 230/1200] -> Loss: 29.7280
+Epoch [ 235/1200] -> Loss: 29.5979
+Epoch [ 240/1200] -> Loss: 29.5094
+Epoch [ 245/1200] -> Loss: 29.3950
+Epoch [ 250/1200] -> Loss: 29.3045
+Epoch [ 255/1200] -> Loss: 29.1525
+Epoch [ 260/1200] -> Loss: 29.1144
+Epoch [ 265/1200] -> Loss: 29.0535
+Epoch [ 270/1200] -> Loss: 28.9726
+Epoch [ 275/1200] -> Loss: 28.9109
+Epoch [ 280/1200] -> Loss: 28.8583
+Epoch [ 285/1200] -> Loss: 28.8447
+Epoch [ 290/1200] -> Loss: 28.7761
+Epoch   293: reducing learning rate of group 0 to 1.0000e-04.
+Epoch [ 295/1200] -> Loss: 28.7179
+----------------------------------------------------------------
+Model checkpoint saved as FFNN_300.pth
+----------------------------------------------------------------
+Epoch [ 300/1200] -> Loss: 28.6779
+Epoch [ 305/1200] -> Loss: 28.6534
+Epoch [ 310/1200] -> Loss: 28.6400
+Epoch [ 315/1200] -> Loss: 28.6199
+Epoch [ 320/1200] -> Loss: 28.5961
+Epoch [ 325/1200] -> Loss: 28.5391
+Epoch [ 330/1200] -> Loss: 28.5540
+Epoch [ 335/1200] -> Loss: 28.5352
+Epoch [ 340/1200] -> Loss: 28.5111
+Epoch [ 345/1200] -> Loss: 28.4386
+Epoch [ 350/1200] -> Loss: 28.4790
+Epoch [ 355/1200] -> Loss: 28.4464
+Epoch   356: reducing learning rate of group 0 to 5.0000e-05.
+Epoch [ 360/1200] -> Loss: 28.4240
+Epoch [ 365/1200] -> Loss: 28.4182
+Epoch [ 370/1200] -> Loss: 28.4108
+Epoch [ 375/1200] -> Loss: 28.3987
+Epoch [ 380/1200] -> Loss: 28.3886
+Epoch [ 385/1200] -> Loss: 28.4017
+Epoch [ 390/1200] -> Loss: 28.3860
+Epoch [ 395/1200] -> Loss: 28.3716
+----------------------------------------------------------------
+Model checkpoint saved as FFNN_400.pth
+----------------------------------------------------------------
+Epoch [ 400/1200] -> Loss: 28.3548
+Epoch [ 405/1200] -> Loss: 28.3601
+Epoch [ 410/1200] -> Loss: 28.3476
+Epoch [ 415/1200] -> Loss: 28.3462
+Epoch [ 420/1200] -> Loss: 28.3418
+Epoch [ 425/1200] -> Loss: 28.3319
+Epoch [ 430/1200] -> Loss: 28.3269
+Epoch [ 435/1200] -> Loss: 28.3264
+Epoch [ 440/1200] -> Loss: 28.3233
+Epoch [ 445/1200] -> Loss: 28.3193
+Epoch [ 450/1200] -> Loss: 28.3108
+Epoch [ 455/1200] -> Loss: 28.3060
+Epoch [ 460/1200] -> Loss: 28.3006
+Epoch   462: reducing learning rate of group 0 to 2.5000e-05.
+Epoch [ 465/1200] -> Loss: 28.2864
+Epoch [ 470/1200] -> Loss: 28.2814
+Epoch   473: reducing learning rate of group 0 to 1.2500e-05.
+Epoch [ 475/1200] -> Loss: 28.2741
+Epoch [ 480/1200] -> Loss: 28.2720
+Epoch   485: reducing learning rate of group 0 to 6.2500e-06.
+Epoch [ 485/1200] -> Loss: 28.2711
+Epoch [ 490/1200] -> Loss: 28.2669
+Epoch [ 495/1200] -> Loss: 28.2669
+Epoch   497: reducing learning rate of group 0 to 3.1250e-06.
+----------------------------------------------------------------
+Model checkpoint saved as FFNN_500.pth
+----------------------------------------------------------------
+Epoch [ 500/1200] -> Loss: 28.2645
+Epoch [ 505/1200] -> Loss: 28.2643

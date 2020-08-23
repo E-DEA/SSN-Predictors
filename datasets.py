@@ -4,7 +4,6 @@ import os
 import math
 
 import numpy as np
-import utility as ut
 
 from torch.utils.data import Dataset
 from sympy import pi as PI
@@ -67,7 +66,7 @@ class Features(Dataset):
                 ys = math.sin((2*PI*year_index)/11)
                 yc = math.cos((2*PI*year_index)/11)
 
-                self.features.append([ys, yc, ms, mc, delayed_aa, delayed_ssn])
+                self.features.append(np.array([ys, yc, ms, mc, delayed_aa, delayed_ssn]))
 
 class AA(Dataset):
     def __init__(self, file):
