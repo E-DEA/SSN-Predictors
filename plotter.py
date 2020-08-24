@@ -34,27 +34,39 @@ def plot_predictions(label, xdata, ydata, filename, compare=False):
     print(LINESPLIT)
     print("Plotting data...")
 
-    if cmp_source:
+    fig, ax = plt.subplots()
+
+    if compare:
+        fig, ax = plt.subplots(figsize=(36, 9))
         source = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
         source_data = datasets.SSN(source)
 
         source_xdata = []
         source_ydata = []
 
-        for idx, year in enumerate(source_data.__yeardata):
-            for month, val in enumerate(source_data.__valdata[idx]):
+        for idx, year in enumerate(source_data.yeardata):
+            for month, val in enumerate(source_data.valdata[idx]):
                 source_xdata.append(dt.datetime(year=year, month=month+1, day=15))
                 source_ydata.append(float(val))
 
-        plt.plot_date(source_xdata, source_ydata, xdate=True, label="SILSO", aa=True)
-        plt.set_ylabel("Monthly SSN")
+        ax.plot_date(source_xdata, source_ydata, "-m", xdate=True, label="SILSO", lw=0.5, aa=True)
+        ax.set_ylabel("Monthly SSN")
 
-    plt.plot(xdata, ydata, label=label, aa=True)
-    plt.set_xlabel(xlabel)
-    plt.set_ylabel(label)
+    ax.plot_date(xdata, ydata, "--b", xdate=True, label=label, lw=0.75, aa=True)
+    ax.set_xlabel("Year")
+    ax.set_ylabel(label)
     plt.legend()
 
-    plt.savefig(predfolder+filename, dpi=800)
+    majortick = dts.YearLocator(5)
+    minortick = dts.YearLocator(1)
+    ticker_fmt = dts.DateFormatter("%Y")
+
+    ax.xaxis.set_major_locator(majortick)
+    ax.xaxis.set_major_formatter(ticker_fmt)
+    ax.xaxis.set_minor_locator(minortick)
+
+    plt.savefig(predfolder+filename, dpi=240)
+    plt.close("all")
 
 def plot_all(savefile):
 
@@ -88,14 +100,14 @@ def plot_all(savefile):
     ysmoothed1 = ut.sidc_filter(ydata1)
     ysmoothed2 = ut.sidc_filter(ydata2)
 
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(21, 9), sharex="col")
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(36, 9), sharex="col")
 
-    ax1.plot_date(xdata1, ydata1, "-b", xdate=True, label=data_source, lw=0.25, aa=True)
+    ax1.plot_date(xdata1, ydata1, "-b", xdate=True, label=data_source, lw=0.5, aa=True)
     ax1.plot_date(xdata1, ysmoothed1, "--b", xdate=True, alpha=0.75, lw=1, aa=True)
 
     ax1.set_ylabel("Monthly Sunspot Number")
 
-    ax2.plot_date(xdata2, ydata2, "m", xdate=True, label=aa_source, lw=0.25, aa=True)
+    ax2.plot_date(xdata2, ydata2, "-m", xdate=True, label=aa_source, lw=0.5, aa=True)
     ax2.plot_date(xdata2, ysmoothed2, "--m", xdate=True, alpha=0.75, lw=1, aa=True)
 
     ax2.set_xlabel("Year")
@@ -112,7 +124,7 @@ def plot_all(savefile):
     ax2.xaxis.set_major_formatter(ticker_fmt)
     ax2.xaxis.set_minor_locator(minortick)
 
-    plt.savefig(graphfolder+savefile, dpi=600)
+    plt.savefig(graphfolder+savefile, dpi=240)
     plt.close("all")
 
     print(LINESPLIT)

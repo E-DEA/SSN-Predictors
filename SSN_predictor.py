@@ -22,16 +22,18 @@ logfolder = pwd + "/logs/"
 LINESPLIT = "-" * 64
 
 sys.stdout = ut.Logger("{}{}.log".format(logfolder, dt.datetime.ctime(dt.datetime.now())))
+sys.stderr = sys.stdout
 
 seed = 1
 
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 3
+BATCH_SIZE = 1
 
 epochs = 1200
-learning_rate = 0.0002
+learning_rate = 0.0001
+eps = 1e-6
 
 PRINT_FREQ = 5
 SAVE_FREQ = 100
@@ -73,7 +75,7 @@ def train(model, train_loader, optim, sch, num_epochs):
             optim.zero_grad()
 
             outputs = model(feats.float())
-            loss = torch.sqrt(models.criterion(outputs.squeeze(1), sns.float()))
+            loss = torch.sqrt(models.criterion(outputs.squeeze(1), sns.float()) + eps)
 
             loss.backward()
             optim.step()
@@ -84,13 +86,13 @@ def train(model, train_loader, optim, sch, num_epochs):
 
         sch.step(running_loss/total_steps)
 
-        if epoch % SAVE_FREQ == 0:
+        if (epoch+1) % SAVE_FREQ == 0:
             torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, epoch+1))
             print(LINESPLIT)
             print("Model checkpoint saved as {}_{}.pth".format(model.__class__.__name__, epoch+1))
             print(LINESPLIT)
 
-        if epoch % PRINT_FREQ == 0:
+        if (epoch+1) % PRINT_FREQ == 0:
             print("Epoch [{:4d}/{}] -> Loss: {:.4f}".format(epoch+1, num_epochs, running_loss/total_steps))
             running_loss = 0.0
 
@@ -107,11 +109,12 @@ def validate(model, val_loader):
             target = target.to(device)
 
             prediction = model(data.float())
+            loss = torch.sqrt(models.criterion(prediction.squeeze(1), target.float()))
 
             print("Step [{:4d}/{}] -> Target: {}, Prediction: {}".\
-            format(step+1, len(data_loader), target, prediction))
+            format(step+1, len(val_loader), target.item(), prediction.item()))
 
-            predictions.append(prediction)
+            predictions.append(float(prediction.item()))
             total_loss.append(loss.item())
 
             running_loss += loss.item()
@@ -157,7 +160,8 @@ def main(is_train, is_test, predict, plotting):
 
     train_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=13, end_cycle=22)
     valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=23, end_cycle=23)
-    predn_timestamps, predn_samples = ut.gen_pred(ssn_data, aa_data, cycle_data, cycle=24, tf=100)
+    valid_timestamps, _ = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=23, tf=cycle_data["length"][23])
+    predn_timestamps, predn_samples = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=24)
 
     ######## FFNN ########
 
@@ -176,11 +180,10 @@ def main(is_train, is_test, predict, plotting):
             print("Warning: Testing/Prediction is ON with training OFF and no pretrained model available")
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.5, verbose=True)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.9, verbose=True)
 
     train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
-    valid_loader = DataLoader(dataset=valid_samples, batch_size=1, shuffle=True)
-    test_loader = DataLoader(dataset=train_samples, batch_size=1, shuffle=False)
+    valid_loader = DataLoader(dataset=valid_samples, batch_size=1, shuffle=False)
 
     ### Training ###
 
@@ -207,15 +210,15 @@ def main(is_train, is_test, predict, plotting):
         print(LINESPLIT)
         print("Validating model with solar cycle {} data".format(datasets.END_CYCLE - 1))
 
-        predictions, loss = validate(model, valid_loader)
+        valid_predictions, valid_loss = validate(model, valid_loader)
 
-        plotter.plot_predictions("SC 23 Prediction", predn_timestamps, predictions,\
-        "SC 23 Validation.png", compare=False)
-        plotter.plot_loss("Validation Loss", range(len(loss)), loss, "val_{}.png".\
+        plotter.plot_predictions("SC{} Prediction".format(datasets.END_CYCLE - 1),\
+        valid_timestamps, valid_predictions, "SC 23 Validation.png", compare=True)
+        plotter.plot_loss("Validation Loss", range(len(valid_loss)), valid_loss, "val_{}.png".\
         format(model.__class__.__name__))
 
         print(LINESPLIT)
-        print('''Validation finished successfully.
+        print('''Validation finished successfully.\
         Saved prediction/loss graphs can be found in: {}'''.format(graphfolder))
 
     ### Predicting ###

@@ -85,21 +85,15 @@ def get_cycles(ssn_dataset):
 
     return CYCLE_DATA
 
-def gen_pred(ssn_data, aa_data, cycle_data, cycle, tf):
+def gen_samples(ssn_data, aa_data, cycle_data, cycle, tf=None):
     samples = []
     timestamps = []
 
     start_date = cycle_data["start_date"][cycle - 1]
     end_date = cycle_data["end_date"][cycle - 1]
 
-    max_tf = (end_date[0] - start_date[0])*12 + (end_date[1] - start_date[1] + 1)
-
-    if tf > max_tf:
-        print(LINESPLIT)
-        print("WARNING: Selected prediction window {} is GREATER THAN Maximum Prediction window {}\
-        Setting prediction window to the Maximum Predicion window(max_tf)".\
-        format(tf, max_tf))
-        tf = max_tf
+    if tf==None:
+        tf = (end_date[0] - start_date[0])*12 + (end_date[1] - start_date[1] + 1)
 
     for step in range(tf):
         month_num = (step % 12) + 1
@@ -116,8 +110,8 @@ def gen_pred(ssn_data, aa_data, cycle_data, cycle, tf):
         ys = math.sin((2*PI*year_index)/11)
         yc = math.cos((2*PI*year_index)/11)
 
-        month = (end_date[1] + month_num) % 12
-        year = (end_date[0] + year_index) + (end_date[1] + month_num)//12
+        month = (end_date[1] + month_num - 1) % 12
+        year = (end_date[0] + year_index - 1) + (end_date[1] + month_num  - 1)//12
 
         samples.append(np.array([ys, yc, ms, mc, delayed_aa, delayed_ssn]))
         timestamps.append(dt.datetime(year=year, month=month+1, day=15))
