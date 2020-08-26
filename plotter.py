@@ -37,7 +37,6 @@ def plot_predictions(label, xdata, ydata, filename, compare=False):
     fig, ax = plt.subplots()
 
     if compare:
-        fig, ax = plt.subplots(figsize=(36, 9))
         source = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
         source_data = datasets.SSN(source)
 
@@ -45,9 +44,10 @@ def plot_predictions(label, xdata, ydata, filename, compare=False):
         source_ydata = []
 
         for idx, year in enumerate(source_data.yeardata):
-            for month, val in enumerate(source_data.valdata[idx]):
-                source_xdata.append(dt.datetime(year=year, month=month+1, day=15))
-                source_ydata.append(float(val))
+            if year >= xdata[0].year[0] and year <= xdata[-1].year[0]:
+                for month, val in enumerate(source_data.valdata[idx]):
+                    source_xdata.append(dt.datetime(year=year, month=month+1, day=15))
+                    source_ydata.append(float(val))
 
         ax.plot_date(source_xdata, source_ydata, "-m", xdate=True, label="SILSO", lw=0.5, aa=True)
         ax.set_ylabel("Monthly SSN")

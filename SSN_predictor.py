@@ -98,7 +98,7 @@ def train(model, train_loader, optim, sch, num_epochs):
 
     return avg_loss
 
-def validate(model, val_loader):
+def validate(model, val_loader, timestamps):
     predictions = []
     total_loss = []
     running_loss = 0.0
@@ -111,8 +111,9 @@ def validate(model, val_loader):
             prediction = model(data.float())
             loss = torch.sqrt(models.criterion(prediction.squeeze(1), target.float()))
 
-            print("Step [{:4d}/{}] -> Target: {}, Prediction: {}".\
-            format(step+1, len(val_loader), target.item(), prediction.item()))
+            print("Step [{:4d}/{}] -> Date: {}/{}, Target: {}, Prediction: {}".\
+            format(step+1, len(val_loader), timestamps[step][1], timestamps[step][0],\
+            target.item(), prediction.item()))
 
             predictions.append(float(prediction.item()))
             total_loss.append(loss.item())
@@ -124,10 +125,28 @@ def validate(model, val_loader):
 
     return (predictions, total_loss)
 
+def predict(model, pred_feats, timestamps):
+    predictions = []
+
+    with torch.no_grad():
+        for step, data in enumerate(pred_feats):
+            data = data.to(device)
+            target = target.to(device)
+
+            prediction = model(data.float())
+
+            print("Step [{:4d}/{}] -> Date: {}/{}, Prediction: {}".\
+            format(step+1, len(pred_feats), timestamps[step][1], timestamps[step][0],\
+            prediction.item()))
+
+            predictions.append(float(prediction.item()))
+
+    return predictions
+
 """
 Driver code to run the predictor.
 """
-def main(is_train, is_test, predict, plotting):
+def main(is_train, predict, plotting):
     if len(sys.argv) < 3:
         print(LINESPLIT)
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
@@ -148,7 +167,7 @@ def main(is_train, is_test, predict, plotting):
     SSN - {}
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
 
-    if plotting == "all" or plotting == "both":
+    if plotting:
         plotter.plot_all("combined_test.jpg")
 
     cycle_data = ut.get_cycles(ssn_data)
@@ -163,7 +182,7 @@ def main(is_train, is_test, predict, plotting):
     valid_timestamps, _ = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=23, tf=cycle_data["length"][23])
     predn_timestamps, predn_samples = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=24)
 
-    ######## FFNN ########
+    ############ FFNN ############
 
     model = models.FFNN(inp_dim=6).to(device)
 
@@ -204,13 +223,13 @@ def main(is_train, is_test, predict, plotting):
         Saved model checkpoints can be found in: {}
         Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
 
-        ### Validating ###
+    ### Validating ###
 
         model.eval()
         print(LINESPLIT)
-        print("Validating model with solar cycle {} data".format(datasets.END_CYCLE - 1))
+        print("Validating model for solar cycle {} data".format(datasets.END_CYCLE - 1))
 
-        valid_predictions, valid_loss = validate(model, valid_loader)
+        valid_predictions, valid_loss = validate(model, valid_loader, valid_timestamps)
 
         plotter.plot_predictions("SC{} Prediction".format(datasets.END_CYCLE - 1),\
         valid_timestamps, valid_predictions, "SC 23 Validation.png", compare=True)
@@ -223,19 +242,22 @@ def main(is_train, is_test, predict, plotting):
 
     ### Predicting ###
 
-    if is_test:
+    if predict:
         model.eval()
         print(LINESPLIT)
-        print("Testing model")
-        predictions = test(model, test_loader)
+        print("Predicting SC {} using the above trained model".format(datasets.END_CYCLE))
 
-        print_data(predictions, train_samples.targets, "ssn/{}.png".format(model.__class__.__name__))
+        predn_predictions = predict(model, predn_samples, predn_timestamps)
 
-    ######## RNN ########
+        plotter.plot_predictions("SC{} Prediction".format(datasets.END_CYCLE),\
+        predn_timestamps, predn_predictions, "SC 24 Prediction.png", compare=True)
+
+    ############ RNN ############
+
 
 
 if __name__=="__main__":
     is_train = True
-    is_test = False
     predict = False
-    main(is_train, is_test, predict, "custom")
+    plotting = True
+    main(is_train, predict, plotting)
