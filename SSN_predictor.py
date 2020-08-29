@@ -19,7 +19,7 @@ graphfolder = pwd + "/graphs/"
 modelfolder = pwd + "/models/"
 logfolder = pwd + "/logs/"
 
-LINESPLIT = "-" * 64
+LINESPLIT = "-" * 100
 
 sys.stdout = ut.Logger("{}{}.log".format(logfolder, dt.datetime.ctime(dt.datetime.now())))
 sys.stderr = sys.stdout
@@ -29,9 +29,9 @@ seed = 1
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 1
+BATCH_SIZE = 2
 
-epochs = 1200
+epochs = 1400
 learning_rate = 0.0001
 eps = 1e-6
 
@@ -89,7 +89,7 @@ def train(model, train_loader, optim, sch, num_epochs):
         if (epoch+1) % SAVE_FREQ == 0:
             torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, epoch+1))
             print(LINESPLIT)
-            print("Model checkpoint saved as {}_{}.pth".format(model.__class__.__name__, epoch+1))
+            print("Model checkpoint saved as _{}_{}.pth".format(model.__class__.__name__, epoch+1))
             print(LINESPLIT)
 
         if (epoch+1) % PRINT_FREQ == 0:
@@ -112,7 +112,7 @@ def validate(model, val_loader, timestamps):
             loss = torch.sqrt(models.criterion(prediction.squeeze(1), target.float()))
 
             print("Step [{:4d}/{}] -> Date: {}/{}, Target: {}, Prediction: {}".\
-            format(step+1, len(val_loader), timestamps[step][1], timestamps[step][0],\
+            format(step+1, len(val_loader), timestamps[step].month, timestamps[step].year,\
             target.item(), prediction.item()))
 
             predictions.append(float(prediction.item()))
@@ -130,13 +130,12 @@ def predict(model, pred_feats, timestamps):
 
     with torch.no_grad():
         for step, data in enumerate(pred_feats):
-            data = data.to(device)
-            target = target.to(device)
+            data = torch.tensor(data).to(device)
 
             prediction = model(data.float())
 
             print("Step [{:4d}/{}] -> Date: {}/{}, Prediction: {}".\
-            format(step+1, len(pred_feats), timestamps[step][1], timestamps[step][0],\
+            format(step+1, len(pred_feats), timestamps[step].month, timestamps[step].year,\
             prediction.item()))
 
             predictions.append(float(prediction.item()))
@@ -146,7 +145,7 @@ def predict(model, pred_feats, timestamps):
 """
 Driver code to run the predictor.
 """
-def main(is_train, predict, plotting):
+def main(is_train, prediction, plotting):
     if len(sys.argv) < 3:
         print(LINESPLIT)
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
@@ -168,7 +167,7 @@ def main(is_train, predict, plotting):
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
 
     if plotting:
-        plotter.plot_all("combined_test.jpg")
+        plotter.plot_all("combined_data.jpg")
 
     cycle_data = ut.get_cycles(ssn_data)
 
@@ -186,20 +185,27 @@ def main(is_train, predict, plotting):
 
     model = models.FFNN(inp_dim=6).to(device)
 
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.9, verbose=True)
+
     print(LINESPLIT)
     print('''Selected model: {}\
     Training mode: {}\
-    Testing mode: {}'''.format(model, is_train, is_test))
+    Prediction mode: {}'''.format(model, is_train, prediction))
+
+    print(LINESPLIT)
+    print("Selected optimizer: {}".format(optimizer))
+
+    print(LINESPLIT)
+    print('''Selected scheduler: {}(
+    {})'''.format(scheduler.__class__.__name__, scheduler.state_dict()))
 
     pre_trained = load_model(model)
 
     if not pre_trained:
-        if not is_train and (is_test or predict):
+        if not is_train and predict:
             print(LINESPLIT)
-            print("Warning: Testing/Prediction is ON with training OFF and no pretrained model available")
-
-    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
-    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.9, verbose=True)
+            print("Warning: Prediction is ON with training OFF and no pretrained models available")
 
     train_loader = DataLoader(dataset=train_samples, batch_size=BATCH_SIZE, shuffle=True)
     valid_loader = DataLoader(dataset=valid_samples, batch_size=1, shuffle=False)
@@ -209,8 +215,8 @@ def main(is_train, predict, plotting):
     if is_train:
         model.train()
         print(LINESPLIT)
-        print('''Training model with solar cycle {} to {} data: num_epochs={}, start_lr={}'''.\
-        format(datasets.START_CYCLE, datasets.END_CYCLE - 2, epochs, learning_rate))
+        print("Training model with solar cycle {} to {} data with: num_epochs={}".\
+        format(datasets.START_CYCLE, datasets.END_CYCLE - 2, epochs))
 
         loss = train(model, train_loader, optimizer, scheduler, epochs)
         torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, MAX_EPOCHS))
@@ -242,7 +248,7 @@ def main(is_train, predict, plotting):
 
     ### Predicting ###
 
-    if predict:
+    if prediction:
         model.eval()
         print(LINESPLIT)
         print("Predicting SC {} using the above trained model".format(datasets.END_CYCLE))
@@ -258,6 +264,6 @@ def main(is_train, predict, plotting):
 
 if __name__=="__main__":
     is_train = True
-    predict = False
-    plotting = True
-    main(is_train, predict, plotting)
+    prediction = True
+    plotting = False
+    main(is_train, prediction, plotting)

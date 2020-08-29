@@ -59,7 +59,7 @@ def get_cycles(ssn_dataset):
             CYCLE_DATA["end_date"].append([curr_min[0], curr_min[1] - 1])
             CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
             CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
-            CYCLE_DATA["start_date"][-1][1]))
+            CYCLE_DATA["start_date"][-1][1] + 1))
 
             CYCLE_DATA["start_date"].append([curr_min[0], curr_min[1]])
             curr_min[2] = 500
@@ -77,7 +77,7 @@ def get_cycles(ssn_dataset):
     CYCLE_DATA["end_date"].append([year + (month-1)//12, (month-1)%12])
     CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
     CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
-    CYCLE_DATA["start_date"][-1][1]))
+    CYCLE_DATA["start_date"][-1][1] + 1))
 
     cycle_file = open("cycle_data.pickle", "wb")
     pickle.dump(CYCLE_DATA, cycle_file)

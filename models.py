@@ -13,7 +13,7 @@ class FFNN(nn.Module):
                     nn.LeakyReLU(inplace=True)]
         layers += [ nn.Linear(6, 3),
                     nn.LeakyReLU(inplace=True) ]
-        layers += [ nn.Linear(3, 1) ]
+        layers += [ nn.Linear(3, 1)]
 
         self.model = nn.Sequential(*layers)
 
