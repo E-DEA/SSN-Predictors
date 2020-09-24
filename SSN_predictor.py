@@ -29,10 +29,10 @@ seed = 1
 torch.manual_seed(seed)
 
 MAX_EPOCHS = 10000
-BATCH_SIZE = 2
+BATCH_SIZE = 4
 
-epochs = 1400
-learning_rate = 0.0001
+epochs = 800
+learning_rate = 0.001
 eps = 1e-6
 
 PRINT_FREQ = 5
@@ -145,7 +145,7 @@ def predict(model, pred_feats, timestamps):
 """
 Driver code to run the predictor.
 """
-def main(is_train, prediction, plotting):
+def main(is_train, prediction, plotting, scaling):
     if len(sys.argv) < 3:
         print(LINESPLIT)
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
@@ -266,4 +266,5 @@ if __name__=="__main__":
     is_train = True
     prediction = True
     plotting = False
-    main(is_train, prediction, plotting)
+    scaling = False
+    main(is_train, prediction, plotting, scaling)

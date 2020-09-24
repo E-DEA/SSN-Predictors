@@ -23,7 +23,7 @@ def plot_loss(label, steps, loss, filename):
     print(LINESPLIT)
     print("Plotting loss data...")
 
-    plt.plot(steps, loss, label=label, aa=True)
+    plt.plot(steps, loss, label=label, lw=0.33, aa=True)
     plt.xlabel("Steps")
     plt.ylabel("Loss")
     plt.legend()
