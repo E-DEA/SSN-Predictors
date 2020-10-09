@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.nn.init as init
 
 from sympy import pi as PI
+from datasets import DATA_SCALER
 
 class Logger(object):
     def __init__(self, filepath):
@@ -85,7 +86,7 @@ def get_cycles(ssn_dataset):
 
     return CYCLE_DATA
 
-def gen_samples(ssn_data, aa_data, cycle_data, cycle, tf=None):
+def gen_samples(ssn_data, aa_data, cycle_data, cycle, normalize=False, tf=None):
     samples = []
     timestamps = []
 
@@ -115,6 +116,9 @@ def gen_samples(ssn_data, aa_data, cycle_data, cycle, tf=None):
 
         samples.append(np.array([ys, yc, ms, mc, delayed_aa, delayed_ssn]))
         timestamps.append(dt.datetime(year=year, month=month+1, day=15))
+
+    if normalize:
+        samples = DATA_SCALER.transform(samples)
 
     return timestamps, samples
 

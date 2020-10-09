@@ -5,8 +5,10 @@ import math
 
 import numpy as np
 
+from copy import deepcopy
 from torch.utils.data import Dataset
 from sympy import pi as PI
+from sklearn.preprocessing import MinMaxScaler
 
 #Earliest cycle data that is used for prediction.
 START_CYCLE = 12
@@ -14,16 +16,23 @@ START_CYCLE = 12
 #Latest cycle data used for predictions.
 END_CYCLE = 24
 
+#scalar to be used for normalization of data
+DATA_SCALER = MinMaxScaler()
+
 class Features(Dataset):
-    def __init__(self, SSN_data, AA_data, cycle_data, start_cycle=START_CYCLE, end_cycle=END_CYCLE):
+    def __init__(self, SSN_data, AA_data, cycle_data, normalize=False,\
+    start_cycle=START_CYCLE, end_cycle=END_CYCLE):
         super(Features, self).__init__()
 
         self.features = []
+        self.normalized = []
         self.targets = []
-        self.ssn = SSN_data
-        self.aa = AA_data
+        self.ssn = SSN_data.data
+        self.aa = AA_data.data
 
+        self.__gen_targets(cycle_data, start_cycle, end_cycle)
         self.__gen_samples(cycle_data, start_cycle, end_cycle)
+        self.__normalize(normalize)
 
     def __len__(self):
         return len(self.targets)
@@ -31,16 +40,20 @@ class Features(Dataset):
     def __getitem__(self, index):
         return (self.features[index], self.targets[index])
 
-    def __gen_samples(self, CYCLE_DATA, start_cycle, end_cycle):
+    def __gen_targets(self, CYCLE_DATA, start_cycle, end_cycle):
         start_date = CYCLE_DATA["start_date"][start_cycle]
         end_date = CYCLE_DATA["end_date"][end_cycle]
 
-        self.targets += self.ssn.data[start_date[0]][start_date[1]-1:]
+        self.targets += self.ssn[start_date[0]][start_date[1]-1:]
 
         for year in range(start_date[0] + 1, end_date[0]):
-            self.targets += self.ssn.data[year]
+            self.targets += self.ssn[year]
 
-        self.targets += self.ssn.data[end_date[0]][:end_date[1]]
+        self.targets += self.ssn[end_date[0]][:end_date[1]]
+
+    def __gen_samples(self, CYCLE_DATA, start_cycle, end_cycle):
+        start_date = CYCLE_DATA["start_date"][start_cycle]
+        end_date = CYCLE_DATA["end_date"][end_cycle]
 
         for cycle in range(start_cycle, end_cycle + 1):
             start_date = CYCLE_DATA["start_date"][cycle]
@@ -58,8 +71,8 @@ class Features(Dataset):
                 month = (start_date[1] + month_num - 1) % 12
                 year = (start_date[0] + year_index - 1) + (start_date[1] + month_num - 1)//12
 
-                delayed_aa = self.aa.data[year][month]
-                delayed_ssn = self.ssn.data[year][month]
+                delayed_aa = self.aa[year][month]
+                delayed_ssn = self.ssn[year][month]
 
                 ms = math.sin((2*PI*month_num)/12)
                 mc = math.cos((2*PI*month_num)/12)
@@ -67,6 +80,13 @@ class Features(Dataset):
                 yc = math.cos((2*PI*year_index)/11)
 
                 self.features.append(np.array([ys, yc, ms, mc, delayed_aa, delayed_ssn]))
+
+    def __normalize(self, normalize):
+        DATA_SCALER.fit(self.features)
+        self.normalized = DATA_SCALER.transform(self.features)
+
+        if normalize:
+            self.features = self.normalized
 
 class AA(Dataset):
     def __init__(self, file):
@@ -147,7 +167,6 @@ class SSN(Dataset):
         super(SSN, self).__init__()
 
         self.file = file
-
         self.data = {}
 
         self._get_data()

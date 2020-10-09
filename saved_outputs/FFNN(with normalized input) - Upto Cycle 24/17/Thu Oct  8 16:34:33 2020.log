@@ -1,0 +1,704 @@
+----------------------------------------------------------------------------------------------------
+Usage: python3 SSN_predictor.py <path_to_ssn_datafile> <path_to_aa_datafile>
+----------------------------------------------------------------------------------------------------
+Code running on device: cuda
+----------------------------------------------------------------------------------------------------
+Data loaded from file locations :
+    SSN - /home/extern/Dropbox/Research/scripts/data/SILSO/TSN/SN_m_tot_V2.0.txt
+    AA - /home/extern/Dropbox/Research/scripts/data/ISGI/aa_1869-01-01_2018-12-31_D.dat
+----------------------------------------------------------------------------------------------------
+Solar cycle data loaded/saved as: cycle_data.pickle
+----------------------------------------------------------------------------------------------------
+SC Number     Start Date       End Date      Solar Max   Length(in months)
+         0      [1749, 1]      [1755, 1]         154.27                  73
+         1      [1755, 2]      [1766, 5]         144.12                 136
+         2      [1766, 6]      [1775, 5]         192.98                 108
+         3      [1775, 6]      [1784, 8]         264.25                 111
+         4      [1784, 9]      [1798, 3]         235.28                 163
+         5      [1798, 4]     [1810, 11]          67.93                 152
+         6     [1810, 12]      [1823, 4]          81.99                 149
+         7      [1823, 5]     [1833, 10]          81.16                 126
+         8     [1833, 11]      [1843, 6]         119.24                 116
+         9      [1843, 7]     [1855, 11]         244.87                 149
+        10     [1855, 12]      [1867, 2]         219.94                 135
+        11      [1867, 3]     [1878, 11]         186.15                 141
+        12     [1878, 12]      [1890, 2]         234.02                 135
+        13      [1890, 3]      [1902, 0]         124.41                 142
+        14      [1902, 1]      [1913, 6]         146.55                 138
+        15      [1913, 7]      [1923, 7]         107.08                 121
+        16      [1923, 8]      [1933, 8]         175.67                 121
+        17      [1933, 9]      [1944, 1]         130.23                 125
+        18      [1944, 2]      [1954, 3]         198.64                 122
+        19      [1954, 4]      [1964, 9]         218.73                 126
+        20     [1964, 10]      [1976, 2]          285.0                 137
+        21      [1976, 3]      [1986, 8]         156.63                 126
+        22      [1986, 9]      [1996, 4]         232.92                 116
+        23      [1996, 5]     [2008, 11]         212.48                 151
+        24     [2008, 12]     [2019, 11]         180.28                 132
+----------------------------------------------------------------------------------------------------
+Selected data:
+    Training: SC 13 to 22
+    Validation: SC 23
+    Prediction: SC 24
+----------------------------------------------------------------------------------------------------
+Selected model: FFNN(
+  (model): Sequential(
+    (0): Linear(in_features=6, out_features=6, bias=True)
+    (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    (2): Linear(in_features=6, out_features=3, bias=True)
+    (3): LeakyReLU(negative_slope=0.01, inplace=True)
+    (4): Linear(in_features=3, out_features=1, bias=True)
+  )
+)    Training mode: True    Prediction mode: True
+----------------------------------------------------------------------------------------------------
+Selected optimizer: Adam (
+Parameter Group 0
+    amsgrad: False
+    betas: (0.9, 0.999)
+    eps: 1e-08
+    lr: 0.001
+    weight_decay: 0
+)
+----------------------------------------------------------------------------------------------------
+Selected scheduler: ReduceLROnPlateau(
+    {'factor': 0.9, 'min_lrs': [0], 'patience': 10, 'verbose': True, 'cooldown': 0, 'cooldown_counter': 0, 'mode': 'min', 'threshold': 0.0001, 'threshold_mode': 'rel', 'best': inf, 'num_bad_epochs': 0, 'mode_worse': inf, 'eps': 1e-08, 'last_epoch': 0})
+----------------------------------------------------------------------------------------------------
+No pre-trained models available, initializing model weights
+----------------------------------------------------------------------------------------------------
+Training model with solar cycle 12 to 22 data with: num_epochs=1000
+Epoch [   5/1000] -> Loss: 59.7698
+Epoch [  10/1000] -> Loss: 37.1612
+Epoch [  15/1000] -> Loss: 34.5566
+Epoch [  20/1000] -> Loss: 34.0327
+Epoch [  25/1000] -> Loss: 33.8332
+Epoch [  30/1000] -> Loss: 33.6696
+Epoch [  35/1000] -> Loss: 33.6400
+Epoch [  40/1000] -> Loss: 33.6475
+Epoch [  45/1000] -> Loss: 33.5647
+Epoch [  50/1000] -> Loss: 33.5097
+Epoch    55: reducing learning rate of group 0 to 9.0000e-04.
+Epoch [  55/1000] -> Loss: 33.4193
+Epoch [  60/1000] -> Loss: 33.2644
+Epoch [  65/1000] -> Loss: 33.2951
+Epoch    66: reducing learning rate of group 0 to 8.1000e-04.
+Epoch [  70/1000] -> Loss: 33.3258
+Epoch [  75/1000] -> Loss: 33.4315
+Epoch [  80/1000] -> Loss: 33.2630
+Epoch [  85/1000] -> Loss: 33.2849
+Epoch [  90/1000] -> Loss: 33.2003
+Epoch [  95/1000] -> Loss: 33.1636
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_100.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 100/1000] -> Loss: 33.0915
+Epoch [ 105/1000] -> Loss: 33.0662
+Epoch [ 110/1000] -> Loss: 33.1155
+Epoch [ 115/1000] -> Loss: 33.3697
+Epoch   120: reducing learning rate of group 0 to 7.2900e-04.
+Epoch [ 120/1000] -> Loss: 32.9907
+Epoch [ 125/1000] -> Loss: 33.4330
+Epoch [ 130/1000] -> Loss: 33.0768
+Epoch   131: reducing learning rate of group 0 to 6.5610e-04.
+Epoch [ 135/1000] -> Loss: 33.0746
+Epoch [ 140/1000] -> Loss: 33.0379
+Epoch   142: reducing learning rate of group 0 to 5.9049e-04.
+Epoch [ 145/1000] -> Loss: 32.9563
+Epoch [ 150/1000] -> Loss: 33.1688
+Epoch   153: reducing learning rate of group 0 to 5.3144e-04.
+Epoch [ 155/1000] -> Loss: 33.1835
+Epoch [ 160/1000] -> Loss: 33.0226
+Epoch   164: reducing learning rate of group 0 to 4.7830e-04.
+Epoch [ 165/1000] -> Loss: 33.2709
+Epoch [ 170/1000] -> Loss: 33.3338
+Epoch [ 175/1000] -> Loss: 32.8192
+Epoch [ 180/1000] -> Loss: 33.2162
+Epoch [ 185/1000] -> Loss: 33.0219
+Epoch   186: reducing learning rate of group 0 to 4.3047e-04.
+Epoch [ 190/1000] -> Loss: 33.1437
+Epoch [ 195/1000] -> Loss: 33.0466
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_200.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 200/1000] -> Loss: 33.1263
+Epoch [ 205/1000] -> Loss: 32.9519
+Epoch   208: reducing learning rate of group 0 to 3.8742e-04.
+Epoch [ 210/1000] -> Loss: 33.1837
+Epoch [ 215/1000] -> Loss: 33.0802
+Epoch   219: reducing learning rate of group 0 to 3.4868e-04.
+Epoch [ 220/1000] -> Loss: 32.8874
+Epoch [ 225/1000] -> Loss: 32.9025
+Epoch   230: reducing learning rate of group 0 to 3.1381e-04.
+Epoch [ 230/1000] -> Loss: 32.9661
+Epoch [ 235/1000] -> Loss: 33.2620
+Epoch [ 240/1000] -> Loss: 33.1422
+Epoch   241: reducing learning rate of group 0 to 2.8243e-04.
+Epoch [ 245/1000] -> Loss: 33.0354
+Epoch [ 250/1000] -> Loss: 33.0735
+Epoch   252: reducing learning rate of group 0 to 2.5419e-04.
+Epoch [ 255/1000] -> Loss: 33.0946
+Epoch [ 260/1000] -> Loss: 32.9185
+Epoch   263: reducing learning rate of group 0 to 2.2877e-04.
+Epoch [ 265/1000] -> Loss: 33.1587
+Epoch [ 270/1000] -> Loss: 33.3740
+Epoch [ 275/1000] -> Loss: 33.0201
+Epoch   280: reducing learning rate of group 0 to 2.0589e-04.
+Epoch [ 280/1000] -> Loss: 33.1673
+Epoch [ 285/1000] -> Loss: 32.9458
+Epoch [ 290/1000] -> Loss: 33.0481
+Epoch   291: reducing learning rate of group 0 to 1.8530e-04.
+Epoch [ 295/1000] -> Loss: 33.1005
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_300.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 300/1000] -> Loss: 32.9842
+Epoch   302: reducing learning rate of group 0 to 1.6677e-04.
+Epoch [ 305/1000] -> Loss: 33.1834
+Epoch [ 310/1000] -> Loss: 32.9166
+Epoch   313: reducing learning rate of group 0 to 1.5009e-04.
+Epoch [ 315/1000] -> Loss: 32.9177
+Epoch [ 320/1000] -> Loss: 32.9143
+Epoch   324: reducing learning rate of group 0 to 1.3509e-04.
+Epoch [ 325/1000] -> Loss: 32.8866
+Epoch [ 330/1000] -> Loss: 33.1789
+Epoch   335: reducing learning rate of group 0 to 1.2158e-04.
+Epoch [ 335/1000] -> Loss: 33.0495
+Epoch [ 340/1000] -> Loss: 33.0113
+Epoch [ 345/1000] -> Loss: 33.0563
+Epoch   346: reducing learning rate of group 0 to 1.0942e-04.
+Epoch [ 350/1000] -> Loss: 32.8207
+Epoch [ 355/1000] -> Loss: 32.8777
+Epoch   357: reducing learning rate of group 0 to 9.8477e-05.
+Epoch [ 360/1000] -> Loss: 33.0472
+Epoch [ 365/1000] -> Loss: 33.2792
+Epoch   368: reducing learning rate of group 0 to 8.8629e-05.
+Epoch [ 370/1000] -> Loss: 32.9629
+Epoch [ 375/1000] -> Loss: 33.0782
+Epoch   379: reducing learning rate of group 0 to 7.9766e-05.
+Epoch [ 380/1000] -> Loss: 33.0817
+Epoch [ 385/1000] -> Loss: 33.0642
+Epoch   390: reducing learning rate of group 0 to 7.1790e-05.
+Epoch [ 390/1000] -> Loss: 32.9468
+Epoch [ 395/1000] -> Loss: 33.0061
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_400.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 400/1000] -> Loss: 33.1108
+Epoch   401: reducing learning rate of group 0 to 6.4611e-05.
+Epoch [ 405/1000] -> Loss: 32.9689
+Epoch [ 410/1000] -> Loss: 33.1861
+Epoch   412: reducing learning rate of group 0 to 5.8150e-05.
+Epoch [ 415/1000] -> Loss: 32.9467
+Epoch [ 420/1000] -> Loss: 33.1158
+Epoch   423: reducing learning rate of group 0 to 5.2335e-05.
+Epoch [ 425/1000] -> Loss: 33.1661
+Epoch [ 430/1000] -> Loss: 33.0270
+Epoch   434: reducing learning rate of group 0 to 4.7101e-05.
+Epoch [ 435/1000] -> Loss: 32.9004
+Epoch [ 440/1000] -> Loss: 32.7299
+Epoch   445: reducing learning rate of group 0 to 4.2391e-05.
+Epoch [ 445/1000] -> Loss: 33.0260
+Epoch [ 450/1000] -> Loss: 33.1062
+Epoch [ 455/1000] -> Loss: 32.8043
+Epoch   456: reducing learning rate of group 0 to 3.8152e-05.
+Epoch [ 460/1000] -> Loss: 33.1199
+Epoch [ 465/1000] -> Loss: 33.1253
+Epoch   467: reducing learning rate of group 0 to 3.4337e-05.
+Epoch [ 470/1000] -> Loss: 33.2538
+Epoch [ 475/1000] -> Loss: 33.2337
+Epoch   478: reducing learning rate of group 0 to 3.0903e-05.
+Epoch [ 480/1000] -> Loss: 33.1576
+Epoch [ 485/1000] -> Loss: 32.8976
+Epoch   489: reducing learning rate of group 0 to 2.7813e-05.
+Epoch [ 490/1000] -> Loss: 33.0952
+Epoch [ 495/1000] -> Loss: 33.0053
+Epoch   500: reducing learning rate of group 0 to 2.5032e-05.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_500.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 500/1000] -> Loss: 33.0309
+Epoch [ 505/1000] -> Loss: 33.1605
+Epoch [ 510/1000] -> Loss: 33.0271
+Epoch   511: reducing learning rate of group 0 to 2.2528e-05.
+Epoch [ 515/1000] -> Loss: 32.9625
+Epoch [ 520/1000] -> Loss: 33.0482
+Epoch   522: reducing learning rate of group 0 to 2.0276e-05.
+Epoch [ 525/1000] -> Loss: 32.8915
+Epoch [ 530/1000] -> Loss: 33.0498
+Epoch   533: reducing learning rate of group 0 to 1.8248e-05.
+Epoch [ 535/1000] -> Loss: 33.2340
+Epoch [ 540/1000] -> Loss: 33.2437
+Epoch   544: reducing learning rate of group 0 to 1.6423e-05.
+Epoch [ 545/1000] -> Loss: 33.2003
+Epoch [ 550/1000] -> Loss: 33.0424
+Epoch   555: reducing learning rate of group 0 to 1.4781e-05.
+Epoch [ 555/1000] -> Loss: 33.2268
+Epoch [ 560/1000] -> Loss: 32.9786
+Epoch [ 565/1000] -> Loss: 33.1272
+Epoch   566: reducing learning rate of group 0 to 1.3303e-05.
+Epoch [ 570/1000] -> Loss: 32.9263
+Epoch [ 575/1000] -> Loss: 33.0799
+Epoch   577: reducing learning rate of group 0 to 1.1973e-05.
+Epoch [ 580/1000] -> Loss: 33.0167
+Epoch [ 585/1000] -> Loss: 33.1134
+Epoch   588: reducing learning rate of group 0 to 1.0775e-05.
+Epoch [ 590/1000] -> Loss: 32.9754
+Epoch [ 595/1000] -> Loss: 32.8661
+Epoch   599: reducing learning rate of group 0 to 9.6977e-06.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_600.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 600/1000] -> Loss: 33.1812
+Epoch [ 605/1000] -> Loss: 33.2539
+Epoch   610: reducing learning rate of group 0 to 8.7280e-06.
+Epoch [ 610/1000] -> Loss: 33.1140
+Epoch [ 615/1000] -> Loss: 32.9710
+Epoch [ 620/1000] -> Loss: 33.0793
+Epoch   621: reducing learning rate of group 0 to 7.8552e-06.
+Epoch [ 625/1000] -> Loss: 32.8165
+Epoch [ 630/1000] -> Loss: 33.1151
+Epoch   632: reducing learning rate of group 0 to 7.0697e-06.
+Epoch [ 635/1000] -> Loss: 32.7262
+Epoch [ 640/1000] -> Loss: 33.2419
+Epoch   643: reducing learning rate of group 0 to 6.3627e-06.
+Epoch [ 645/1000] -> Loss: 33.1124
+Epoch [ 650/1000] -> Loss: 33.0575
+Epoch   654: reducing learning rate of group 0 to 5.7264e-06.
+Epoch [ 655/1000] -> Loss: 33.0811
+Epoch [ 660/1000] -> Loss: 33.0779
+Epoch   665: reducing learning rate of group 0 to 5.1538e-06.
+Epoch [ 665/1000] -> Loss: 33.0108
+Epoch [ 670/1000] -> Loss: 32.8489
+Epoch [ 675/1000] -> Loss: 32.9253
+Epoch   676: reducing learning rate of group 0 to 4.6384e-06.
+Epoch [ 680/1000] -> Loss: 33.0057
+Epoch [ 685/1000] -> Loss: 33.0538
+Epoch   687: reducing learning rate of group 0 to 4.1746e-06.
+Epoch [ 690/1000] -> Loss: 33.1272
+Epoch [ 695/1000] -> Loss: 33.1511
+Epoch   698: reducing learning rate of group 0 to 3.7571e-06.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_700.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 700/1000] -> Loss: 33.0713
+Epoch [ 705/1000] -> Loss: 33.0473
+Epoch   709: reducing learning rate of group 0 to 3.3814e-06.
+Epoch [ 710/1000] -> Loss: 33.0446
+Epoch [ 715/1000] -> Loss: 33.2362
+Epoch   720: reducing learning rate of group 0 to 3.0433e-06.
+Epoch [ 720/1000] -> Loss: 32.9226
+Epoch [ 725/1000] -> Loss: 33.3797
+Epoch [ 730/1000] -> Loss: 32.9308
+Epoch   731: reducing learning rate of group 0 to 2.7389e-06.
+Epoch [ 735/1000] -> Loss: 32.8714
+Epoch [ 740/1000] -> Loss: 32.9965
+Epoch   742: reducing learning rate of group 0 to 2.4650e-06.
+Epoch [ 745/1000] -> Loss: 33.1596
+Epoch [ 750/1000] -> Loss: 33.1417
+Epoch   753: reducing learning rate of group 0 to 2.2185e-06.
+Epoch [ 755/1000] -> Loss: 33.1653
+Epoch [ 760/1000] -> Loss: 33.0616
+Epoch   764: reducing learning rate of group 0 to 1.9967e-06.
+Epoch [ 765/1000] -> Loss: 33.0882
+Epoch [ 770/1000] -> Loss: 32.9174
+Epoch   775: reducing learning rate of group 0 to 1.7970e-06.
+Epoch [ 775/1000] -> Loss: 33.0629
+Epoch [ 780/1000] -> Loss: 32.8701
+Epoch [ 785/1000] -> Loss: 32.9855
+Epoch   786: reducing learning rate of group 0 to 1.6173e-06.
+Epoch [ 790/1000] -> Loss: 33.1005
+Epoch [ 795/1000] -> Loss: 33.0450
+Epoch   797: reducing learning rate of group 0 to 1.4556e-06.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_800.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 800/1000] -> Loss: 33.0152
+Epoch [ 805/1000] -> Loss: 32.9721
+Epoch   808: reducing learning rate of group 0 to 1.3100e-06.
+Epoch [ 810/1000] -> Loss: 33.0241
+Epoch [ 815/1000] -> Loss: 33.0025
+Epoch   819: reducing learning rate of group 0 to 1.1790e-06.
+Epoch [ 820/1000] -> Loss: 33.2511
+Epoch [ 825/1000] -> Loss: 32.7637
+Epoch   830: reducing learning rate of group 0 to 1.0611e-06.
+Epoch [ 830/1000] -> Loss: 33.0778
+Epoch [ 835/1000] -> Loss: 33.3520
+Epoch [ 840/1000] -> Loss: 32.9197
+Epoch   841: reducing learning rate of group 0 to 9.5500e-07.
+Epoch [ 845/1000] -> Loss: 32.8773
+Epoch [ 850/1000] -> Loss: 33.2051
+Epoch   852: reducing learning rate of group 0 to 8.5950e-07.
+Epoch [ 855/1000] -> Loss: 32.9569
+Epoch [ 860/1000] -> Loss: 33.1843
+Epoch   863: reducing learning rate of group 0 to 7.7355e-07.
+Epoch [ 865/1000] -> Loss: 32.9636
+Epoch [ 870/1000] -> Loss: 32.8579
+Epoch   874: reducing learning rate of group 0 to 6.9620e-07.
+Epoch [ 875/1000] -> Loss: 32.9894
+Epoch [ 880/1000] -> Loss: 32.9117
+Epoch   885: reducing learning rate of group 0 to 6.2658e-07.
+Epoch [ 885/1000] -> Loss: 33.1975
+Epoch [ 890/1000] -> Loss: 33.0666
+Epoch [ 895/1000] -> Loss: 33.0946
+Epoch   896: reducing learning rate of group 0 to 5.6392e-07.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_900.pth
+----------------------------------------------------------------------------------------------------
+Epoch [ 900/1000] -> Loss: 33.0655
+Epoch [ 905/1000] -> Loss: 32.9414
+Epoch   907: reducing learning rate of group 0 to 5.0753e-07.
+Epoch [ 910/1000] -> Loss: 33.1702
+Epoch [ 915/1000] -> Loss: 33.0480
+Epoch   918: reducing learning rate of group 0 to 4.5678e-07.
+Epoch [ 920/1000] -> Loss: 32.8414
+Epoch [ 925/1000] -> Loss: 32.7277
+Epoch   929: reducing learning rate of group 0 to 4.1110e-07.
+Epoch [ 930/1000] -> Loss: 33.0779
+Epoch [ 935/1000] -> Loss: 32.9387
+Epoch [ 940/1000] -> Loss: 32.8876
+Epoch   943: reducing learning rate of group 0 to 3.6999e-07.
+Epoch [ 945/1000] -> Loss: 32.9391
+Epoch [ 950/1000] -> Loss: 33.3053
+Epoch   954: reducing learning rate of group 0 to 3.3299e-07.
+Epoch [ 955/1000] -> Loss: 33.0669
+Epoch [ 960/1000] -> Loss: 33.2111
+Epoch   965: reducing learning rate of group 0 to 2.9969e-07.
+Epoch [ 965/1000] -> Loss: 32.9632
+Epoch [ 970/1000] -> Loss: 33.1197
+Epoch [ 975/1000] -> Loss: 32.9531
+Epoch   976: reducing learning rate of group 0 to 2.6972e-07.
+Epoch [ 980/1000] -> Loss: 32.8497
+Epoch [ 985/1000] -> Loss: 33.1621
+Epoch   987: reducing learning rate of group 0 to 2.4275e-07.
+Epoch [ 990/1000] -> Loss: 32.9733
+Epoch [ 995/1000] -> Loss: 33.0759
+Epoch   998: reducing learning rate of group 0 to 2.1847e-07.
+----------------------------------------------------------------------------------------------------
+Model checkpoint saved as _FFNN_1000.pth
+----------------------------------------------------------------------------------------------------
+Epoch [1000/1000] -> Loss: 32.8791
+----------------------------------------------------------------------------------------------------
+Plotting loss data...
+----------------------------------------------------------------------------------------------------
+Training finished successfully.
+        Saved model checkpoints can be found in: /home/extern/Dropbox/Research/scripts/models/
+        Saved data/loss graphs can be found in: /home/extern/Dropbox/Research/scripts/graphs/
+----------------------------------------------------------------------------------------------------
+Validating model for solar cycle 23 data
+Step [   1/151] -> Date: 5/1996, Target: 7.6, Prediction: 29.391216278076172
+Step [   2/151] -> Date: 6/1996, Target: 16.5, Prediction: 20.462852478027344
+Step [   3/151] -> Date: 7/1996, Target: 11.8, Prediction: 15.517221450805664
+Step [   4/151] -> Date: 8/1996, Target: 19.7, Prediction: 16.45709991455078
+Step [   5/151] -> Date: 9/1996, Target: 3.0, Prediction: 14.830450057983398
+Step [   6/151] -> Date: 10/1996, Target: 0.7, Prediction: 19.478044509887695
+Step [   7/151] -> Date: 11/1996, Target: 24.9, Prediction: 29.289737701416016
+Step [   8/151] -> Date: 12/1996, Target: 14.0, Prediction: 26.389053344726562
+Step [   9/151] -> Date: 1/1997, Target: 7.4, Prediction: 17.1724796295166
+Step [  10/151] -> Date: 2/1997, Target: 11.0, Prediction: 27.037353515625
+Step [  11/151] -> Date: 3/1997, Target: 12.1, Prediction: 32.936546325683594
+Step [  12/151] -> Date: 4/1997, Target: 23.0, Prediction: 32.95095443725586
+Step [  13/151] -> Date: 5/1997, Target: 25.4, Prediction: 70.5741958618164
+Step [  14/151] -> Date: 6/1997, Target: 20.8, Prediction: 64.07452392578125
+Step [  15/151] -> Date: 7/1997, Target: 12.9, Prediction: 54.294044494628906
+Step [  16/151] -> Date: 8/1997, Target: 35.7, Prediction: 73.39563751220703
+Step [  17/151] -> Date: 9/1997, Target: 59.7, Prediction: 62.817752838134766
+Step [  18/151] -> Date: 10/1997, Target: 32.8, Prediction: 81.75257873535156
+Step [  19/151] -> Date: 11/1997, Target: 50.4, Prediction: 88.4773178100586
+Step [  20/151] -> Date: 12/1997, Target: 55.5, Prediction: 72.1013412475586
+Step [  21/151] -> Date: 1/1998, Target: 44.5, Prediction: 92.54058074951172
+Step [  22/151] -> Date: 2/1998, Target: 50.2, Prediction: 95.58893585205078
+Step [  23/151] -> Date: 3/1998, Target: 82.0, Prediction: 99.43607330322266
+Step [  24/151] -> Date: 4/1998, Target: 70.6, Prediction: 101.64977264404297
+Step [  25/151] -> Date: 5/1998, Target: 74.0, Prediction: 141.22564697265625
+Step [  26/151] -> Date: 6/1998, Target: 90.5, Prediction: 141.94627380371094
+Step [  27/151] -> Date: 7/1998, Target: 96.7, Prediction: 173.94447326660156
+Step [  28/151] -> Date: 8/1998, Target: 121.1, Prediction: 167.70143127441406
+Step [  29/151] -> Date: 9/1998, Target: 132.0, Prediction: 164.70948791503906
+Step [  30/151] -> Date: 10/1998, Target: 78.5, Prediction: 157.67298889160156
+Step [  31/151] -> Date: 11/1998, Target: 97.3, Prediction: 147.2994384765625
+Step [  32/151] -> Date: 12/1998, Target: 119.2, Prediction: 156.7808380126953
+Step [  33/151] -> Date: 1/1999, Target: 86.0, Prediction: 193.3480987548828
+Step [  34/151] -> Date: 2/1999, Target: 98.0, Prediction: 146.97750854492188
+Step [  35/151] -> Date: 3/1999, Target: 103.5, Prediction: 172.88816833496094
+Step [  36/151] -> Date: 4/1999, Target: 93.6, Prediction: 170.1637420654297
+Step [  37/151] -> Date: 5/1999, Target: 149.6, Prediction: 192.26170349121094
+Step [  38/151] -> Date: 6/1999, Target: 207.2, Prediction: 204.66152954101562
+Step [  39/151] -> Date: 7/1999, Target: 173.5, Prediction: 192.8275604248047
+Step [  40/151] -> Date: 8/1999, Target: 142.3, Prediction: 198.27877807617188
+Step [  41/151] -> Date: 9/1999, Target: 106.3, Prediction: 177.75961303710938
+Step [  42/151] -> Date: 10/1999, Target: 168.7, Prediction: 184.30609130859375
+Step [  43/151] -> Date: 11/1999, Target: 188.3, Prediction: 183.81130981445312
+Step [  44/151] -> Date: 12/1999, Target: 116.8, Prediction: 173.56690979003906
+Step [  45/151] -> Date: 1/2000, Target: 133.1, Prediction: 164.00784301757812
+Step [  46/151] -> Date: 2/2000, Target: 165.7, Prediction: 178.96405029296875
+Step [  47/151] -> Date: 3/2000, Target: 217.7, Prediction: 206.6288299560547
+Step [  48/151] -> Date: 4/2000, Target: 191.5, Prediction: 171.77932739257812
+Step [  49/151] -> Date: 5/2000, Target: 165.9, Prediction: 195.27713012695312
+Step [  50/151] -> Date: 6/2000, Target: 188.0, Prediction: 185.0290985107422
+Step [  51/151] -> Date: 7/2000, Target: 244.3, Prediction: 192.28466796875
+Step [  52/151] -> Date: 8/2000, Target: 180.5, Prediction: 192.1444854736328
+Step [  53/151] -> Date: 9/2000, Target: 156.0, Prediction: 211.3052978515625
+Step [  54/151] -> Date: 10/2000, Target: 141.6, Prediction: 197.71231079101562
+Step [  55/151] -> Date: 11/2000, Target: 158.1, Prediction: 189.6870574951172
+Step [  56/151] -> Date: 12/2000, Target: 143.3, Prediction: 178.36183166503906
+Step [  57/151] -> Date: 1/2001, Target: 142.6, Prediction: 213.19656372070312
+Step [  58/151] -> Date: 2/2001, Target: 121.5, Prediction: 212.4969024658203
+Step [  59/151] -> Date: 3/2001, Target: 165.8, Prediction: 215.85208129882812
+Step [  60/151] -> Date: 4/2001, Target: 161.7, Prediction: 183.48495483398438
+Step [  61/151] -> Date: 5/2001, Target: 142.1, Prediction: 191.56272888183594
+Step [  62/151] -> Date: 6/2001, Target: 202.9, Prediction: 178.12132263183594
+Step [  63/151] -> Date: 7/2001, Target: 123.0, Prediction: 194.19000244140625
+Step [  64/151] -> Date: 8/2001, Target: 161.5, Prediction: 187.56344604492188
+Step [  65/151] -> Date: 9/2001, Target: 238.2, Prediction: 207.11524963378906
+Step [  66/151] -> Date: 10/2001, Target: 194.1, Prediction: 166.4575653076172
+Step [  67/151] -> Date: 11/2001, Target: 176.6, Prediction: 157.5244598388672
+Step [  68/151] -> Date: 12/2001, Target: 213.4, Prediction: 143.09181213378906
+Step [  69/151] -> Date: 1/2002, Target: 184.6, Prediction: 143.07615661621094
+Step [  70/151] -> Date: 2/2002, Target: 170.2, Prediction: 147.6483612060547
+Step [  71/151] -> Date: 3/2002, Target: 147.1, Prediction: 140.5437469482422
+Step [  72/151] -> Date: 4/2002, Target: 186.9, Prediction: 145.48777770996094
+Step [  73/151] -> Date: 5/2002, Target: 187.5, Prediction: 135.81666564941406
+Step [  74/151] -> Date: 6/2002, Target: 128.8, Prediction: 134.326904296875
+Step [  75/151] -> Date: 7/2002, Target: 161.0, Prediction: 131.71929931640625
+Step [  76/151] -> Date: 8/2002, Target: 175.6, Prediction: 116.24315643310547
+Step [  77/151] -> Date: 9/2002, Target: 187.9, Prediction: 134.02023315429688
+Step [  78/151] -> Date: 10/2002, Target: 151.2, Prediction: 125.96464538574219
+Step [  79/151] -> Date: 11/2002, Target: 147.2, Prediction: 119.4003677368164
+Step [  80/151] -> Date: 12/2002, Target: 135.3, Prediction: 110.2323989868164
+Step [  81/151] -> Date: 1/2003, Target: 133.5, Prediction: 105.98548126220703
+Step [  82/151] -> Date: 2/2003, Target: 75.7, Prediction: 109.52853393554688
+Step [  83/151] -> Date: 3/2003, Target: 100.7, Prediction: 102.68675994873047
+Step [  84/151] -> Date: 4/2003, Target: 97.9, Prediction: 91.65975189208984
+Step [  85/151] -> Date: 5/2003, Target: 86.8, Prediction: 76.83853912353516
+Step [  86/151] -> Date: 6/2003, Target: 118.7, Prediction: 68.14896392822266
+Step [  87/151] -> Date: 7/2003, Target: 128.3, Prediction: 76.80187225341797
+Step [  88/151] -> Date: 8/2003, Target: 115.4, Prediction: 84.00376892089844
+Step [  89/151] -> Date: 9/2003, Target: 78.5, Prediction: 76.00991821289062
+Step [  90/151] -> Date: 10/2003, Target: 97.8, Prediction: 70.75149536132812
+Step [  91/151] -> Date: 11/2003, Target: 82.9, Prediction: 62.400882720947266
+Step [  92/151] -> Date: 12/2003, Target: 72.2, Prediction: 62.795631408691406
+Step [  93/151] -> Date: 1/2004, Target: 60.6, Prediction: 62.78403091430664
+Step [  94/151] -> Date: 2/2004, Target: 74.6, Prediction: 65.46575164794922
+Step [  95/151] -> Date: 3/2004, Target: 74.8, Prediction: 57.663211822509766
+Step [  96/151] -> Date: 4/2004, Target: 59.2, Prediction: 62.085235595703125
+Step [  97/151] -> Date: 5/2004, Target: 72.8, Prediction: 47.508174896240234
+Step [  98/151] -> Date: 6/2004, Target: 66.5, Prediction: 29.56214141845703
+Step [  99/151] -> Date: 7/2004, Target: 83.8, Prediction: 31.148303985595703
+Step [ 100/151] -> Date: 8/2004, Target: 69.7, Prediction: 31.07331085205078
+Step [ 101/151] -> Date: 9/2004, Target: 48.8, Prediction: 36.50261688232422
+Step [ 102/151] -> Date: 10/2004, Target: 74.2, Prediction: 35.84140396118164
+Step [ 103/151] -> Date: 11/2004, Target: 70.1, Prediction: 25.014678955078125
+Step [ 104/151] -> Date: 12/2004, Target: 28.9, Prediction: 25.499454498291016
+Step [ 105/151] -> Date: 1/2005, Target: 48.1, Prediction: 23.032974243164062
+Step [ 106/151] -> Date: 2/2005, Target: 43.5, Prediction: 20.97831153869629
+Step [ 107/151] -> Date: 3/2005, Target: 39.6, Prediction: 21.02910804748535
+Step [ 108/151] -> Date: 4/2005, Target: 38.7, Prediction: 22.129745483398438
+Step [ 109/151] -> Date: 5/2005, Target: 61.9, Prediction: 15.082651138305664
+Step [ 110/151] -> Date: 6/2005, Target: 56.8, Prediction: 14.580002784729004
+Step [ 111/151] -> Date: 7/2005, Target: 62.4, Prediction: 14.614408493041992
+Step [ 112/151] -> Date: 8/2005, Target: 60.5, Prediction: 14.356470108032227
+Step [ 113/151] -> Date: 9/2005, Target: 37.2, Prediction: 13.910728454589844
+Step [ 114/151] -> Date: 10/2005, Target: 13.2, Prediction: 13.555557250976562
+Step [ 115/151] -> Date: 11/2005, Target: 27.5, Prediction: 12.964973449707031
+Step [ 116/151] -> Date: 12/2005, Target: 59.3, Prediction: 12.45580768585205
+Step [ 117/151] -> Date: 1/2006, Target: 20.9, Prediction: 12.482773780822754
+Step [ 118/151] -> Date: 2/2006, Target: 5.7, Prediction: 12.833917617797852
+Step [ 119/151] -> Date: 3/2006, Target: 17.3, Prediction: 13.583300590515137
+Step [ 120/151] -> Date: 4/2006, Target: 50.3, Prediction: 14.161262512207031
+Step [ 121/151] -> Date: 5/2006, Target: 37.2, Prediction: 14.95020866394043
+Step [ 122/151] -> Date: 6/2006, Target: 24.5, Prediction: 15.231963157653809
+Step [ 123/151] -> Date: 7/2006, Target: 22.2, Prediction: 15.0259370803833
+Step [ 124/151] -> Date: 8/2006, Target: 20.8, Prediction: 14.719305038452148
+Step [ 125/151] -> Date: 9/2006, Target: 23.7, Prediction: 14.495865821838379
+Step [ 126/151] -> Date: 10/2006, Target: 14.9, Prediction: 13.802680969238281
+Step [ 127/151] -> Date: 11/2006, Target: 35.7, Prediction: 13.645806312561035
+Step [ 128/151] -> Date: 12/2006, Target: 22.3, Prediction: 13.29934310913086
+Step [ 129/151] -> Date: 1/2007, Target: 29.3, Prediction: 13.184223175048828
+Step [ 130/151] -> Date: 2/2007, Target: 18.4, Prediction: 13.269189834594727
+Step [ 131/151] -> Date: 3/2007, Target: 7.2, Prediction: 14.130416870117188
+Step [ 132/151] -> Date: 4/2007, Target: 5.4, Prediction: 19.84330177307129
+Step [ 133/151] -> Date: 5/2007, Target: 19.5, Prediction: 26.311328887939453
+Step [ 134/151] -> Date: 6/2007, Target: 21.3, Prediction: 33.99200439453125
+Step [ 135/151] -> Date: 7/2007, Target: 15.1, Prediction: 34.3139762878418
+Step [ 136/151] -> Date: 8/2007, Target: 9.8, Prediction: 31.503864288330078
+Step [ 137/151] -> Date: 9/2007, Target: 4.0, Prediction: 33.32960510253906
+Step [ 138/151] -> Date: 10/2007, Target: 1.5, Prediction: 47.987667083740234
+Step [ 139/151] -> Date: 11/2007, Target: 2.8, Prediction: 41.0369758605957
+Step [ 140/151] -> Date: 12/2007, Target: 17.3, Prediction: 44.81203079223633
+Step [ 141/151] -> Date: 1/2008, Target: 4.1, Prediction: 48.6546745300293
+Step [ 142/151] -> Date: 2/2008, Target: 2.9, Prediction: 51.41535568237305
+Step [ 143/151] -> Date: 3/2008, Target: 15.5, Prediction: 64.22566986083984
+Step [ 144/151] -> Date: 4/2008, Target: 3.6, Prediction: 67.69315338134766
+Step [ 145/151] -> Date: 5/2008, Target: 4.6, Prediction: 75.85418701171875
+Step [ 146/151] -> Date: 6/2008, Target: 5.2, Prediction: 85.47821807861328
+Step [ 147/151] -> Date: 7/2008, Target: 0.6, Prediction: 91.84978485107422
+Step [ 148/151] -> Date: 8/2008, Target: 0.3, Prediction: 79.3721923828125
+Step [ 149/151] -> Date: 9/2008, Target: 1.2, Prediction: 84.10205841064453
+Step [ 150/151] -> Date: 10/2008, Target: 4.2, Prediction: 86.452392578125
+Step [ 151/151] -> Date: 11/2008, Target: 6.6, Prediction: 81.05789184570312
+----------------------------------------------------------------------------------------------------
+Average Validation Loss: 32.57327355770086
+----------------------------------------------------------------------------------------------------
+Plotting data...
+----------------------------------------------------------------------------------------------------
+Plotting loss data...
+----------------------------------------------------------------------------------------------------
+Validation finished successfully.
+
+        Saved prediction/loss graphs can be found in: /home/extern/Dropbox/Research/scripts/graphs/
+----------------------------------------------------------------------------------------------------
+Predicting SC 24 using the above trained model
+Step [   1/151] -> Date: 12/2008, Prediction: 17.267457962036133
+Step [   2/151] -> Date: 1/2009, Prediction: 16.922924041748047
+Step [   3/151] -> Date: 2/2009, Prediction: 21.7515869140625
+Step [   4/151] -> Date: 3/2009, Prediction: 16.98660659790039
+Step [   5/151] -> Date: 4/2009, Prediction: 15.090913772583008
+Step [   6/151] -> Date: 5/2009, Prediction: 22.15239715576172
+Step [   7/151] -> Date: 6/2009, Prediction: 16.806053161621094
+Step [   8/151] -> Date: 7/2009, Prediction: 13.898233413696289
+Step [   9/151] -> Date: 8/2009, Prediction: 16.18210220336914
+Step [  10/151] -> Date: 9/2009, Prediction: 15.28102970123291
+Step [  11/151] -> Date: 10/2009, Prediction: 20.852333068847656
+Step [  12/151] -> Date: 11/2009, Prediction: 21.46154022216797
+Step [  13/151] -> Date: 12/2009, Prediction: 49.24150848388672
+Step [  14/151] -> Date: 1/2010, Prediction: 46.12015914916992
+Step [  15/151] -> Date: 2/2010, Prediction: 56.372554779052734
+Step [  16/151] -> Date: 3/2010, Prediction: 67.72648620605469
+Step [  17/151] -> Date: 4/2010, Prediction: 56.20682144165039
+Step [  18/151] -> Date: 5/2010, Prediction: 62.696861267089844
+Step [  19/151] -> Date: 6/2010, Prediction: 62.02495574951172
+Step [  20/151] -> Date: 7/2010, Prediction: 58.68397521972656
+Step [  21/151] -> Date: 8/2010, Prediction: 60.584144592285156
+Step [  22/151] -> Date: 9/2010, Prediction: 75.9019775390625
+Step [  23/151] -> Date: 10/2010, Prediction: 70.01960754394531
+Step [  24/151] -> Date: 11/2010, Prediction: 74.98527526855469
+Step [  25/151] -> Date: 12/2010, Prediction: 112.43386840820312
+Step [  26/151] -> Date: 1/2011, Prediction: 115.72539520263672
+Step [  27/151] -> Date: 2/2011, Prediction: 128.46127319335938
+Step [  28/151] -> Date: 3/2011, Prediction: 131.26898193359375
+Step [  29/151] -> Date: 4/2011, Prediction: 108.92262268066406
+Step [  30/151] -> Date: 5/2011, Prediction: 117.35603332519531
+Step [  31/151] -> Date: 6/2011, Prediction: 122.73369598388672
+Step [  32/151] -> Date: 7/2011, Prediction: 109.7252426147461
+Step [  33/151] -> Date: 8/2011, Prediction: 114.529541015625
+Step [  34/151] -> Date: 9/2011, Prediction: 117.5396728515625
+Step [  35/151] -> Date: 10/2011, Prediction: 113.21345520019531
+Step [  36/151] -> Date: 11/2011, Prediction: 135.57176208496094
+Step [  37/151] -> Date: 12/2011, Prediction: 184.8824005126953
+Step [  38/151] -> Date: 1/2012, Prediction: 172.48838806152344
+Step [  39/151] -> Date: 2/2012, Prediction: 162.49945068359375
+Step [  40/151] -> Date: 3/2012, Prediction: 148.96261596679688
+Step [  41/151] -> Date: 4/2012, Prediction: 174.57196044921875
+Step [  42/151] -> Date: 5/2012, Prediction: 180.30738830566406
+Step [  43/151] -> Date: 6/2012, Prediction: 148.44186401367188
+Step [  44/151] -> Date: 7/2012, Prediction: 155.7865447998047
+Step [  45/151] -> Date: 8/2012, Prediction: 170.56727600097656
+Step [  46/151] -> Date: 9/2012, Prediction: 188.6672821044922
+Step [  47/151] -> Date: 10/2012, Prediction: 180.52633666992188
+Step [  48/151] -> Date: 11/2012, Prediction: 170.41619873046875
+Step [  49/151] -> Date: 12/2012, Prediction: 190.43035888671875
+Step [  50/151] -> Date: 1/2013, Prediction: 216.3310546875
+Step [  51/151] -> Date: 2/2013, Prediction: 188.044921875
+Step [  52/151] -> Date: 3/2013, Prediction: 179.53628540039062
+Step [  53/151] -> Date: 4/2013, Prediction: 172.54620361328125
+Step [  54/151] -> Date: 5/2013, Prediction: 179.05191040039062
+Step [  55/151] -> Date: 6/2013, Prediction: 166.19818115234375
+Step [  56/151] -> Date: 7/2013, Prediction: 163.6334228515625
+Step [  57/151] -> Date: 8/2013, Prediction: 154.76666259765625
+Step [  58/151] -> Date: 9/2013, Prediction: 181.0474853515625
+Step [  59/151] -> Date: 10/2013, Prediction: 180.56198120117188
+Step [  60/151] -> Date: 11/2013, Prediction: 168.5638885498047
+Step [  61/151] -> Date: 12/2013, Prediction: 186.40296936035156
+Step [  62/151] -> Date: 1/2014, Prediction: 153.84884643554688
+Step [  63/151] -> Date: 2/2014, Prediction: 170.5206756591797
+Step [  64/151] -> Date: 3/2014, Prediction: 203.24111938476562
+Step [  65/151] -> Date: 4/2014, Prediction: 187.03143310546875
+Step [  66/151] -> Date: 5/2014, Prediction: 177.05267333984375
+Step [  67/151] -> Date: 6/2014, Prediction: 180.0940399169922
+Step [  68/151] -> Date: 7/2014, Prediction: 165.03553771972656
+Step [  69/151] -> Date: 8/2014, Prediction: 163.2148895263672
+Step [  70/151] -> Date: 9/2014, Prediction: 160.3419952392578
+Step [  71/151] -> Date: 10/2014, Prediction: 180.69967651367188
+Step [  72/151] -> Date: 11/2014, Prediction: 179.79708862304688
+Step [  73/151] -> Date: 12/2014, Prediction: 130.17352294921875
+Step [  74/151] -> Date: 1/2015, Prediction: 145.8669891357422
+Step [  75/151] -> Date: 2/2015, Prediction: 153.0145263671875
+Step [  76/151] -> Date: 3/2015, Prediction: 157.77041625976562
+Step [  77/151] -> Date: 4/2015, Prediction: 147.00242614746094
+Step [  78/151] -> Date: 5/2015, Prediction: 142.1100311279297
+Step [  79/151] -> Date: 6/2015, Prediction: 135.03204345703125
+Step [  80/151] -> Date: 7/2015, Prediction: 133.67974853515625
+Step [  81/151] -> Date: 8/2015, Prediction: 111.33992767333984
+Step [  82/151] -> Date: 9/2015, Prediction: 122.94611358642578
+Step [  83/151] -> Date: 10/2015, Prediction: 122.09397888183594
+Step [  84/151] -> Date: 11/2015, Prediction: 120.19530487060547
+Step [  85/151] -> Date: 12/2015, Prediction: 101.25592041015625
+Step [  86/151] -> Date: 1/2016, Prediction: 103.51956176757812
+Step [  87/151] -> Date: 2/2016, Prediction: 99.67101287841797
+Step [  88/151] -> Date: 3/2016, Prediction: 82.5447769165039
+Step [  89/151] -> Date: 4/2016, Prediction: 96.5399169921875
+Step [  90/151] -> Date: 5/2016, Prediction: 87.48723602294922
+Step [  91/151] -> Date: 6/2016, Prediction: 78.17125701904297
+Step [  92/151] -> Date: 7/2016, Prediction: 75.00605010986328
+Step [  93/151] -> Date: 8/2016, Prediction: 76.39861297607422
+Step [  94/151] -> Date: 9/2016, Prediction: 76.87503051757812
+Step [  95/151] -> Date: 10/2016, Prediction: 69.25128173828125
+Step [  96/151] -> Date: 11/2016, Prediction: 74.54129028320312
+Step [  97/151] -> Date: 12/2016, Prediction: 42.138458251953125
+Step [  98/151] -> Date: 1/2017, Prediction: 54.03821563720703
+Step [  99/151] -> Date: 2/2017, Prediction: 44.4285888671875
+Step [ 100/151] -> Date: 3/2017, Prediction: 35.52167510986328
+Step [ 101/151] -> Date: 4/2017, Prediction: 45.9083137512207
+Step [ 102/151] -> Date: 5/2017, Prediction: 49.540401458740234
+Step [ 103/151] -> Date: 6/2017, Prediction: 27.609779357910156
+Step [ 104/151] -> Date: 7/2017, Prediction: 39.843746185302734
+Step [ 105/151] -> Date: 8/2017, Prediction: 32.5006103515625
+Step [ 106/151] -> Date: 9/2017, Prediction: 30.852832794189453
+Step [ 107/151] -> Date: 10/2017, Prediction: 30.129474639892578
+Step [ 108/151] -> Date: 11/2017, Prediction: 43.206119537353516
+Step [ 109/151] -> Date: 12/2017, Prediction: 20.636486053466797
+Step [ 110/151] -> Date: 1/2018, Prediction: 24.824504852294922
+Step [ 111/151] -> Date: 2/2018, Prediction: 24.348674774169922
+Step [ 112/151] -> Date: 3/2018, Prediction: 16.875
+Step [ 113/151] -> Date: 4/2018, Prediction: 13.760091781616211
+Step [ 114/151] -> Date: 5/2018, Prediction: 13.552406311035156
+Step [ 115/151] -> Date: 6/2018, Prediction: 20.067214965820312
+Step [ 116/151] -> Date: 7/2018, Prediction: 12.641054153442383
+Step [ 117/151] -> Date: 8/2018, Prediction: 12.42498779296875
+Step [ 118/151] -> Date: 9/2018, Prediction: 12.968503952026367
+Step [ 119/151] -> Date: 10/2018, Prediction: 16.3498477935791
+Step [ 120/151] -> Date: 11/2018, Prediction: 14.125269889831543
+Step [ 121/151] -> Date: 12/2018, Prediction: 14.943756103515625
+Step [ 122/151] -> Date: 1/2019, Prediction: 15.022111892700195
+Step [ 123/151] -> Date: 2/2019, Prediction: 15.22321891784668
+Step [ 124/151] -> Date: 3/2019, Prediction: 14.890460014343262
+Step [ 125/151] -> Date: 4/2019, Prediction: 14.36240005493164
+Step [ 126/151] -> Date: 5/2019, Prediction: 14.192097663879395
+Step [ 127/151] -> Date: 6/2019, Prediction: 13.908639907836914
+Step [ 128/151] -> Date: 7/2019, Prediction: 13.547130584716797
+Step [ 129/151] -> Date: 8/2019, Prediction: 13.18686294555664
+Step [ 130/151] -> Date: 9/2019, Prediction: 13.358951568603516
+Step [ 131/151] -> Date: 10/2019, Prediction: 13.84627914428711
+Step [ 132/151] -> Date: 11/2019, Prediction: 14.439711570739746
+Step [ 133/151] -> Date: 12/2019, Prediction: 19.737030029296875
+Step [ 134/151] -> Date: 1/2020, Prediction: 17.957462310791016
+Step [ 135/151] -> Date: 2/2020, Prediction: 16.017501831054688
+Step [ 136/151] -> Date: 3/2020, Prediction: 15.296188354492188
+Step [ 137/151] -> Date: 4/2020, Prediction: 14.66686725616455
+Step [ 138/151] -> Date: 5/2020, Prediction: 14.197397232055664
+Step [ 139/151] -> Date: 6/2020, Prediction: 17.225536346435547
+Step [ 140/151] -> Date: 7/2020, Prediction: 13.672431945800781
+Step [ 141/151] -> Date: 8/2020, Prediction: 13.940149307250977
+Step [ 142/151] -> Date: 9/2020, Prediction: 18.126667022705078
+Step [ 143/151] -> Date: 10/2020, Prediction: 14.442913055419922
+Step [ 144/151] -> Date: 11/2020, Prediction: 14.78216552734375
+Step [ 145/151] -> Date: 12/2020, Prediction: 42.985145568847656
+Step [ 146/151] -> Date: 1/2021, Prediction: 40.672813415527344
+Step [ 147/151] -> Date: 2/2021, Prediction: 40.419029235839844
+Step [ 148/151] -> Date: 3/2021, Prediction: 41.14851760864258
+Step [ 149/151] -> Date: 4/2021, Prediction: 42.680110931396484
+Step [ 150/151] -> Date: 5/2021, Prediction: 41.97087478637695
+Step [ 151/151] -> Date: 6/2021, Prediction: 39.10565185546875
+----------------------------------------------------------------------------------------------------
+Plotting data...
+----------------------------------------------------------------------------------------------------
+All newly generated files moved to saved outputs and shared with the cloud(Dropbox) successfully!

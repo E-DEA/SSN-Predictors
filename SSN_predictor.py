@@ -176,10 +176,20 @@ def main(is_train, prediction, plotting, scaling):
     print(LINESPLIT)
     ut.print_cycles(cycle_data)
 
-    train_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=13, end_cycle=22)
-    valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, start_cycle=23, end_cycle=23)
-    valid_timestamps, _ = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=23, tf=cycle_data["length"][23])
-    predn_timestamps, predn_samples = ut.gen_samples(ssn_data, aa_data, cycle_data, cycle=24)
+    train_samples = datasets.Features(ssn_data, aa_data, cycle_data, normalize=scaling,\
+    start_cycle=13, end_cycle=22)
+    valid_samples = datasets.Features(ssn_data, aa_data, cycle_data, normalize=scaling,\
+    start_cycle=23, end_cycle=23)
+    valid_timestamps, _ = ut.gen_samples(ssn_data, aa_data, cycle_data,\
+    cycle=23, normalize=scaling, tf=cycle_data["length"][23])
+    predn_timestamps, predn_samples = ut.gen_samples(ssn_data, aa_data, cycle_data,\
+    cycle=24, normalize=scaling)
+
+    print(LINESPLIT)
+    print('''Selected data:
+    Training: SC 13 to 22
+    Validation: SC 23
+    Prediction: SC 24''')
 
     ############ FFNN ############
 
@@ -243,7 +253,7 @@ def main(is_train, prediction, plotting, scaling):
         format(model.__class__.__name__))
 
         print(LINESPLIT)
-        print('''Validation finished successfully.\
+        print('''Validation finished successfully.\n
         Saved prediction/loss graphs can be found in: {}'''.format(graphfolder))
 
     ### Predicting ###
@@ -266,5 +276,11 @@ if __name__=="__main__":
     is_train = True
     prediction = True
     plotting = False
-    scaling = False
+    scaling = True
+    cloudshare = True
+
     main(is_train, prediction, plotting, scaling)
+    if cloudshare:
+        os.system("./cloudshare.sh")
+        print(LINESPLIT)
+        print("All newly generated files moved to saved outputs and shared with the cloud(Dropbox) successfully!")
