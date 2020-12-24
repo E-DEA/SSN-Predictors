@@ -81,7 +81,7 @@ def plot_all(savefile):
     aa_source = "ISGI"
 
     data_file = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
-    aa_file = "data/ISGI/aa_1869-01-01_2018-12-31_D.dat"
+    aa_file = "data/ISGI/aa_1869-01-01_2020-12-19_D.dat"
 
     data1 = datasets.SSN(data_file)
     data2 = datasets.AA(aa_file)
@@ -127,6 +127,11 @@ def plot_all(savefile):
     ax2.xaxis.set_major_locator(majortick)
     ax2.xaxis.set_major_formatter(ticker_fmt)
     ax2.xaxis.set_minor_locator(minortick)
+
+    ax1.tick_params(axis="x", labelbottom=True)
+
+    ax1.grid(True, axis="both", color="black", lw="0.5", alpha=0.5, aa="True")
+    ax2.grid(True, axis="both", color="black", lw="0.5", alpha=0.5, aa="True")
 
     plt.savefig(ssnfolder+savefile, dpi=240)
     plt.close("all")

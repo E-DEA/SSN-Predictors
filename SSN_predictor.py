@@ -145,12 +145,12 @@ def predict(model, pred_feats, timestamps):
 """
 Driver code to run the predictor.
 """
-def main(is_train, prediction, plotting, scaling):
+def main(is_train, prediction, plotting, scaling, selected_model):
     if len(sys.argv) < 3:
         print(LINESPLIT)
         print("Usage: python3 {} <path_to_ssn_datafile> <path_to_aa_datafile>".format(os.path.basename(__file__)))
         data_file = "data/SILSO/TSN/SN_m_tot_V2.0.txt"
-        aa_file = "data/ISGI/aa_1869-01-01_2018-12-31_D.dat"
+        aa_file = "data/ISGI/aa_1869-01-01_2020-12-19_D.dat"
     else:
         data_file = sys.argv[1]
         aa_file = sys.argv[2]
@@ -167,7 +167,7 @@ def main(is_train, prediction, plotting, scaling):
     AA - {}'''.format(os.path.abspath(data_file), os.path.abspath(aa_file)))
 
     if plotting:
-        plotter.plot_all("combined_data.jpg")
+        plotter.plot_all("combined_data1.jpg")
 
     cycle_data = ut.get_cycles(ssn_data)
 
@@ -191,9 +191,9 @@ def main(is_train, prediction, plotting, scaling):
     Validation: SC 23
     Prediction: SC 24''')
 
-    ############ FFNN ############
+    ############ FFNN/RNN/LSTM (model chosen by user) ############
 
-    model = models.FFNN(inp_dim=6).to(device)
+    model = getattr(models, selected_model)(inp_dim=6).to(device)
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", factor=0.9, verbose=True)
@@ -213,7 +213,7 @@ def main(is_train, prediction, plotting, scaling):
     pre_trained = load_model(model)
 
     if not pre_trained:
-        if not is_train and predict:
+        if not is_train and prediction:
             print(LINESPLIT)
             print("Warning: Prediction is ON with training OFF and no pretrained models available")
 
@@ -223,21 +223,26 @@ def main(is_train, prediction, plotting, scaling):
     ### Training ###
 
     if is_train:
-        model.train()
-        print(LINESPLIT)
-        print("Training model with solar cycle {} to {} data with: num_epochs={}".\
-        format(datasets.START_CYCLE, datasets.END_CYCLE - 2, epochs))
+        if not pre_trained:
+            model.train()
+            print(LINESPLIT)
+            print("Training model with solar cycle {} to {} data with: num_epochs={}".\
+            format(datasets.START_CYCLE, datasets.END_CYCLE - 2, epochs))
 
-        loss = train(model, train_loader, optimizer, scheduler, epochs)
-        torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, MAX_EPOCHS))
+            loss = train(model, train_loader, optimizer, scheduler, epochs)
+            torch.save(model.state_dict(), "{}_{}_{}.pth".format(modelfolder, model.__class__.__name__, MAX_EPOCHS))
 
-        plotter.plot_loss("Average Training Loss", range(len(loss)), loss, "tr_{}.png".\
-        format(model.__class__.__name__))
+            plotter.plot_loss("Average Training Loss", range(len(loss)), loss, "tr_{}.png".\
+            format(model.__class__.__name__))
 
-        print(LINESPLIT)
-        print('''Training finished successfully.
-        Saved model checkpoints can be found in: {}
-        Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
+            print(LINESPLIT)
+            print('''Training finished successfully.
+            Saved model checkpoints can be found in: {}
+            Saved data/loss graphs can be found in: {}'''.format(modelfolder, graphfolder))
+
+        else:
+            print(LINESPLIT)
+            print("Skipping training, using pre-trained model for validation and prediction")
 
     ### Validating ###
 
@@ -268,18 +273,16 @@ def main(is_train, prediction, plotting, scaling):
         plotter.plot_predictions("SC{} Prediction".format(datasets.END_CYCLE),\
         predn_timestamps, predn_predictions, "SC 24 Prediction.png", compare=True)
 
-    ############ RNN ############
-
-
 
 if __name__=="__main__":
-    is_train = True
-    prediction = True
+    is_train = False
+    prediction = False
     plotting = False
-    scaling = True
-    cloudshare = True
+    scaling = False
+    cloudshare = False
+    model = (sys.argv[1]).upper()
 
-    main(is_train, prediction, plotting, scaling)
+    main(is_train, prediction, plotting, scaling, model)
     if cloudshare:
         os.system("./cloudshare.sh")
         print(LINESPLIT)

@@ -30,6 +30,7 @@ class Logger(object):
 def sidc_filter(data):
     newdata = data[:]
     for idx, val in enumerate(data[6:-6]):
+        idx += 6
         newdata[idx] = (0.5*data[idx-6] + data[idx-5] + data[idx-4] + data[idx-3] + data[idx-2] + data[idx-1] + data[idx]+\
                     data[idx+1] + data[idx+2] + data[idx+3] + data[idx+4] + data[idx+5] + data[idx+6]*0.5)/12
 
@@ -47,7 +48,9 @@ def get_cycles(ssn_dataset):
         for month, ssn in enumerate(ssn_dataset.valdata[idx]):
             data.append(float(ssn))
 
+    print(data)
     data = sidc_filter(data)
+    print(data)
 
     curr_min = [ssn_dataset.yeardata[0], 1, 500]
     curr_max = [ssn_dataset.yeardata[0], 1, 0]
@@ -56,18 +59,6 @@ def get_cycles(ssn_dataset):
     for idx, ssn in enumerate(data):
         year = ssn_dataset.yeardata[0] + idx//12
         month = idx%12 + 1
-        if year > curr_min[0] + 5:
-            CYCLE_DATA["end_date"].append([curr_min[0], curr_min[1] - 1])
-            CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
-            CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
-            CYCLE_DATA["start_date"][-1][1] + 1))
-
-            CYCLE_DATA["start_date"].append([curr_min[0], curr_min[1]])
-            curr_min[2] = 500
-        if year > curr_max[0] + 5:
-            CYCLE_DATA["max_date"].append([curr_max[0], curr_max[1]])
-            CYCLE_DATA["solar_max"].append(curr_max[2])
-            curr_max[2] = 0
 
         if ssn <= curr_min[2]:
             curr_min = [year, month, ssn]
@@ -75,10 +66,27 @@ def get_cycles(ssn_dataset):
         if ssn >= curr_max[2]:
             curr_max = [year, month, ssn]
 
+        if (year > curr_min[0] + 5) or (len(data) - idx == 6):
+            CYCLE_DATA["end_date"].append([curr_min[0], curr_min[1] - 1])
+            CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
+            CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
+            CYCLE_DATA["start_date"][-1][1] + 1))
+
+            CYCLE_DATA["start_date"].append([curr_min[0], curr_min[1]])
+            curr_min[2] = 500
+
+        if (year > curr_max[0] + 5 and len(CYCLE_DATA["max_date"]) < len(CYCLE_DATA["start_date"]))\
+        or(len(data) - idx == 6):
+            CYCLE_DATA["max_date"].append([curr_max[0], curr_max[1]])
+            CYCLE_DATA["solar_max"].append(curr_max[2])
+            curr_max[2] = 0
+
     CYCLE_DATA["end_date"].append([year + (month-1)//12, (month-1)%12])
     CYCLE_DATA["length"].append((CYCLE_DATA["end_date"][-1][0]-\
     CYCLE_DATA["start_date"][-1][0])*12 + (CYCLE_DATA["end_date"][-1][1]-\
     CYCLE_DATA["start_date"][-1][1] + 1))
+    CYCLE_DATA["max_date"].append([curr_max[0], curr_max[1]])
+    CYCLE_DATA["solar_max"].append(curr_max[2])
 
     cycle_file = open("cycle_data.pickle", "wb")
     pickle.dump(CYCLE_DATA, cycle_file)
@@ -123,13 +131,13 @@ def gen_samples(ssn_data, aa_data, cycle_data, cycle, normalize=False, tf=None):
     return timestamps, samples
 
 def print_cycles(cycle_data):
-    print("{}{: >15}{: >15}{: >15}{: >20}"\
-    .format("SC Number","Start Date","End Date","Solar Max","Length(in months)"))
+    print("{}{: >15}{: >15}{: >15}{: >15}{: >20}"\
+    .format("SC Number","Start Date","End Date","Max Date","Solar Max","Length(in months)"))
     for idx in range(len(cycle_data["start_date"])):
-        print("{: >10}{: >15}{: >15}{: >15}{: >20}"\
+        print("{: >10}{: >15}{: >15}{: >15}{: >15}{: >20}"\
         .format(idx, str(cycle_data["start_date"][idx]),\
-        str(cycle_data["end_date"][idx]), round(cycle_data["solar_max"][idx],2),\
-        cycle_data["length"][idx]))
+        str(cycle_data["end_date"][idx]), str(cycle_data["max_date"][idx]),\
+        round(cycle_data["solar_max"][idx],2), cycle_data["length"][idx]))
 
 def weight_init(m):
     '''
